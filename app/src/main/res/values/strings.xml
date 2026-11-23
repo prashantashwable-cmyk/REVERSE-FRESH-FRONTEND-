@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AIEC Elevator OS</string>
+    <string name="notif_channel_tasks">Tasks and alerts</string>
+</resources>

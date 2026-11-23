@@ -1,0 +1,12 @@
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+.kotlin/
+captures/
+# signing material never goes in git
+*.jks
+*.keystore
+keystore.properties
+signing/

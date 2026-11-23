@@ -1,0 +1,270 @@
+active	Active | चालू | सुरू
+add_person	Add a person | व्यक्ति जोड़ें | व्यक्ती जोडा
+add_site	Add New Site | नई साइट जोड़ें | नवीन साइट जोडा
+amc_visits	Service visits (AMC) | सर्विस विज़िट (AMC) | सर्व्हिस भेटी (AMC)
+back	Back | पीछे | मागे
+business_rules	Business rules | व्यापार नियम | व्यवसाय नियम
+call_rescue	Call rescue | रेस्क्यू को कॉल | रेस्क्यूला फोन
+cfg_adminDiscountLimit	Max discount Admin can approve % (above: Head Quarter) | एडमिन की अधिकतम मंज़ूर छूट % (ऊपर: हेड क्वार्टर) | ॲडमिनची कमाल मंजूर सवलत % (वर: हेड क्वार्टर)
+cfg_amcVisits	AMC visits per year | साल में AMC विज़िट | वर्षाला AMC भेटी
+cfg_arrivalPct	% of total paid by material arrival | सामान पहुँचने तक कुल का % | साहित्य पोहोचेपर्यंत एकूणचे %
+cfg_cityCode	City code in new job numbers (3 capital letters, e.g. PUN) | नए काम नंबर में शहर कोड (3 बड़े अक्षर, जैसे PUN) | नवीन काम क्रमांकात शहर कोड (3 मोठी अक्षरे, उदा. PUN)
+cfg_escOwnerDays	Days before stuck work goes to the Head Quarter | अटका काम हेड क्वार्टर को जाने से पहले दिन | अडकलेले काम हेड क्वार्टरकडे जाण्यापूर्वी दिवस
+cfg_escalateDays	Days before stuck work goes to the Admin | अटका काम एडमिन को जाने से पहले दिन | अडकलेले काम ॲडमिनकडे जाण्यापूर्वी दिवस
+cfg_gst	GST % | GST % | GST %
+cfg_minMargin	Minimum margin without approval % | बिना मंज़ूरी न्यूनतम मार्जिन % | मंजुरीशिवाय किमान मार्जिन %
+cfg_officeNumber	AIEC office number | AIEC ऑफ़िस नंबर | AIEC ऑफिस क्रमांक
+cfg_remindDays	Days before a reminder to the person | व्यक्ति को याद दिलाने से पहले दिन | व्यक्तीला आठवण देण्यापूर्वी दिवस
+cfg_salesDiscountLimit	Max discount Sales can give % | सेल्स की अधिकतम छूट % | विक्रीची कमाल सवलत %
+cfg_sosNumber	Company rescue number | कंपनी बचाव नंबर | कंपनी बचाव क्रमांक
+cfg_targetMargin	Starting margin % | शुरुआती मार्जिन % | सुरुवातीचे मार्जिन %
+cfg_token	Token amount, ₹ | टोकन रकम, ₹ | टोकन रक्कम, ₹
+cfg_validityDays	Quotation valid days | कोटेशन मान्य दिन | कोटेशन वैधता दिवस
+cfg_warrantyMonths	Warranty months | वारंटी महीने | वॉरंटी महिने
+ch_call	Phone call | फ़ोन कॉल | फोन कॉल
+ch_print	Printed paper | छपा कागज़ | छापील कागद
+ch_visit	Met in person | मिलकर बात की | प्रत्यक्ष भेटलो
+ch_whatsapp	WhatsApp | व्हाट्सएप | व्हॉट्सॲप
+clear	Clear | मिटाएँ | पुसा
+close	Close | बंद करें | बंद करा
+company	ALL INDIA ELEVATORS COMPANY | ऑल इंडिया एलिवेटर्स कंपनी | ऑल इंडिया एलिव्हेटर्स कंपनी
+cond_damaged	Some damage | कुछ नुकसान | काही नुकसान
+create_company	Create company | कंपनी बनाएँ | कंपनी तयार करा
+customer_signature	Customer signature | ग्राहक का साइन | ग्राहकाची सही
+days	days | दिन | दिवस
+dec_approve	Approve | मंज़ूर | मंजूर
+dec_reject	Reject | नामंज़ूर | नाकारा
+done	Done | हो गया | झाले
+enter_pin	Enter your PIN | अपना PIN डालें | तुमचा PIN टाका
+err_access	You do not have access to this project. | इस प्रोजेक्ट तक आपकी पहुँच नहीं है। | या प्रकल्पासाठी तुम्हाला प्रवेश नाही.
+err_already	Already done. | पहले ही हो चुका है। | आधीच झाले आहे.
+err_boot	Only the first Head Quarter can start the company. | सिर्फ़ पहले हेड क्वार्टर कंपनी शुरू कर सकते हैं। | फक्त पहिले हेड क्वार्टर कंपनी सुरू करू शकतात.
+err_checks	Answer every check. | हर जाँच का जवाब दें। | प्रत्येक तपासणीचे उत्तर द्या.
+err_date	Please choose a date. | कृपया तारीख चुनें। | कृपया तारीख निवडा.
+err_dup_user	This person already exists. | यह व्यक्ति पहले से है। | ही व्यक्ती आधीच आहे.
+err_fill	Please fill this. | कृपया यह भरें। | कृपया हे भरा.
+err_has_customer	This project already has a customer login. | इस प्रोजेक्ट का ग्राहक लॉगिन पहले से है। | या प्रकल्पाचे ग्राहक लॉगिन आधीच आहे.
+err_location_or_address	Get the GPS location or type the address. | GPS लोकेशन लें या पता लिखें। | GPS ठिकाण घ्या किंवा पत्ता लिहा.
+err_newer_app	This record was made by a newer version of the app. Update the app on this phone to read it. | यह रिकॉर्ड ऐप के नए वर्ज़न से बना है। पढ़ने के लिए इस फ़ोन पर ऐप अपडेट करें। | ही नोंद ॲपच्या नवीन आवृत्तीने बनवली आहे. वाचण्यासाठी या फोनवर ॲप अपडेट करा.
+err_no_org	Company is not set up yet. | कंपनी अभी सेटअप नहीं हुई। | कंपनी अजून सेटअप झालेली नाही.
+err_no_project	Project not found. | प्रोजेक्ट नहीं मिला। | प्रकल्प सापडला नाही.
+err_no_user	User not found or blocked. | यूज़र नहीं मिला या बंद है। | वापरकर्ता सापडला नाही किंवा बंद आहे.
+err_number	Please enter a correct number. | कृपया सही संख्या डालें। | कृपया योग्य संख्या टाका.
+err_org_exists	Company already exists on this phone. | इस फ़ोन पर कंपनी पहले से है। | या फोनवर कंपनी आधीच आहे.
+err_pay_exists	This payment is already recorded. | यह भुगतान पहले से दर्ज है। | हे पेमेंट आधीच नोंदवले आहे.
+err_phone	Phone number must be a 10-digit mobile number. | फ़ोन नंबर 10 अंकों का मोबाइल नंबर होना चाहिए। | फोन नंबर 10 अंकी मोबाइल नंबर असावा.
+err_photos	Take at least {n} photo(s). | कम से कम {n} फोटो लें। | किमान {n} फोटो घ्या.
+err_pick_supplier	Choose a supplier. | सप्लायर चुनें। | पुरवठादार निवडा.
+err_pick_tech	Choose a technician. | टेक्नीशियन चुनें। | तंत्रज्ञ निवडा.
+err_quote_expired	This quotation has expired. Make a new quotation first. | यह कोटेशन समाप्त हो गया है। पहले नया कोटेशन बनाएँ। | हे कोटेशन संपले आहे. आधी नवीन कोटेशन बनवा.
+err_reason	Please give a reason. | कृपया कारण बताएँ। | कृपया कारण सांगा.
+err_ref	Please write the transaction / reference number. | कृपया ट्रांज़ैक्शन / रेफ़रेंस नंबर लिखें। | कृपया व्यवहार / संदर्भ क्रमांक लिहा.
+err_role	Not allowed. Only {roles} can do this. | अनुमति नहीं। यह सिर्फ़ {roles} कर सकते हैं। | परवानगी नाही. हे फक्त {roles} करू शकतात.
+err_role_bad	This role cannot be given here. | यह भूमिका यहाँ नहीं दी जा सकती। | ही भूमिका येथे देता येत नाही.
+err_sign	Signature is needed. | साइन ज़रूरी है। | सही आवश्यक आहे.
+err_stage	This cannot be done now. The project is at: {stage}. | यह अभी नहीं हो सकता। प्रोजेक्ट अभी है: {stage}। | हे आत्ता करता येणार नाही. प्रकल्प सध्या: {stage}.
+err_unknown	Unknown action. | अनजान काम। | अनोळखी काम.
+err_work_stopped	Work is stopped on this site because of a hazard, injury or SOS. The office must close it first. | खतरे, चोट या SOS के कारण इस साइट पर काम रुका है। पहले ऑफ़िस इसे बंद करे। | धोका, इजा किंवा SOS मुळे या साइटवरील काम थांबले आहे. आधी ऑफिसने ते बंद करावे.
+ev_AGREEMENT_PREPARED	Agreement prepared | करार तैयार | करार तयार
+ev_AGREEMENT_SIGNED	Agreement signed | करार साइन | करारावर सही
+ev_ARRIVED	Material arrived | सामान पहुँचा | साहित्य पोहोचले
+ev_CONFIG_SET	Business rule changed | व्यापार नियम बदला | व्यवसाय नियम बदलला
+ev_CONTACT_LOGGED	Customer contacted | ग्राहक से संपर्क | ग्राहकाशी संपर्क
+ev_CORRECTION_DONE	Correction done | सुधार पूरा | दुरुस्ती पूर्ण
+ev_DEAL_LOST	Lead lost | लीड हाथ से गई | लीड गमावली
+ev_DEAL_WON	Deal won | सौदा पक्का | व्यवहार पक्का
+ev_DISPATCHED	Material dispatched | सामान भेजा | साहित्य पाठवले
+ev_HANDOVER_COMPLETED	Handover completed, AMC started | हैंडओवर पूरा, AMC शुरू | हस्तांतरण पूर्ण, AMC सुरू
+ev_HANDOVER_SIGNED	Handover signed | हैंडओवर साइन | हस्तांतरणावर सही
+ev_INCIDENT_RESOLVED	Security problem closed | सुरक्षा समस्या बंद | सुरक्षा समस्या बंद
+ev_INSPECTION_REQUESTED	Final inspection requested | अंतिम जाँच माँगी | अंतिम तपासणी मागितली
+ev_LEAD_ACCEPTED	Lead accepted by Sales | सेल्स ने लीड स्वीकारी | विक्रीने लीड स्वीकारली
+ev_LEAD_CREATED	New site added | नई साइट जोड़ी | नवीन साइट जोडली
+ev_LEAD_RESUBMITTED	Lead sent again | लीड फिर भेजी | लीड पुन्हा पाठवली
+ev_LEAD_RETURNED	Lead sent back | लीड लौटाई | लीड परत पाठवली
+ev_MATERIAL_HANDED	Material handed over | सामान सौंपा | साहित्य सुपूर्द
+ev_ORG_CREATED	Company created | कंपनी बनी | कंपनी तयार झाली
+ev_PAYMENT_RECORDED	Payment recorded | भुगतान दर्ज | पेमेंट नोंदवले
+ev_PAYMENT_STATUS	Payment checked by Finance | अकाउंट्स ने भुगतान जाँचा | हिशेब विभागाने पेमेंट तपासले
+ev_PREP_ITEM_DONE	Site preparation item done | साइट तैयारी का काम पूरा | साइट तयारीचे काम पूर्ण
+ev_QC_FINAL_RESULT	Final inspection result | अंतिम जाँच नतीजा | अंतिम तपासणी निकाल
+ev_QC_REQUESTED	Site inspection requested | साइट जाँच माँगी | साइट तपासणी मागितली
+ev_QC_SITE_RESULT	Site inspection result | साइट जाँच नतीजा | साइट तपासणी निकाल
+ev_QUOTE_CREATED	Quotation made | कोटेशन बना | कोटेशन बनले
+ev_QUOTE_DECISION	Quotation approval decision | कोटेशन मंज़ूरी फ़ैसला | कोटेशन मंजुरी निर्णय
+ev_QUOTE_SENT	Quotation given to customer | कोटेशन ग्राहक को दिया | कोटेशन ग्राहकाला दिले
+ev_RELEASED	Drawings released, team assigned | ड्रॉइंग जारी, टीम तय | ड्रॉइंग जारी, टीम नेमली
+ev_REQ_SAVED	Lift needs saved | लिफ्ट की ज़रूरत सेव | लिफ्टची गरज जतन
+ev_SOP_STEP_DONE	Installation step done | इंस्टॉलेशन चरण पूरा | इन्स्टॉलेशन पायरी पूर्ण
+ev_SOS_CLOSED	SOS closed — person safe | SOS बंद — व्यक्ति सुरक्षित | SOS बंद — व्यक्ती सुरक्षित
+ev_SOS_RAISED	SOS raised | SOS दबाया | SOS दाबले
+ev_TICKET_ASSIGNED	Problem given to a person | समस्या व्यक्ति को दी | समस्या व्यक्तीकडे दिली
+ev_TICKET_CLOSED	Problem checked | समस्या जाँची | समस्या तपासली
+ev_TICKET_OPENED	Problem reported | समस्या बताई | समस्या कळवली
+ev_TICKET_UPDATED	Problem work update | समस्या पर काम की जानकारी | समस्येवरील कामाची माहिती
+ev_USER_ADDED	Person added | व्यक्ति जोड़ा | व्यक्ती जोडली
+ev_USER_UPDATED	Person changed | व्यक्ति बदला | व्यक्ती बदलली
+f_address	Address | पता | पत्ता
+f_bank_ref	Bank statement reference | बैंक स्टेटमेंट रेफ़रेंस | बँक स्टेटमेंट संदर्भ
+f_contact_name	Contact name | संपर्क नाम | संपर्क नाव
+f_discount_reason	Reason for discount | छूट का कारण | सवलतीचे कारण
+f_drawings	Approved drawing number | मंज़ूर ड्रॉइंग नंबर | मंजूर ड्रॉइंग नंबर
+f_landmark	Landmark | पास की पहचान | जवळची खूण
+f_note	Note | नोट | टीप
+f_phone	Mobile number | मोबाइल नंबर | मोबाइल नंबर
+f_problem	Problem details | समस्या की जानकारी | समस्येची माहिती
+f_reason	Reason | कारण | कारण
+f_seal	Seal number | सील नंबर | सील नंबर
+f_seal_seen	Seal number you see | जो सील नंबर दिख रहा है | दिसणारा सील नंबर
+f_serials	Serial / batch numbers | सीरियल / बैच नंबर | सिरीयल / बॅच नंबर
+f_vehicle	Vehicle number | गाड़ी नंबर | वाहन क्रमांक
+fin_ms	Powder coated (MS) | पाउडर कोटेड (MS) | पावडर कोटेड (MS)
+fin_ss	Stainless steel (SS) | स्टेनलेस स्टील (SS) | स्टेनलेस स्टील (SS)
+gps_again	Get location again | फिर से लोकेशन लें | पुन्हा ठिकाण घ्या
+gps_denied	Location permission is off. Turn on location, or type the address. | लोकेशन की अनुमति बंद है। लोकेशन चालू करें या पता लिखें। | ठिकाणाची परवानगी बंद आहे. ठिकाण सुरू करा किंवा पत्ता लिहा.
+history	History | इतिहास | इतिहास
+inc_damage	Material damaged | सामान खराब | साहित्य खराब
+inc_seal_broken	Seal broken | सील टूटा | सील तुटलेला
+inc_seal_mismatch	Seal number does not match | सील नंबर मेल नहीं खाता | सील नंबर जुळत नाही
+installation	Installation | इंस्टॉलेशन | इन्स्टॉलेशन
+job_new	New lift | नई लिफ्ट | नवी लिफ्ट
+job_replace	Replace an old lift | पुरानी लिफ्ट बदलना | जुनी लिफ्ट बदलणे
+language	Language | भाषा | भाषा
+lift_needs	Lift needs | लिफ्ट की ज़रूरत | लिफ्टची गरज
+listen	Listen | सुनें | ऐका
+logout	Log out | लॉग आउट | लॉग आउट
+lr_competitor	Chose another company | दूसरी कंपनी चुनी | दुसरी कंपनी निवडली
+lr_no_budget	No budget | बजट नहीं | बजेट नाही
+lr_no_shaft	No space for lift | लिफ्ट की जगह नहीं | लिफ्टसाठी जागा नाही
+lr_not_now	Not now | अभी नहीं | आत्ता नाही
+lr_other	Other reason | दूसरा कारण | दुसरे कारण
+lr_price	Price too high | कीमत ज़्यादा | किंमत जास्त
+m_buffers	Buffers | बफ़र | बफर
+m_buttons	Push button panels | पुश बटन पैनल | पुश बटण पॅनल
+m_cabin	Car frame & cabin | कार फ्रेम और केबिन | कार फ्रेम आणि केबिन
+m_cardoor	Car door | कार दरवाज़ा | कार दरवाजा
+m_controller	Controller panel | कंट्रोलर पैनल | कंट्रोलर पॅनल
+m_cwt	Counterweight set | काउंटरवेट सेट | काउंटरवेट सेट
+m_governor	Overspeed governor | ओवरस्पीड गवर्नर | ओव्हरस्पीड गव्हर्नर
+m_landing	Landing doors | लैंडिंग दरवाज़े | लँडिंग दरवाजे
+m_machine	Machine (motor & gear) | मशीन (मोटर और गियर) | मशीन (मोटर आणि गिअर)
+m_rails	Guide rails | गाइड रेल | गाईड रेल
+m_ropes	Wire ropes set | वायर रोप सेट | वायर रोप सेट
+m_wiring	Wiring & travelling cable | वायरिंग और ट्रैवलिंग केबल | वायरिंग आणि ट्रॅव्हलिंग केबल
+me	Me | मैं | मी
+meas_depth	Shaft depth (mm) | शाफ्ट गहराई (mm) | शाफ्ट खोली (mm)
+meas_head	Headroom at top (mm) | ऊपर की ऊँचाई (mm) | वरची उंची (mm)
+meas_pit	Pit depth (mm) | पिट गहराई (mm) | पिट खोली (mm)
+meas_width	Shaft width (mm) | शाफ्ट चौड़ाई (mm) | शाफ्ट रुंदी (mm)
+no	No | नहीं | नाही
+open_project	Open project | प्रोजेक्ट खोलें | प्रकल्प उघडा
+optional	optional | ज़रूरी नहीं | ऐच्छिक
+pay_arrival	Payment when material arrives | सामान पहुँचने पर भुगतान | साहित्य पोहोचल्यावर पेमेंट
+pay_final	Final payment at handover | हैंडओवर पर अंतिम भुगतान | हस्तांतरणावेळी अंतिम पेमेंट
+pay_token	Token payment | टोकन भुगतान | टोकन पेमेंट
+ph_agree	Deal | करार | करार
+ph_building	Whole building | पूरी बिल्डिंग | संपूर्ण इमारत
+ph_handover	Hand over | हैंडओवर | हस्तांतरण
+ph_install	Install | इंस्टॉल | इन्स्टॉल
+ph_lead	Lead | लीड | लीड
+ph_material	Material | सामान | साहित्य
+ph_sales	Sales | बिक्री | विक्री
+ph_site	Site | साइट तैयार | साइट तयार
+pm_bank	Bank transfer | बैंक ट्रांसफ़र | बँक ट्रान्सफर
+pm_cash	Cash | नकद | रोख
+pm_cheque	Cheque | चेक | धनादेश (चेक)
+pm_upi	UPI | UPI | UPI
+practice_banner	PRACTICE — nothing here is real | अभ्यास — यहाँ कुछ भी असली नहीं है | सराव — येथे काहीही खरे नाही
+prep_barricade	Cover open shaft doors | खुले शाफ्ट दरवाज़े ढकें | उघडे शाफ्ट दरवाजे झाका
+prep_clean	Clean the shaft | शाफ्ट साफ़ करें | शाफ्ट स्वच्छ करा
+prep_light	Light and plug point | लाइट और प्लग पॉइंट | लाईट आणि प्लग पॉइंट
+prep_pit	Make the pit | गड्ढा (पिट) बनाएँ | खड्डा (पिट) बनवा
+prep_power	Give 3-phase power | 3-फ़ेज़ बिजली दें | 3-फेज वीज द्या
+prep_shaft	Build the lift shaft | लिफ्ट शाफ्ट बनाएँ | लिफ्ट शाफ्ट बांधा
+projects	Projects | प्रोजेक्ट | प्रकल्प
+ps_confirmed	Confirmed | पक्का | निश्चित
+pw_arrival	standard material (returnable and reusable); when material arrives | स्टैंडर्ड सामान (वापस करने व दूसरी साइट पर काम आने लायक); सामान पहुँचने पर | स्टँडर्ड साहित्य (परत करता येणारे व दुसऱ्या साइटवर वापरता येणारे); साहित्य पोहोचल्यावर
+pw_final	before handover | हैंडओवर से पहले | हस्तांतरणापूर्वी
+pw_token	non-refundable, for site visit and dispatch costs; when the agreement is signed | वापस नहीं, साइट विज़िट और भेजने के खर्च के लिए; एग्रीमेंट साइन होने पर | परत नाही, साइट भेट आणि पाठवण्याच्या खर्चासाठी; करारावर सही झाल्यावर
+qcf_alarm	Emergency alarm and light work | इमरजेंसी अलार्म और लाइट चलते हैं | आपत्कालीन अलार्म आणि लाईट चालतात
+qcf_doors	Doors and door locks safe | दरवाज़े और लॉक सुरक्षित | दरवाजे आणि लॉक सुरक्षित
+qcf_level	Stops level at every floor | हर मंज़िल पर बराबर रुकती है | प्रत्येक मजल्यावर समपातळीत थांबते
+qcf_plate	Capacity plate and signs fixed | क्षमता प्लेट और बोर्ड लगे | क्षमता पाटी आणि फलक लावलेले
+qcf_ride	Lift moves smoothly | लिफ्ट आराम से चलती है | लिफ्ट सहज चालते
+qcf_safetydev	Safety devices tested | सुरक्षा उपकरण जाँचे गए | सुरक्षा उपकरणे तपासली
+qcf_wiring	Controller and wiring safe | कंट्रोलर और वायरिंग सुरक्षित | कंट्रोलर आणि वायरिंग सुरक्षित
+qcs_access	Road access for material | सामान के लिए रास्ता | साहित्यासाठी रस्ता
+qcs_barricade	Openings safely covered | खुले हिस्से सुरक्षित ढके | उघडे भाग सुरक्षित झाकलेले
+qcs_pit_dry	Pit dry and clean | पिट सूखा और साफ़ | पिट कोरडा आणि स्वच्छ
+qcs_plumb	Shaft walls straight | शाफ्ट की दीवारें सीधी | शाफ्टच्या भिंती सरळ
+qcs_power3	3-phase power ready | 3-फ़ेज़ बिजली तैयार | 3-फेज वीज तयार
+r_admin	Admin | एडमिन | प्रशासक
+r_customer	Customer | ग्राहक | ग्राहक
+r_field	Field worker | फील्ड वर्कर | फील्ड कर्मचारी
+r_finance	Finance | अकाउंट्स | हिशेब विभाग
+r_owner	HEAD QUARTER | हेड क्वार्टर (मुख्यालय) | हेड क्वार्टर (मुख्यालय)
+r_partner	Licensed Partner Company | लाइसेंसधारी पार्टनर कंपनी | परवानाधारक भागीदार कंपनी
+r_qc	QC Inspector | QC निरीक्षक | QC तपासणीस
+r_sales	Sales | सेल्स | विक्री
+r_supplier	Supplier | सप्लायर | पुरवठादार
+r_tech	Technician | टेक्नीशियन | तंत्रज्ञ
+recorded_by	Recorded by | किसने दर्ज किया | कोणी नोंदवले
+remove	Remove | हटाएँ | काढा
+rr_duplicate	Already in system | पहले से सिस्टम में | आधीच सिस्टममध्ये
+rr_location	Wrong location | गलत लोकेशन | चुकीचे ठिकाण
+rr_not_site	Not a lift site | लिफ्ट की साइट नहीं | लिफ्टची साइट नाही
+rr_other	Other reason | दूसरा कारण | दुसरे कारण
+rr_phone	Wrong phone number | गलत फ़ोन नंबर | चुकीचा फोन नंबर
+rr_photo	Photo not clear | फोटो साफ़ नहीं | फोटो स्पष्ट नाही
+save	Save | सेव करें | जतन करा
+save_signature	Save signature | साइन सेव करें | सही जतन करा
+search	Search | खोजें | शोधा
+share_data	Share data with other phones | दूसरे फ़ोन से डेटा शेयर | इतर फोनशी डेटा शेअर
+sign_here	Sign here | यहाँ साइन करें | येथे सही करा
+signature	Signature | साइन | सही
+slot_customer	Customer | ग्राहक | ग्राहक
+slot_qc	QC Inspector | QC निरीक्षक | QC तपासणीस
+slot_tech	Technician | टेक्नीशियन | तंत्रज्ञ
+sop_brackets	Rail brackets | रेल ब्रैकेट | रेल ब्रॅकेट
+sop_car	Car frame & cabin | कार फ्रेम और केबिन | कार फ्रेम आणि केबिन
+sop_cwt	Counterweight | काउंटरवेट | काउंटरवेट
+sop_doors	Landing doors | लैंडिंग दरवाज़े | लँडिंग दरवाजे
+sop_machine	Machine | मशीन | मशीन
+sop_plumb	Scaffold & plumb lines | मचान और साहुल लाइन | मचाण आणि ओळंबा रेषा
+sop_rails	Guide rails | गाइड रेल | गाईड रेल
+sop_ropes	Wire ropes | वायर रोप | वायर रोप
+sop_safetydev	Safety devices | सुरक्षा उपकरण | सुरक्षा उपकरणे
+sop_sitesafe	Safety check | सुरक्षा जाँच | सुरक्षा तपासणी
+sop_test	Test run | टेस्ट रन | चाचणी फेरी
+sop_wiring	Controller & wiring | कंट्रोलर और वायरिंग | कंट्रोलर आणि वायरिंग
+st_accepted	Accepted by Sales | सेल्स ने स्वीकारी | विक्रीने स्वीकारली
+st_agreement	Agreement ready to sign | करार साइन के लिए तैयार | करार सहीसाठी तयार
+st_amc	Handed over — AMC active | सौंप दिया — AMC चालू | हस्तांतरित — AMC सुरू
+st_arrived	Material at site | सामान साइट पर | साहित्य साइटवर
+st_contacted	Customer interested | ग्राहक इच्छुक | ग्राहक इच्छुक
+st_dispatched	Material on the way | सामान रास्ते में | साहित्य रस्त्यात
+st_final_pay	Final payment | अंतिम भुगतान | अंतिम पेमेंट
+st_handover	Handover signatures | हैंडओवर साइन | हस्तांतरण सह्या
+st_install_fix	Installation corrections | इंस्टॉलेशन में सुधार | इन्स्टॉलेशनमध्ये दुरुस्ती
+st_installing	Installation in progress | इंस्टॉलेशन चालू | इन्स्टॉलेशन सुरू
+st_lost	Lost | हाथ से गई | गमावली
+st_material_order	Material being packed | सामान पैक हो रहा है | साहित्य पॅक होत आहे
+st_new	New lead | नई लीड | नवीन लीड
+st_qc_final	Final inspection | अंतिम जाँच | अंतिम तपासणी
+st_qc_site	Site inspection | साइट जाँच | साइट तपासणी
+st_quote_approval	Quotation waiting for approval | कोटेशन मंज़ूरी के इंतज़ार में | कोटेशन मंजुरीच्या प्रतीक्षेत
+st_quote_ready	Quotation ready to send | कोटेशन भेजने को तैयार | कोटेशन पाठवण्यास तयार
+st_quoted	Quotation sent — talking | कोटेशन भेजा — बातचीत जारी | कोटेशन पाठवले — बोलणी सुरू
+st_requirements	Lift needs written | लिफ्ट की ज़रूरत लिखी | लिफ्टची गरज लिहिली
+st_returned	Sent back to fix | सुधार के लिए लौटाई | दुरुस्तीसाठी परत
+st_signed	Signed — first payment | साइन हुआ — पहला भुगतान | सही झाली — पहिले पेमेंट
+st_site_fix	Site corrections needed | साइट में सुधार ज़रूरी | साइटमध्ये दुरुस्ती आवश्यक
+st_site_ok	Site approved | साइट मंज़ूर | साइट मंजूर
+st_site_prep	Customer preparing site | ग्राहक साइट तैयार कर रहे हैं | ग्राहक साइट तयार करत आहेत
+st_won	Deal won | सौदा पक्का | व्यवहार पक्का
+sync_last_share	Last file sent from here | यहाँ से आखिरी फ़ाइल भेजी | येथून शेवटची फाइल पाठवली
+tech_signature	Technician signature | टेक्नीशियन का साइन | तंत्रज्ञाची सही
+what_happened	What happened | क्या हुआ | काय झाले
+what_next	What happens next | आगे क्या होगा | पुढे काय होईल
+who_are_you	Who are you? Tap your name. | आप कौन हैं? अपना नाम दबाएँ। | तुम्ही कोण? तुमचे नाव दाबा.
+yes	Yes | हाँ | होय

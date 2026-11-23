@@ -1,0 +1,1562 @@
+{
+ "about": [
+  "About",
+  "जानकारी",
+  "माहिती"
+ ],
+ "amount_due": [
+  "Amount due",
+  "बाकी रकम",
+  "बाकी रक्कम"
+ ],
+ "approve_quote": [
+  "Approve quotation",
+  "कोटेशन मंज़ूर करें",
+  "कोटेशन मंजूर करा"
+ ],
+ "assign_ticket": [
+  "Assign complaint",
+  "शिकायत सौंपें",
+  "तक्रार सोपवा"
+ ],
+ "bar_behind": [
+  "Running late",
+  "देर हो रही है",
+  "उशीर होत आहे"
+ ],
+ "bar_day_of": [
+  "Day {n} of {limit}",
+  "दिन {n} / {limit}",
+  "दिवस {n} / {limit}"
+ ],
+ "bar_done": [
+  "Done",
+  "पूरा हुआ",
+  "पूर्ण झाले"
+ ],
+ "bar_job": [
+  "Job {pct}% done",
+  "काम {pct}% पूरा",
+  "काम {pct}% पूर्ण"
+ ],
+ "bar_late": [
+  "Late",
+  "देर हुई",
+  "उशीर झाला"
+ ],
+ "bar_on_time": [
+  "On time",
+  "समय पर",
+  "वेळेत"
+ ],
+ "bar_paused": [
+  "Paused",
+  "रुका हुआ",
+  "थांबलेले"
+ ],
+ "bar_steps": [
+  "{n} of {m} steps done",
+  "{m} में से {n} स्टेप पूरे",
+  "{m} पैकी {n} स्टेप पूर्ण"
+ ],
+ "bt_commercial": [
+  "Commercial",
+  "व्यावसायिक",
+  "व्यावसायिक"
+ ],
+ "bt_hospital": [
+  "Hospital",
+  "अस्पताल",
+  "रुग्णालय"
+ ],
+ "bt_other": [
+  "Other",
+  "दूसरा",
+  "इतर"
+ ],
+ "bt_residential": [
+  "Residential",
+  "रहने की इमारत",
+  "निवासी इमारत"
+ ],
+ "camera_denied": [
+  "Camera is off. Allow it in Settings to take the photo.",
+  "कैमरा बंद है। फोटो लेने के लिए सेटिंग में अनुमति दें।",
+  "कॅमेरा बंद आहे. फोटो काढण्यासाठी सेटिंगमध्ये परवानगी द्या."
+ ],
+ "ch_email": [
+  "Email",
+  "ईमेल",
+  "ईमेल"
+ ],
+ "ch_in_person": [
+  "In person",
+  "मिलकर",
+  "प्रत्यक्ष"
+ ],
+ "check_lead": [
+  "Check new lead",
+  "नई लीड जाँचें",
+  "नवीन लीड तपासा"
+ ],
+ "choose_language": [
+  "Choose language",
+  "भाषा चुनें",
+  "भाषा निवडा"
+ ],
+ "close_ticket": [
+  "Close complaint",
+  "शिकायत बंद करें",
+  "तक्रार बंद करा"
+ ],
+ "colours": [
+  "Colours",
+  "रंग",
+  "रंग"
+ ],
+ "company_server": [
+  "Company server",
+  "कंपनी सर्वर",
+  "कंपनी सर्व्हर"
+ ],
+ "complete_handover": [
+  "Complete handover",
+  "हैंडओवर पूरा करें",
+  "हस्तांतरण पूर्ण करा"
+ ],
+ "cond_ok": [
+  "Good",
+  "ठीक",
+  "ठीक"
+ ],
+ "confirm_arrival": [
+  "Confirm material arrived",
+  "सामान पहुँचा, पक्का करें",
+  "साहित्य पोहोचले, नक्की करा"
+ ],
+ "contact_customer": [
+  "Call the customer",
+  "ग्राहक को फ़ोन करें",
+  "ग्राहकाला फोन करा"
+ ],
+ "continue_as": [
+  "Continue as {n}",
+  "{n} बनकर आगे बढ़ें",
+  "{n} म्हणून पुढे चला"
+ ],
+ "deal_lost": [
+  "Deal lost",
+  "सौदा गया",
+  "व्यवहार गेला"
+ ],
+ "deal_won": [
+  "Deal won",
+  "सौदा पक्का",
+  "व्यवहार पक्का"
+ ],
+ "details": [
+  "Details",
+  "ब्योरा",
+  "तपशील"
+ ],
+ "discount": [
+  "Discount",
+  "छूट",
+  "सवलत"
+ ],
+ "dispatch_material": [
+  "Send the material",
+  "सामान भेजें",
+  "साहित्य पाठवा"
+ ],
+ "do_step": [
+  "Do next step",
+  "अगला स्टेप करें",
+  "पुढचा स्टेप करा"
+ ],
+ "door_auto": [
+  "Automatic door",
+  "ऑटोमैटिक दरवाज़ा",
+  "ऑटोमॅटिक दरवाजा"
+ ],
+ "door_manual": [
+  "Manual door",
+  "मैनुअल दरवाज़ा",
+  "मॅन्युअल दरवाजा"
+ ],
+ "err_corrections_open": [
+  "Finish all corrections first.",
+  "पहले सभी सुधार पूरे करें।",
+  "आधी सर्व दुरुस्त्या पूर्ण करा."
+ ],
+ "err_dup_project": [
+  "This job is already saved.",
+  "यह काम पहले से सेव है।",
+  "हे काम आधीच सेव्ह आहे."
+ ],
+ "err_fill_field": [
+  "Please fill: {f}",
+  "कृपया भरें: {f}",
+  "कृपया भरा: {f}"
+ ],
+ "err_incident_open": [
+  "Close the open problem first.",
+  "पहले खुली समस्या बंद करें।",
+  "आधी उघडी समस्या बंद करा."
+ ],
+ "err_locked": [
+  "Too many wrong PINs. Try after 15 minutes.",
+  "गलत PIN बहुत बार डाला। 15 मिनट बाद कोशिश करें।",
+  "चुकीचा PIN खूप वेळा टाकला. 15 मिनिटांनी प्रयत्न करा."
+ ],
+ "err_need_req": [
+  "First write the lift needs.",
+  "पहले लिफ्ट की ज़रूरत लिखें।",
+  "आधी लिफ्टची गरज लिहा."
+ ],
+ "err_not_author": [
+  "You cannot approve your own quotation. Ask someone else.",
+  "अपना कोटेशन आप खुद मंज़ूर नहीं कर सकते। किसी और से कहें।",
+  "स्वतःचे कोटेशन तुम्ही मंजूर करू शकत नाही. दुसऱ्याला सांगा."
+ ],
+ "err_not_fixed": [
+  "This complaint is not fixed yet.",
+  "यह शिकायत अभी ठीक नहीं हुई है।",
+  "ही तक्रार अजून दुरुस्त झालेली नाही."
+ ],
+ "err_own_payment": [
+  "You cannot check a payment you recorded. Ask someone else.",
+  "जो भुगतान आपने दर्ज किया, उसे आप खुद जाँच नहीं सकते। किसी और से कहें।",
+  "तुम्ही नोंदवलेले पेमेंट तुम्ही स्वतः तपासू शकत नाही. दुसऱ्याला सांगा."
+ ],
+ "err_pass_with_fail": [
+  "You cannot pass when a check has failed.",
+  "कोई जाँच फेल हो तो पास नहीं कर सकते।",
+  "एखादी तपासणी नापास असेल तर पास करता येत नाही."
+ ],
+ "err_pay_not_open": [
+  "This payment is not due now.",
+  "यह भुगतान अभी नहीं देना है।",
+  "हे पेमेंट आत्ता द्यायचे नाही."
+ ],
+ "err_pin_mismatch": [
+  "The two PINs are not the same.",
+  "दोनों PIN एक जैसे नहीं हैं।",
+  "दोन्ही PIN सारखे नाहीत."
+ ],
+ "err_pin_weak": [
+  "Use 4 to 6 digits, not 1111 or 1234.",
+  "4 से 6 अंक रखें, 1111 या 1234 जैसा नहीं।",
+  "4 ते 6 अंक ठेवा, 1111 किंवा 1234 सारखा नको."
+ ],
+ "err_pin_wrong": [
+  "Wrong PIN. Try again.",
+  "गलत PIN। फिर से कोशिश करें।",
+  "चुकीचा PIN. पुन्हा प्रयत्न करा."
+ ],
+ "err_prep_open": [
+  "Finish all site preparation items first.",
+  "पहले साइट की सभी तैयारी पूरी करें।",
+  "आधी साइटची सर्व तयारी पूर्ण करा."
+ ],
+ "err_qc_own": [
+  "You cannot inspect a job you installed.",
+  "जो काम आपने लगाया, उसकी जाँच आप नहीं कर सकते।",
+  "तुम्ही बसवलेल्या कामाची तपासणी तुम्ही करू शकत नाही."
+ ],
+ "err_range": [
+  "This number is outside the allowed range.",
+  "यह नंबर तय सीमा से बाहर है।",
+  "हा आकडा ठरलेल्या मर्यादेबाहेर आहे."
+ ],
+ "err_self": [
+  "You cannot stop your own access.",
+  "आप अपनी पहुँच खुद बंद नहीं कर सकते।",
+  "तुम्ही स्वतःचा प्रवेश बंद करू शकत नाही."
+ ],
+ "err_shaft_low": [
+  "Shaft is too small. Check: {list}",
+  "शाफ्ट छोटा है। जाँचें: {list}",
+  "शाफ्ट लहान आहे. तपासा: {list}"
+ ],
+ "err_signatures_open": [
+  "All three signatures are needed first.",
+  "पहले तीनों साइन ज़रूरी हैं।",
+  "आधी तिन्ही सह्या आवश्यक आहेत."
+ ],
+ "err_step_order": [
+  "Do the steps in order.",
+  "स्टेप क्रम से करें।",
+  "स्टेप क्रमाने करा."
+ ],
+ "err_steps_open": [
+  "Finish all 12 steps first.",
+  "पहले सभी 12 स्टेप पूरे करें।",
+  "आधी सर्व 12 स्टेप पूर्ण करा."
+ ],
+ "err_wait_payment": [
+  "Wait until the material payment is confirmed.",
+  "सामान का भुगतान पक्का होने तक रुकें।",
+  "साहित्याचे पेमेंट नक्की होईपर्यंत थांबा."
+ ],
+ "escalation_info": [
+  "Stuck work: reminder after {a} working days, to Admin after {b}, to Head Quarter after {c}.",
+  "अटका काम: {a} कामकाजी दिन बाद याद दिलाना, {b} बाद एडमिन को, {c} बाद हेड क्वार्टर को।",
+  "अडकलेले काम: {a} कामकाजी दिवसांनी आठवण, {b} नंतर ॲडमिनकडे, {c} नंतर हेड क्वार्टरकडे."
+ ],
+ "escalations": [
+  "Stuck work",
+  "अटका काम",
+  "अडकलेले काम"
+ ],
+ "f_all": [
+  "All",
+  "सभी",
+  "सर्व"
+ ],
+ "f_amount": [
+  "Amount, ₹",
+  "रकम, ₹",
+  "रक्कम, ₹"
+ ],
+ "f_bank_check": [
+  "Bank check",
+  "बैंक में जाँच",
+  "बँकेत तपासणी"
+ ],
+ "f_btype": [
+  "Building type",
+  "इमारत का प्रकार",
+  "इमारतीचा प्रकार"
+ ],
+ "f_capacity": [
+  "Capacity",
+  "क्षमता",
+  "क्षमता"
+ ],
+ "f_channel": [
+  "How did you talk?",
+  "बात कैसे हुई?",
+  "बोलणे कसे झाले?"
+ ],
+ "f_checks": [
+  "Checks",
+  "जाँच",
+  "तपासण्या"
+ ],
+ "f_company": [
+  "Company name",
+  "कंपनी का नाम",
+  "कंपनीचे नाव"
+ ],
+ "f_condition": [
+  "Condition",
+  "हालत",
+  "स्थिती"
+ ],
+ "f_correction": [
+  "Which correction is done?",
+  "कौन सा सुधार हुआ?",
+  "कोणती दुरुस्ती झाली?"
+ ],
+ "f_corrections": [
+  "Corrections needed",
+  "ज़रूरी सुधार",
+  "आवश्यक दुरुस्त्या"
+ ],
+ "f_customer_job": [
+  "Customer's job",
+  "ग्राहक का काम",
+  "ग्राहकाचे काम"
+ ],
+ "f_decision": [
+  "Decision",
+  "फ़ैसला",
+  "निर्णय"
+ ],
+ "f_discount": [
+  "Discount %",
+  "छूट %",
+  "सवलत %"
+ ],
+ "f_door": [
+  "Door type",
+  "दरवाज़े का प्रकार",
+  "दरवाजाचा प्रकार"
+ ],
+ "f_finish": [
+  "Finish",
+  "फ़िनिश",
+  "फिनिश"
+ ],
+ "f_floors": [
+  "Number of floors",
+  "मंज़िलों की संख्या",
+  "मजल्यांची संख्या"
+ ],
+ "f_gps": [
+  "Location (GPS)",
+  "लोकेशन (GPS)",
+  "ठिकाण (GPS)"
+ ],
+ "f_handed": [
+  "Handed over",
+  "सौंपा गया",
+  "हस्तांतरित"
+ ],
+ "f_hq_name": [
+  "Your name (Head Quarter)",
+  "आपका नाम (हेड क्वार्टर)",
+  "तुमचे नाव (हेड क्वार्टर)"
+ ],
+ "f_job": [
+  "Job type",
+  "काम का प्रकार",
+  "कामाचा प्रकार"
+ ],
+ "f_lift_type": [
+  "Lift type",
+  "लिफ्ट का प्रकार",
+  "लिफ्टचा प्रकार"
+ ],
+ "f_lost": [
+  "Lost",
+  "गया हुआ",
+  "गेलेले"
+ ],
+ "f_lost_reason": [
+  "Why lost?",
+  "क्यों गया?",
+  "का गेले?"
+ ],
+ "f_method": [
+  "Payment method",
+  "भुगतान का तरीका",
+  "पेमेंटची पद्धत"
+ ],
+ "f_name": [
+  "Name",
+  "नाम",
+  "नाव"
+ ],
+ "f_new_pin": [
+  "New PIN",
+  "नया PIN",
+  "नवीन PIN"
+ ],
+ "f_next_date": [
+  "Next contact date",
+  "अगली बात की तारीख",
+  "पुढच्या संपर्काची तारीख"
+ ],
+ "f_no_phone": [
+  "Has no phone?",
+  "फ़ोन नहीं है?",
+  "फोन नाही?"
+ ],
+ "f_open": [
+  "Open",
+  "चालू",
+  "सुरू"
+ ],
+ "f_outcome": [
+  "Result",
+  "नतीजा",
+  "निकाल"
+ ],
+ "f_person_safe_note": [
+  "Is the person safe? Note",
+  "व्यक्ति सुरक्षित है? नोट",
+  "व्यक्ती सुरक्षित आहे का? टीप"
+ ],
+ "f_pin_again": [
+  "Repeat PIN",
+  "PIN फिर से डालें",
+  "PIN पुन्हा टाका"
+ ],
+ "f_power3": [
+  "3-phase power?",
+  "3-फ़ेज़ बिजली है?",
+  "3-फेज वीज आहे का?"
+ ],
+ "f_prep_item": [
+  "Which item is done?",
+  "कौन सा काम हुआ?",
+  "कोणते काम झाले?"
+ ],
+ "f_received_by": [
+  "Received by",
+  "किसने लिया",
+  "कोणी घेतले"
+ ],
+ "f_ref": [
+  "Reference number",
+  "संदर्भ नंबर",
+  "संदर्भ क्रमांक"
+ ],
+ "f_resolution": [
+  "How was it solved?",
+  "कैसे ठीक हुआ?",
+  "कसे सोडवले?"
+ ],
+ "f_role": [
+  "Role",
+  "भूमिका",
+  "भूमिका"
+ ],
+ "f_seal_intact": [
+  "Is the seal intact?",
+  "सील सही सलामत है?",
+  "सील सुरक्षित आहे का?"
+ ],
+ "f_signer": [
+  "Name of signer",
+  "साइन करने वाले का नाम",
+  "सही करणाऱ्याचे नाव"
+ ],
+ "f_stops": [
+  "Number of stops",
+  "स्टॉप की संख्या",
+  "स्टॉपची संख्या"
+ ],
+ "f_supplier": [
+  "Supplier",
+  "सप्लायर",
+  "पुरवठादार"
+ ],
+ "f_technician": [
+  "Technician",
+  "टेक्नीशियन",
+  "तंत्रज्ञ"
+ ],
+ "f_urgency": [
+  "How urgent?",
+  "कितना ज़रूरी?",
+  "किती तातडीचे?"
+ ],
+ "f_what_fixed": [
+  "What did you fix?",
+  "आपने क्या सुधारा?",
+  "तुम्ही काय दुरुस्त केले?"
+ ],
+ "f_why_here": [
+  "Why signed on this phone?",
+  "इस फ़ोन पर साइन क्यों?",
+  "या फोनवर सही का?"
+ ],
+ "f_working_now": [
+  "Working now?",
+  "अब चल रही है?",
+  "आता चालू आहे का?"
+ ],
+ "file_privacy": [
+  "This file has company records, including customer details. Send it only to your own company's phones.",
+  "इस फ़ाइल में कंपनी का रिकॉर्ड और ग्राहकों की जानकारी है। इसे सिर्फ़ अपनी कंपनी के फ़ोन पर भेजें।",
+  "या फाईलमध्ये कंपनीचे रेकॉर्ड आणि ग्राहकांची माहिती आहे. ती फक्त तुमच्या कंपनीच्या फोनवर पाठवा."
+ ],
+ "final_inspection": [
+  "Final inspection",
+  "अंतिम जाँच",
+  "अंतिम तपासणी"
+ ],
+ "fix_corrections": [
+  "Fix corrections",
+  "सुधार करें",
+  "दुरुस्त्या करा"
+ ],
+ "fix_lead": [
+  "Fix the lead",
+  "लीड ठीक करें",
+  "लीड दुरुस्त करा"
+ ],
+ "fix_ticket": [
+  "Fix the complaint",
+  "शिकायत ठीक करें",
+  "तक्रार दुरुस्त करा"
+ ],
+ "fixed_note": [
+  "What was done",
+  "क्या किया गया",
+  "काय केले"
+ ],
+ "gps_approx": [
+  "Only approximate location is allowed.",
+  "सिर्फ़ अंदाज़ी लोकेशन की अनुमति है।",
+  "फक्त अंदाजे ठिकाणाची परवानगी आहे."
+ ],
+ "gps_finding": [
+  "Finding location...",
+  "लोकेशन ढूँढ रहे हैं...",
+  "ठिकाण शोधत आहे..."
+ ],
+ "gps_get": [
+  "Get location",
+  "लोकेशन लें",
+  "ठिकाण घ्या"
+ ],
+ "gps_off": [
+  "GPS is off. Turn it on.",
+  "GPS बंद है। चालू करें।",
+  "GPS बंद आहे. सुरू करा."
+ ],
+ "gps_timeout": [
+  "Location not found. Try again in open air.",
+  "लोकेशन नहीं मिली। खुली जगह में फिर कोशिश करें।",
+  "ठिकाण मिळाले नाही. मोकळ्या जागी पुन्हा प्रयत्न करा."
+ ],
+ "gps_weak": [
+  "Location is not accurate (more than 50 m). It is saved as it is, not as proof.",
+  "लोकेशन सही नहीं है (50 मीटर से ज़्यादा)। जैसी है वैसी सेव होगी, सबूत नहीं।",
+  "ठिकाण अचूक नाही (50 मीटरपेक्षा जास्त). जसे आहे तसे सेव्ह होईल, पुरावा म्हणून नाही."
+ ],
+ "hand_material": [
+  "Hand over material",
+  "सामान सौंपें",
+  "साहित्य सुपूर्द करा"
+ ],
+ "handover_info": [
+  "Warranty {m} months, {n} AMC service visits per year.",
+  "वारंटी {m} महीने, साल में {n} AMC सर्विस विज़िट।",
+  "वॉरंटी {m} महिने, वर्षाला {n} AMC सर्व्हिस भेटी."
+ ],
+ "home": [
+  "Home",
+  "होम",
+  "होम"
+ ],
+ "import_result": [
+  "Added {a}, duplicates skipped {d}, refused {r}",
+  "जोड़े {a}, दोहरे छोड़े {d}, नामंज़ूर {r}",
+  "जोडले {a}, दुहेरी वगळली {d}, नाकारली {r}"
+ ],
+ "import_wrong": [
+  "This file is not from your company. Not loaded.",
+  "यह फ़ाइल आपकी कंपनी की नहीं है। लोड नहीं हुई।",
+  "ही फाईल तुमच्या कंपनीची नाही. लोड झाली नाही."
+ ],
+ "inspect_site": [
+  "Inspect the site",
+  "साइट की जाँच करें",
+  "साइटची तपासणी करा"
+ ],
+ "lift_code": [
+  "Lift code",
+  "लिफ्ट कोड",
+  "लिफ्ट कोड"
+ ],
+ "list_price": [
+  "List price",
+  "लिस्ट प्राइस",
+  "लिस्ट प्राइस"
+ ],
+ "load_records": [
+  "Load records file",
+  "रिकॉर्ड फ़ाइल लोड करें",
+  "रेकॉर्ड फाईल लोड करा"
+ ],
+ "lt_auto": [
+  "Automatic door lift",
+  "ऑटोमैटिक दरवाज़े वाली लिफ्ट",
+  "ऑटोमॅटिक दरवाजाची लिफ्ट"
+ ],
+ "lt_manual": [
+  "Manual door lift",
+  "मैनुअल दरवाज़े वाली लिफ्ट",
+  "मॅन्युअल दरवाजाची लिफ्ट"
+ ],
+ "lvl_admin": [
+  "With Admin",
+  "एडमिन के पास",
+  "ॲडमिनकडे"
+ ],
+ "lvl_hq": [
+  "With Head Quarter",
+  "हेड क्वार्टर के पास",
+  "हेड क्वार्टरकडे"
+ ],
+ "lvl_remind": [
+  "Reminder",
+  "याद दिलाना",
+  "आठवण"
+ ],
+ "make_quote": [
+  "Make quotation",
+  "कोटेशन बनाएँ",
+  "कोटेशन बनवा"
+ ],
+ "margin": [
+  "Margin",
+  "मार्जिन",
+  "मार्जिन"
+ ],
+ "mh_info": [
+  "Hand over this material:",
+  "यह सामान सौंपें:",
+  "हे साहित्य सुपूर्द करा:"
+ ],
+ "more": [
+  "More",
+  "और",
+  "अधिक"
+ ],
+ "namaste": [
+  "Namaste, {n}",
+  "नमस्ते, {n}",
+  "नमस्कार, {n}"
+ ],
+ "needs_approval": [
+  "Needs approval",
+  "मंज़ूरी चाहिए",
+  "मंजुरी आवश्यक"
+ ],
+ "needs_attention": [
+  "Needs attention",
+  "ध्यान दें",
+  "लक्ष द्या"
+ ],
+ "new_company": [
+  "New company setup",
+  "नई कंपनी सेटअप",
+  "नवीन कंपनी सेटअप"
+ ],
+ "next_line": [
+  "Next: {who} — {what}",
+  "अगला: {who} — {what}",
+  "पुढे: {who} — {what}"
+ ],
+ "no_escalations": [
+  "No stuck work.",
+  "कोई अटका काम नहीं।",
+  "अडकलेले काम नाही."
+ ],
+ "no_jobs": [
+  "No jobs found.",
+  "कोई काम नहीं मिला।",
+  "कोणतेही काम सापडले नाही."
+ ],
+ "no_work": [
+  "You have no work now.",
+  "अभी आपके पास कोई काम नहीं है।",
+  "आत्ता तुमच्याकडे काम नाही."
+ ],
+ "no_work_hint": [
+  "New work will show here.",
+  "नया काम यहाँ दिखेगा।",
+  "नवीन काम इथे दिसेल."
+ ],
+ "nobody_with_role": [
+  "No {r} added yet. Add one first.",
+  "अभी कोई {r} नहीं जोड़ा। पहले जोड़ें।",
+  "अजून कोणी {r} जोडलेले नाही. आधी जोडा."
+ ],
+ "oc_call_later": [
+  "Call later",
+  "बाद में फ़ोन करें",
+  "नंतर फोन करा"
+ ],
+ "oc_interested": [
+  "Interested",
+  "इच्छुक",
+  "इच्छुक"
+ ],
+ "oc_no_answer": [
+  "No answer",
+  "जवाब नहीं मिला",
+  "उत्तर नाही"
+ ],
+ "oc_not_interested": [
+  "Not interested",
+  "इच्छुक नहीं",
+  "इच्छुक नाही"
+ ],
+ "offline_note": [
+  "Works without internet. Everything is saved on this phone.",
+  "बिना इंटरनेट चलता है। सब कुछ इसी फ़ोन में सेव रहता है।",
+  "इंटरनेटशिवाय चालते. सर्व काही याच फोनमध्ये सेव्ह राहते."
+ ],
+ "one_per_line": [
+  "one per line",
+  "हर लाइन में एक",
+  "प्रत्येक ओळीत एक"
+ ],
+ "open_jobs": [
+  "Open jobs",
+  "चालू काम",
+  "सुरू असलेली कामे"
+ ],
+ "other_actions": [
+  "Other actions",
+  "दूसरे काम",
+  "इतर कृती"
+ ],
+ "other_company": [
+  "Other company",
+  "दूसरी कंपनी",
+  "दुसरी कंपनी"
+ ],
+ "payments_to_check": [
+  "Payments to check",
+  "जाँचने वाले भुगतान",
+  "तपासायची पेमेंट"
+ ],
+ "people": [
+  "People",
+  "लोग",
+  "लोक"
+ ],
+ "persons": [
+  "{n} persons",
+  "{n} व्यक्ति",
+  "{n} व्यक्ती"
+ ],
+ "photo_arrival": [
+  "Photo of material at site",
+  "साइट पर सामान की फोटो",
+  "साइटवरील साहित्याचा फोटो"
+ ],
+ "photo_packed": [
+  "Photo of packed material with seal",
+  "सील लगे पैक सामान की फोटो",
+  "सील लावलेल्या पॅक साहित्याचा फोटो"
+ ],
+ "photo_proof": [
+  "Photo proof",
+  "फोटो सबूत",
+  "फोटो पुरावा"
+ ],
+ "photo_storage": [
+  "Photo of storage place",
+  "रखने की जगह की फोटो",
+  "साठवण जागेचा फोटो"
+ ],
+ "photo_work": [
+  "Photo of the work",
+  "काम की फोटो",
+  "कामाचा फोटो"
+ ],
+ "photos": [
+  "Photos",
+  "फोटो",
+  "फोटो"
+ ],
+ "pin_rules": [
+  "PIN must be 4 to 6 digits. Not 1111 or 1234 style.",
+  "PIN 4 से 6 अंक का हो। 1111 या 1234 जैसा नहीं।",
+  "PIN 4 ते 6 अंकांचा असावा. 1111 किंवा 1234 सारखा नको."
+ ],
+ "pin_tell_person": [
+  "Tell the person their PIN on a call. They cannot choose their role.",
+  "व्यक्ति को उसका PIN फ़ोन पर बताएँ। वे अपनी भूमिका खुद नहीं चुन सकते।",
+  "व्यक्तीला तिचा PIN फोनवर सांगा. त्यांना स्वतःची भूमिका निवडता येत नाही."
+ ],
+ "practice_hint": [
+  "Try the app with a demo company. Nothing is real.",
+  "डेमो कंपनी के साथ ऐप आज़माएँ। कुछ भी असली नहीं है।",
+  "डेमो कंपनीसह ॲप वापरून पहा. काहीही खरे नाही."
+ ],
+ "practice_mode": [
+  "Practice mode",
+  "प्रैक्टिस मोड",
+  "प्रॅक्टिस मोड"
+ ],
+ "practice_pin_hint": [
+  "Practice mode: every PIN is 1111.",
+  "प्रैक्टिस मोड: हर PIN 1111 है।",
+  "प्रॅक्टिस मोड: प्रत्येक PIN 1111 आहे."
+ ],
+ "prep_hint_barricade": [
+  "Cover the open shaft doors with a barricade and take a photo.",
+  "खुले शाफ्ट दरवाज़ों पर रोक लगाकर फोटो लें।",
+  "उघड्या शाफ्ट दरवाजांना आडोसा लावून फोटो काढा."
+ ],
+ "prep_hint_clean": [
+  "Remove all rubbish from the shaft and take a photo.",
+  "शाफ्ट से सारा कचरा हटाकर फोटो लें।",
+  "शाफ्टमधील सर्व कचरा काढून फोटो काढा."
+ ],
+ "prep_hint_light": [
+  "Fix a light and a plug point in the shaft and take a photo.",
+  "शाफ्ट में लाइट और प्लग पॉइंट लगाकर फोटो लें।",
+  "शाफ्टमध्ये लाईट आणि प्लग पॉइंट लावून फोटो काढा."
+ ],
+ "prep_hint_pit": [
+  "Make the pit dry and to the right depth, then take a photo.",
+  "पिट सूखा और सही गहराई का बनाकर फोटो लें।",
+  "पिट कोरडा आणि योग्य खोलीचा करून फोटो काढा."
+ ],
+ "prep_hint_power": [
+  "Give 3-phase power near the shaft and photograph the power board.",
+  "शाफ्ट के पास 3-फ़ेज़ बिजली देकर बोर्ड की फोटो लें।",
+  "शाफ्टजवळ 3-फेज वीज देऊन बोर्डचा फोटो काढा."
+ ],
+ "prep_hint_shaft": [
+  "Build the shaft as per the drawing and take a photo from the ground floor.",
+  "नक्शे के हिसाब से शाफ्ट बनाकर नीचे से फोटो लें।",
+  "नकाशाप्रमाणे शाफ्ट बांधून खालून फोटो काढा."
+ ],
+ "prepare_agreement": [
+  "Prepare agreement",
+  "करार तैयार करें",
+  "करार तयार करा"
+ ],
+ "prepare_site": [
+  "Prepare the site",
+  "साइट तैयार करें",
+  "साइट तयार करा"
+ ],
+ "price_before_tax": [
+  "Price before GST",
+  "GST से पहले कीमत",
+  "GST आधी किंमत"
+ ],
+ "privacy_short": [
+  "Your data stays on this phone. Photos are stamped with time and GPS. Nothing is sent unless you do it.",
+  "आपका डेटा इसी फ़ोन में रहता है। फोटो पर समय और GPS की मुहर लगती है। आप न भेजें तो कुछ नहीं जाता।",
+  "तुमचा डेटा याच फोनमध्ये राहतो. फोटोवर वेळ आणि GPS चा शिक्का लागतो. तुम्ही पाठवल्याशिवाय काहीही जात नाही."
+ ],
+ "ps_not_found": [
+  "Not found in bank",
+  "बैंक में नहीं मिला",
+  "बँकेत सापडले नाही"
+ ],
+ "qfo_fail": [
+  "Fail",
+  "फेल",
+  "नापास"
+ ],
+ "qfo_pass": [
+  "Pass",
+  "पास",
+  "पास"
+ ],
+ "qso_approved": [
+  "Site approved",
+  "साइट मंज़ूर",
+  "साइट मंजूर"
+ ],
+ "qso_corrections": [
+  "Corrections needed",
+  "सुधार ज़रूरी",
+  "दुरुस्ती आवश्यक"
+ ],
+ "raise_ticket": [
+  "Raise complaint",
+  "शिकायत दर्ज करें",
+  "तक्रार नोंदवा"
+ ],
+ "record_payment": [
+  "Record payment",
+  "भुगतान दर्ज करें",
+  "पेमेंट नोंदवा"
+ ],
+ "release_material": [
+  "Release material",
+  "सामान रिलीज़ करें",
+  "साहित्य रिलीज करा"
+ ],
+ "request_inspection": [
+  "Request inspection",
+  "जाँच माँगें",
+  "तपासणी मागा"
+ ],
+ "request_inspection_info": [
+  "Tell QC the installation is finished and ready for final inspection.",
+  "QC को बताएँ कि इंस्टॉलेशन पूरा है और अंतिम जाँच के लिए तैयार है।",
+  "QC ला सांगा की इन्स्टॉलेशन पूर्ण आहे आणि अंतिम तपासणीसाठी तयार आहे."
+ ],
+ "request_qc": [
+  "Request site inspection",
+  "साइट जाँच माँगें",
+  "साइट तपासणी मागा"
+ ],
+ "request_qc_info": [
+  "Tell QC the site is ready for inspection.",
+  "QC को बताएँ कि साइट जाँच के लिए तैयार है।",
+  "QC ला सांगा की साइट तपासणीसाठी तयार आहे."
+ ],
+ "resolve_incident": [
+  "Resolve the problem",
+  "समस्या सुलझाएँ",
+  "समस्या सोडवा"
+ ],
+ "return_lead": [
+  "Send lead back",
+  "लीड वापस भेजें",
+  "लीड परत पाठवा"
+ ],
+ "returned_because": [
+  "Sent back because",
+  "वापस भेजने का कारण",
+  "परत पाठवण्याचे कारण"
+ ],
+ "rules_info": [
+  "Only Head Quarter can change these. Each number has an allowed range.",
+  "इन्हें सिर्फ़ हेड क्वार्टर बदल सकता है। हर नंबर की एक तय सीमा है।",
+  "हे फक्त हेड क्वार्टर बदलू शकतो. प्रत्येक आकड्याला ठरलेली मर्यादा आहे."
+ ],
+ "saved_ok": [
+  "Saved",
+  "सेव हो गया",
+  "सेव्ह झाले"
+ ],
+ "saved_on_phone": [
+  "Saved on this phone",
+  "इस फ़ोन में सेव हुआ",
+  "या फोनमध्ये सेव्ह झाले"
+ ],
+ "saved_person": [
+  "Person saved",
+  "व्यक्ति जोड़ा गया",
+  "व्यक्ती जोडली"
+ ],
+ "saved_site": [
+  "Site saved",
+  "साइट सेव हुई",
+  "साइट सेव्ह झाली"
+ ],
+ "search_jobs": [
+  "Search jobs",
+  "काम खोजें",
+  "काम शोधा"
+ ],
+ "send_quote": [
+  "Send quotation",
+  "कोटेशन भेजें",
+  "कोटेशन पाठवा"
+ ],
+ "server_not_in_version": [
+  "Not in this version — share files instead",
+  "इस वर्शन में नहीं — फ़ाइल शेयर करें",
+  "या आवृत्तीत नाही — फाईल शेअर करा"
+ ],
+ "setup_info": [
+  "Set up your company on this phone. You become Head Quarter. Add other people later.",
+  "इस फ़ोन पर अपनी कंपनी सेट करें। आप हेड क्वार्टर बनेंगे। बाकी लोगों को बाद में जोड़ें।",
+  "या फोनवर तुमची कंपनी सेट करा. तुम्ही हेड क्वार्टर व्हाल. बाकीच्या लोकांना नंतर जोडा."
+ ],
+ "share_records": [
+  "Share records file",
+  "रिकॉर्ड फ़ाइल शेयर करें",
+  "रेकॉर्ड फाईल शेअर करा"
+ ],
+ "sign_agreement": [
+  "Sign the agreement",
+  "करार पर साइन करें",
+  "करारावर सही करा"
+ ],
+ "sign_handover": [
+  "Sign the handover",
+  "हैंडओवर पर साइन करें",
+  "हस्तांतरणावर सही करा"
+ ],
+ "signed": [
+  "Signed",
+  "साइन हुआ",
+  "सही झाली"
+ ],
+ "sop_hint_brackets": [
+  "Take a photo of the rail brackets fixed on the shaft wall.",
+  "शाफ्ट की दीवार पर लगे रेल ब्रैकेट की फोटो लें।",
+  "शाफ्टच्या भिंतीवर बसवलेल्या रेल ब्रॅकेटचा फोटो काढा."
+ ],
+ "sop_hint_car": [
+  "Take a photo of the car frame and cabin once fitted.",
+  "कार फ्रेम और केबिन लगने के बाद उसकी फोटो लें।",
+  "कार फ्रेम आणि केबिन बसल्यावर त्याचा फोटो काढा."
+ ],
+ "sop_hint_cwt": [
+  "Take a photo of the counterweight fitted in its frame.",
+  "फ्रेम में लगे काउंटरवेट की फोटो लें।",
+  "फ्रेममध्ये बसवलेल्या काउंटरवेटचा फोटो काढा."
+ ],
+ "sop_hint_doors": [
+  "Take a photo of the landing and car doors with interlocks fitted.",
+  "इंटरलॉक के साथ लैंडिंग और कार दरवाज़ों की फोटो लें।",
+  "इंटरलॉकसह लँडिंग आणि कार दरवाजांचा फोटो काढा."
+ ],
+ "sop_hint_machine": [
+  "Take a photo of the machine and motor fixed on its base.",
+  "अपने बेस पर लगी मशीन और मोटर की फोटो लें।",
+  "बेसवर बसवलेल्या मशीन आणि मोटरचा फोटो काढा."
+ ],
+ "sop_hint_plumb": [
+  "Take a photo of the scaffold and the plumb lines hanging in the shaft.",
+  "शाफ्ट में मचान और लटकती साहुल लाइनों की फोटो लें।",
+  "शाफ्टमधील मचाण आणि लटकवलेल्या ओळंब्याच्या रेषांचा फोटो काढा."
+ ],
+ "sop_hint_rails": [
+  "Take a photo of the guide rails fixed in a straight line.",
+  "सीधी लाइन में लगे गाइड रेल की फोटो लें।",
+  "सरळ रेषेत बसवलेल्या गाईड रेलचा फोटो काढा."
+ ],
+ "sop_hint_ropes": [
+  "Take a photo of the wire ropes fitted and tight.",
+  "लगे हुए कसे वायर रोप की फोटो लें।",
+  "बसवलेल्या आणि घट्ट केलेल्या वायर रोपचा फोटो काढा."
+ ],
+ "sop_hint_safetydev": [
+  "Take a photo of the governor, buffers and safety gear.",
+  "गवर्नर, बफर और सेफ्टी गियर की फोटो लें।",
+  "गव्हर्नर, बफर आणि सेफ्टी गिअरचा फोटो काढा."
+ ],
+ "sop_hint_sitesafe": [
+  "Put up the barricade, wear helmets, and take a photo of the safe site.",
+  "बैरिकेड लगाएँ, हेलमेट पहनें और सुरक्षित साइट की फोटो लें।",
+  "बॅरिकेड लावा, हेल्मेट घाला आणि सुरक्षित साइटचा फोटो काढा."
+ ],
+ "sop_hint_test": [
+  "Take a photo of the test run and the load test.",
+  "टेस्ट रन और लोड टेस्ट की फोटो लें।",
+  "टेस्ट रन आणि लोड टेस्टचा फोटो काढा."
+ ],
+ "sop_hint_wiring": [
+  "Take a photo of the electrical wiring and earthing done.",
+  "हुई बिजली की वायरिंग और अर्थिंग की फोटो लें।",
+  "केलेल्या वीज वायरिंग आणि अर्थिंगचा फोटो काढा."
+ ],
+ "sos": [
+  "SOS",
+  "SOS",
+  "SOS"
+ ],
+ "sos_active": [
+  "SOS from {n}",
+  "{n} की तरफ़ से SOS",
+  "{n} कडून SOS"
+ ],
+ "sos_close": [
+  "Close SOS",
+  "SOS बंद करें",
+  "SOS बंद करा"
+ ],
+ "sos_confirm": [
+  "Send SOS with your location to the office?",
+  "SOS अपनी लोकेशन के साथ ऑफ़िस को भेजें?",
+  "SOS तुमच्या ठिकाणासह ऑफिसला पाठवायचा?"
+ ],
+ "sos_send": [
+  "Send SOS",
+  "SOS भेजें",
+  "SOS पाठवा"
+ ],
+ "sos_sent": [
+  "SOS sent to the office with your location.",
+  "SOS आपकी लोकेशन के साथ ऑफ़िस को भेज दिया।",
+  "SOS तुमच्या ठिकाणासह ऑफिसला पाठवला."
+ ],
+ "staff_login": [
+  "Staff login",
+  "स्टाफ़ लॉगिन",
+  "स्टाफ लॉगिन"
+ ],
+ "start_next_task": [
+  "Start My Next Task",
+  "मेरा अगला काम शुरू करें",
+  "माझे पुढचे काम सुरू करा"
+ ],
+ "stop_access": [
+  "Stop access",
+  "पहुँच बंद करें",
+  "प्रवेश बंद करा"
+ ],
+ "stop_access_confirm": [
+  "Stop access for {n}? They cannot log in.",
+  "{n} की पहुँच बंद करें? वे लॉगिन नहीं कर पाएँगे।",
+  "{n} चा प्रवेश बंद करायचा? ते लॉगिन करू शकणार नाहीत."
+ ],
+ "stopped": [
+  "Lift stopped",
+  "लिफ्ट रुकी",
+  "लिफ्ट थांबली"
+ ],
+ "stops": [
+  "stops",
+  "स्टॉप",
+  "स्टॉप"
+ ],
+ "sync_info": [
+  "Share a records file with other company phones (WhatsApp, Drive or cable) and load files from them. Every record is checked again by the rules on the receiving phone. Duplicates are skipped.",
+  "रिकॉर्ड फ़ाइल को कंपनी के दूसरे फ़ोन से शेयर करें (WhatsApp, Drive या केबल) और उनकी फ़ाइलें लोड करें। लेने वाले फ़ोन पर हर रिकॉर्ड नियमों से फिर जाँचा जाता है। दोहरे रिकॉर्ड छोड़ दिए जाते हैं।",
+  "रेकॉर्ड फाईल कंपनीच्या इतर फोनशी शेअर करा (WhatsApp, Drive किंवा केबल) आणि त्यांच्या फाईल लोड करा. घेणाऱ्या फोनवर प्रत्येक रेकॉर्ड नियमांनुसार पुन्हा तपासला जातो. दुहेरी रेकॉर्ड वगळले जातात."
+ ],
+ "sync_loaded": [
+  "Records loaded",
+  "लोड हुए रिकॉर्ड",
+  "लोड झालेले रेकॉर्ड"
+ ],
+ "sync_pending_note": [
+  "Records waiting to be shared are safe on this phone.",
+  "शेयर होने के इंतज़ार वाले रिकॉर्ड इसी फ़ोन में सुरक्षित हैं।",
+  "शेअर होण्याची वाट पाहणारे रेकॉर्ड याच फोनमध्ये सुरक्षित आहेत."
+ ],
+ "sync_refused": [
+  "Refused",
+  "नामंज़ूर",
+  "नाकारलेले"
+ ],
+ "sync_shared": [
+  "Shared",
+  "शेयर हुए",
+  "शेअर केलेले"
+ ],
+ "sync_waiting": [
+  "Waiting to share",
+  "शेयर होने बाकी",
+  "शेअर व्हायचे बाकी"
+ ],
+ "t_approve_quote": [
+  "Approve quotation",
+  "कोटेशन मंज़ूर करें",
+  "कोटेशन मंजूर करा"
+ ],
+ "t_assign_ticket": [
+  "Assign complaint",
+  "शिकायत सौंपें",
+  "तक्रार सोपवा"
+ ],
+ "t_check_lead": [
+  "Check new lead",
+  "नई लीड जाँचें",
+  "नवीन लीड तपासा"
+ ],
+ "t_close_ticket": [
+  "Close complaint",
+  "शिकायत बंद करें",
+  "तक्रार बंद करा"
+ ],
+ "t_complete_handover": [
+  "Complete handover",
+  "हैंडओवर पूरा करें",
+  "हस्तांतरण पूर्ण करा"
+ ],
+ "t_confirm_arrival": [
+  "Confirm material arrived",
+  "सामान पहुँचा, पक्का करें",
+  "साहित्य पोहोचले, नक्की करा"
+ ],
+ "t_contact_customer": [
+  "Call the customer",
+  "ग्राहक को फ़ोन करें",
+  "ग्राहकाला फोन करा"
+ ],
+ "t_dispatch_material": [
+  "Send the material",
+  "सामान भेजें",
+  "साहित्य पाठवा"
+ ],
+ "t_do_step": [
+  "Do next installation step",
+  "इंस्टॉलेशन का अगला स्टेप करें",
+  "इन्स्टॉलेशनचा पुढचा स्टेप करा"
+ ],
+ "t_final_inspection": [
+  "Do final inspection",
+  "अंतिम जाँच करें",
+  "अंतिम तपासणी करा"
+ ],
+ "t_fix_install": [
+  "Fix installation corrections",
+  "इंस्टॉलेशन के सुधार करें",
+  "इन्स्टॉलेशनच्या दुरुस्त्या करा"
+ ],
+ "t_fix_lead": [
+  "Fix the returned lead",
+  "लौटाई गई लीड ठीक करें",
+  "परत आलेली लीड दुरुस्त करा"
+ ],
+ "t_fix_site": [
+  "Fix site corrections",
+  "साइट के सुधार करें",
+  "साइटच्या दुरुस्त्या करा"
+ ],
+ "t_fix_ticket": [
+  "Fix the complaint",
+  "शिकायत ठीक करें",
+  "तक्रार दुरुस्त करा"
+ ],
+ "t_get_decision": [
+  "Get customer's decision",
+  "ग्राहक से फ़ैसला लें",
+  "ग्राहकाकडून निर्णय घ्या"
+ ],
+ "t_hand_material": [
+  "Hand over material",
+  "सामान सौंपें",
+  "साहित्य सुपूर्द करा"
+ ],
+ "t_inspect_site": [
+  "Inspect the site",
+  "साइट की जाँच करें",
+  "साइटची तपासणी करा"
+ ],
+ "t_lift_needs": [
+  "Write lift needs",
+  "लिफ्ट की ज़रूरत लिखें",
+  "लिफ्टची गरज लिहा"
+ ],
+ "t_make_quote": [
+  "Make quotation",
+  "कोटेशन बनाएँ",
+  "कोटेशन बनवा"
+ ],
+ "t_prepare_agreement": [
+  "Prepare agreement",
+  "करार तैयार करें",
+  "करार तयार करा"
+ ],
+ "t_prepare_site": [
+  "Prepare the site",
+  "साइट तैयार करें",
+  "साइट तयार करा"
+ ],
+ "t_record_payment": [
+  "Record payment",
+  "भुगतान दर्ज करें",
+  "पेमेंट नोंदवा"
+ ],
+ "t_release_material": [
+  "Release material",
+  "सामान रिलीज़ करें",
+  "साहित्य रिलीज करा"
+ ],
+ "t_request_inspection": [
+  "Request final inspection",
+  "अंतिम जाँच माँगें",
+  "अंतिम तपासणी मागा"
+ ],
+ "t_request_qc": [
+  "Request site inspection",
+  "साइट जाँच माँगें",
+  "साइट तपासणी मागा"
+ ],
+ "t_resolve_incident": [
+  "Resolve the problem",
+  "समस्या सुलझाएँ",
+  "समस्या सोडवा"
+ ],
+ "t_send_quote": [
+  "Send quotation",
+  "कोटेशन भेजें",
+  "कोटेशन पाठवा"
+ ],
+ "t_sign_agreement": [
+  "Sign the agreement",
+  "करार पर साइन करें",
+  "करारावर सही करा"
+ ],
+ "t_sign_handover": [
+  "Sign the handover",
+  "हैंडओवर पर साइन करें",
+  "हस्तांतरणावर सही करा"
+ ],
+ "t_verify_payment": [
+  "Check payment in bank",
+  "बैंक में भुगतान जाँचें",
+  "बँकेत पेमेंट तपासा"
+ ],
+ "tagline": [
+  "Lift work, simple and clear",
+  "लिफ्ट का काम, आसान और साफ़",
+  "लिफ्टचे काम, सोपे आणि स्पष्ट"
+ ],
+ "theme_contrast": [
+  "High contrast",
+  "ज़्यादा कंट्रास्ट",
+  "जास्त कॉन्ट्रास्ट"
+ ],
+ "theme_dark": [
+  "Dark",
+  "गहरा",
+  "गडद"
+ ],
+ "theme_light": [
+  "Light",
+  "हल्का",
+  "फिकट"
+ ],
+ "theme_system": [
+  "Phone setting",
+  "फ़ोन की सेटिंग",
+  "फोनची सेटिंग"
+ ],
+ "tk_assigned": [
+  "Assigned",
+  "सौंपी गई",
+  "सोपवली"
+ ],
+ "tk_closed": [
+  "Closed",
+  "बंद",
+  "बंद"
+ ],
+ "tk_fixed": [
+  "Fixed",
+  "ठीक हुई",
+  "दुरुस्त झाली"
+ ],
+ "tk_open": [
+  "Open",
+  "खुली",
+  "उघडी"
+ ],
+ "tk_reopened": [
+  "Reopened",
+  "फिर खुली",
+  "पुन्हा उघडली"
+ ],
+ "total": [
+  "Total",
+  "कुल",
+  "एकूण"
+ ],
+ "trapped_call_first": [
+  "Someone is trapped: first call the rescue number and 112, then raise the complaint.",
+  "कोई फँसा है: पहले बचाव नंबर और 112 पर फ़ोन करें, फिर शिकायत दर्ज करें।",
+  "कोणी अडकले आहे: आधी बचाव क्रमांक आणि 112 ला फोन करा, मग तक्रार नोंदवा."
+ ],
+ "urg_ordinary": [
+  "Ordinary",
+  "सामान्य",
+  "सामान्य"
+ ],
+ "urg_stopped": [
+  "Lift stopped",
+  "लिफ्ट रुकी",
+  "लिफ्ट थांबली"
+ ],
+ "urg_trapped": [
+  "Someone trapped",
+  "कोई फँसा है",
+  "कोणी अडकले आहे"
+ ],
+ "urg_unsafe": [
+  "Unsafe",
+  "असुरक्षित",
+  "असुरक्षित"
+ ],
+ "valid_days": [
+  "Valid {n} days",
+  "{n} दिन मान्य",
+  "{n} दिवस वैध"
+ ],
+ "verify_payment": [
+  "Check payment in bank",
+  "बैंक में भुगतान जाँचें",
+  "बँकेत पेमेंट तपासा"
+ ],
+ "why_no_app": [
+  "Customer has no app",
+  "ग्राहक के पास ऐप नहीं है",
+  "ग्राहकाकडे ॲप नाही"
+ ],
+ "why_phone_broken": [
+  "Customer's phone is broken",
+  "ग्राहक का फ़ोन खराब है",
+  "ग्राहकाचा फोन बिघडला आहे"
+ ],
+ "why_prefers_paper": [
+  "Customer prefers paper",
+  "ग्राहक को कागज़ पसंद है",
+  "ग्राहकाला कागद आवडतो"
+ ],
+ "you_have_tasks": [
+  "You have {n} tasks",
+  "आपके पास {n} काम हैं",
+  "तुमच्याकडे {n} कामे आहेत"
+ ],
+ "your_actions": [
+  "Your actions",
+  "आपके काम",
+  "तुमची कामे"
+ ],
+ "dup_warning": [
+  "Possible duplicate of an existing site:",
+  "शायद यह किसी मौजूदा साइट की दोहरी है:",
+  "कदाचित ही आधीच्या साइटची दुहेरी आहे:"
+ ],
+ "meas_min": [
+  "Minimum: width {w} mm · depth {d} mm · pit {p} mm · headroom {h} mm",
+  "न्यूनतम: चौड़ाई {w} mm · गहराई {d} mm · पिट {p} mm · ऊपर की ऊँचाई {h} mm",
+  "किमान: रुंदी {w} mm · खोली {d} mm · पिट {p} mm · वरची उंची {h} mm"
+ ],
+ "warranty_until": [
+  "Warranty until",
+  "वारंटी कब तक",
+  "वॉरंटी पर्यंत"
+ ],
+ "why_below_floor": [
+  "margin below the floor",
+  "मार्जिन सबसे कम सीमा से नीचे",
+  "मार्जिन किमान मर्यादेखाली"
+ ],
+ "why_over_limit": [
+  "discount above the Sales limit",
+  "छूट सेल्स की सीमा से ज़्यादा",
+  "सवलत विक्रीच्या मर्यादेपेक्षा जास्त"
+ ],
+ "why_over_admin": [
+  "discount above the Admin limit",
+  "छूट एडमिन की सीमा से ज़्यादा",
+  "सवलत ॲडमिनच्या मर्यादेपेक्षा जास्त"
+ ],
+ "err_amount": [
+  "Enter a correct amount.",
+  "सही रकम डालें।",
+  "बरोबर रक्कम टाका."
+ ],
+ "err_order": [
+  "These rules must stay in order: reminder ≤ Admin ≤ Head Quarter days; Sales ≤ Admin discount; lowest margin ≤ starting margin.",
+  "ये नियम इस क्रम में रहें: याद दिलाना ≤ एडमिन ≤ हेड क्वार्टर के दिन; सेल्स छूट ≤ एडमिन छूट; सबसे कम मार्जिन ≤ शुरुआती मार्जिन।",
+  "हे नियम या क्रमात राहिले पाहिजेत: आठवण ≤ ॲडमिन ≤ हेड क्वार्टरचे दिवस; विक्री सवलत ≤ ॲडमिन सवलत; किमान मार्जिन ≤ सुरुवातीचे मार्जिन."
+ ],
+ "welcome_say": [
+  "Welcome to AIEC Elevator OS. Choose your language, then tap Staff login or Practice mode.",
+  "AIEC एलिवेटर OS में आपका स्वागत है। अपनी भाषा चुनें, फिर स्टाफ़ लॉगिन या प्रैक्टिस मोड दबाएँ।",
+  "AIEC एलिव्हेटर OS मध्ये तुमचे स्वागत आहे. तुमची भाषा निवडा, मग स्टाफ लॉगिन किंवा प्रॅक्टिस मोड दाबा."
+ ],
+ "my_tasks": [
+  "My work ({n})",
+  "मेरा काम ({n})",
+  "माझे काम ({n})"
+ ],
+ "escalations_say": [
+  "{n} jobs are stuck and need the office.",
+  "{n} काम अटके हैं, ऑफिस को देखना है।",
+  "{n} कामे अडकली आहेत, ऑफिसने पाहायचे आहे."
+ ],
+ "me_say": [
+  "Your settings: language, colours, sharing data and log out.",
+  "आपकी सेटिंग: भाषा, रंग, डेटा शेयर और लॉग आउट।",
+  "तुमची सेटिंग: भाषा, रंग, डेटा शेअर आणि लॉग आउट."
+ ],
+ "people_say": [
+  "People in the company. Add a person or stop their access.",
+  "कंपनी के लोग। व्यक्ति जोड़ें या उनकी पहुँच बंद करें।",
+  "कंपनीतील लोक. व्यक्ती जोडा किंवा त्यांचा प्रवेश बंद करा."
+ ],
+ "projects_say": [
+  "All your jobs. Search by job number, name or mobile.",
+  "आपके सभी काम। जॉब नंबर, नाम या मोबाइल से खोजें।",
+  "तुमची सर्व कामे. जॉब नंबर, नाव किंवा मोबाइलने शोधा."
+ ],
+ "setup_say": [
+  "Create your company. Type the company name, your name and a new PIN.",
+  "अपनी कंपनी बनाएँ। कंपनी का नाम, अपना नाम और नया PIN लिखें।",
+  "तुमची कंपनी तयार करा. कंपनीचे नाव, तुमचे नाव आणि नवीन PIN लिहा."
+ ],
+ "share_data_say": [
+  "Share your records with other company phones, or load their file.",
+  "अपना डेटा कंपनी के दूसरे फ़ोन से शेयर करें, या उनकी फ़ाइल लोड करें।",
+  "तुमच्या नोंदी कंपनीच्या इतर फोनसोबत शेअर करा, किंवा त्यांची फाइल लोड करा."
+ ],
+ "take_photo": [
+  "Take photo",
+  "फोटो लें",
+  "फोटो घ्या"
+ ],
+ "take_another": [
+  "Take another photo",
+  "एक और फोटो लें",
+  "आणखी एक फोटो घ्या"
+ ]
+}
