@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.aiec.elevatoros.SmallScreenScreenshotTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-23T17:23:30.643Z" hostname="vm" time="5.979">
+  <properties/>
+  <testcase name="lowEndPhoneWelcomeAndPin" classname="com.aiec.elevatoros.SmallScreenScreenshotTest" time="5.979"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

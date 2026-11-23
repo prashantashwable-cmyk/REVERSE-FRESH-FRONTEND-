@@ -81,7 +81,8 @@ object Hash {
 object Time {
     val IST: ZoneId = ZoneId.of("Asia/Kolkata")
     fun now(): String = Instant.now().toString()
-    fun day(iso: String): LocalDate = Instant.parse(iso).atZone(IST).toLocalDate()
+    /** never throws: a bad time (only possible from an old/forged record) counts as today */
+    fun day(iso: String): LocalDate = (runCatching { Instant.parse(iso) }.getOrNull() ?: Instant.now()).atZone(IST).toLocalDate()
     fun addDaysIso(iso: String, days: Long): String = day(iso).plusDays(days).toString()
     fun addMonthsIso(iso: String, months: Long): String = day(iso).plusMonths(months).toString()
 

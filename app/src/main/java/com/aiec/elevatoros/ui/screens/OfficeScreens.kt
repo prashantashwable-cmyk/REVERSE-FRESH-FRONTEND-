@@ -144,7 +144,7 @@ fun MeScreen(vm: AppViewModel, speech: Speech) {
             SecondaryButton(t("escalations"), "⏫") { vm.go(Screen.Escalations) }; Spacer(Modifier.height(8.dp))
         }
         if (me.role == Role.OWNER) { SecondaryButton(t("business_rules"), "📐") { vm.go(Screen.BusinessRules) }; Spacer(Modifier.height(8.dp)) }
-        if (!me.role.outsider && me.role != Role.CUSTOMER) { SecondaryButton(t("share_data"), "🔄") { vm.go(Screen.Sync) }; Spacer(Modifier.height(8.dp)) }
+        if (me.role != Role.CUSTOMER) { SecondaryButton(t("share_data"), "🔄") { vm.go(Screen.Sync) }; Spacer(Modifier.height(8.dp)) }
         SecondaryButton(t("logout"), "🚪") { vm.logout() }
         SectionTitle("ℹ️ " + t("about"))
         Text("AIEC Elevator OS ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})", style = MaterialTheme.typography.bodyMedium)
@@ -211,7 +211,7 @@ fun SyncScreen(vm: AppViewModel, speech: Speech) {
     val open = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
             val text = runCatching { context.contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() } }.getOrNull()
-            val r = text?.let { vm.repo.importJson(it) }
+            val r = text?.let { vm.repo.importJson(it, vm.me?.role) }
             result = when {
                 r == null || r.wrongCompany -> I18n.t(lang, "import_wrong")
                 else -> I18n.t(lang, "import_result", mapOf("a" to r.added.toString(), "d" to r.duplicates.toString(), "r" to r.rejected.toString()))
@@ -231,10 +231,17 @@ fun SyncScreen(vm: AppViewModel, speech: Speech) {
                 KeyValue(t("company_server"), t("server_not_in_version"))
             }
         }
-        BigButton(t("share_records"), "📤") {
-            val dir = File(context.cacheDir, "export").apply { mkdirs() }
+        val me = vm.me
+        val office = me?.role?.office == true
+        var target by remember { mutableStateOf<String?>(null) }
+        if (office) {
+            Text(t("share_for_whom"), style = MaterialTheme.typography.labelLarge)
+            ChoiceChips(vm.state.activeUsers().filter { it.role != Role.CUSTOMER && !it.role.outsider }.map { it.uid to (it.role.icon + " " + it.name) }, target) { target = it }
+        } else InfoBox(t("share_own_only"), icon = "📤")
+        BigButton(t("share_records"), "📤", enabled = me != null && (!office || target != null)) {
+            val dir = File(context.cacheDir, "export").apply { mkdirs(); listFiles()?.forEach { it.delete() } }
             val f = File(dir, "AIEC-records-" + Time.day(Time.now()) + ".json")
-            f.writeText(vm.repo.exportJson())
+            f.writeText(if (office) vm.repo.exportJson(target!!) else vm.repo.exportJson("", onlyBy = me!!.uid))
             val uri = FileProvider.getUriForFile(context, context.packageName + ".files", f)
             context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = "application/json"; putExtra(Intent.EXTRA_STREAM, uri); addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) }, I18n.t(lang, "share_records")))
             counts = vm.repo.syncCounts()

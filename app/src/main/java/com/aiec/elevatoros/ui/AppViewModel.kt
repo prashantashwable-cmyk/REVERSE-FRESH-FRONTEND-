@@ -62,8 +62,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val canGoBack: Boolean get() = stack.size > 1
 
     init {
-        prefs.mode?.let { m -> if (repo.hasCompany(m)) { repo.open(m); stack[0] = Screen.Login } }
-        evidence.cleanup()
+        // opening the company replays the whole history: do it off the main thread, with the spinner showing
+        prefs.mode?.let { m ->
+            busy = true
+            viewModelScope.launch {
+                val ok = withContext(Dispatchers.IO) { runCatching { if (repo.hasCompany(m)) { repo.open(m); true } else false }.getOrDefault(false) }
+                busy = false
+                if (ok && stack.size == 1 && stack[0] == Screen.Welcome) stack[0] = Screen.Login
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) { evidence.cleanup() }
     }
 
     val state: State get() = repo.state.value
@@ -103,7 +111,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** last unexpected failure, shown in tests and logs (never contains personal data) */
     var startupFailure: String? = null; private set
 
-    fun openLive() { if (repo.hasCompany(Mode.LIVE)) { repo.open(Mode.LIVE); prefs.mode = Mode.LIVE; resetTo(Screen.Login) } else go(Screen.Setup) }
+    fun openLive() = viewModelScope.launch {
+        busy = true
+        val has = withContext(Dispatchers.IO) { repo.hasCompany(Mode.LIVE).also { if (it) repo.open(Mode.LIVE) } }
+        busy = false
+        if (has) { prefs.mode = Mode.LIVE; resetTo(Screen.Login) } else go(Screen.Setup)
+    }
 
     /** New company: the Head Quarter creates the company and themself, with their own (non-trivial) PIN. */
     fun createCompany(company: String, hqName: String, phone: String, pin: String, onErr: (Err) -> Unit) = viewModelScope.launch {

@@ -39,7 +39,8 @@ class EventDb(context: Context, name: String) : SQLiteOpenHelper(context, name, 
         // schema v1 is the first release; future migrations go here, never by dropping company records
     }
 
-    fun all(): List<Event> = readableDatabase.rawQuery("SELECT id,type,by_uid,pid,t,dev,v,data FROM events ORDER BY seq", null).use { c ->
+    /** One canonical order on every phone and after every restart or import: time, then id. */
+    fun all(): List<Event> = readableDatabase.rawQuery("SELECT id,type,by_uid,pid,t,dev,v,data FROM events ORDER BY t, id", null).use { c ->
         buildList {
             while (c.moveToNext()) add(
                 Event(c.getString(0), c.getString(1), c.getString(2), if (c.isNull(3)) null else c.getString(3), c.getString(4), c.getString(5), c.getInt(6),
@@ -73,6 +74,8 @@ class EventDb(context: Context, name: String) : SQLiteOpenHelper(context, name, 
             db.setTransactionSuccessful()
         } finally { db.endTransaction() }
     }
+
+    fun hasOrg(): Boolean = readableDatabase.rawQuery("SELECT 1 FROM events WHERE type='ORG_CREATED' LIMIT 1", null).use { it.moveToFirst() }
 
     fun counts(): Map<String, Int> = readableDatabase.rawQuery("SELECT sync_state, COUNT(*) FROM events GROUP BY sync_state", null).use { c ->
         buildMap { while (c.moveToNext()) put(c.getString(0), c.getInt(1)) }

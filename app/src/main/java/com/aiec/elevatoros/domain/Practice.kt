@@ -50,7 +50,7 @@ object Practice {
         PREP_ITEMS.forEach { act("P_SAL", "PREP_ITEM_DONE", "DEMO-1", "item" to it.first, "ev" to ev("photo")) }
         act("P_SAL", "QC_REQUESTED", "DEMO-1")
         val okMeas = mapOf("width" to 1600, "depth" to 1600, "pit" to 1300, "head" to 3900)
-        act("P_QC", "QC_SITE_RESULT", "DEMO-1", "outcome" to "approved", "meas" to okMeas, "ev" to ev("photo"))
+        act("P_QC", "QC_SITE_RESULT", "DEMO-1", "outcome" to "approved", "meas" to okMeas, "checks" to QC_SITE_CHECKS.associateWith { "pass" }, "ev" to ev("photo") + ev("photo"))
         act("P_ADM", "RELEASED", "DEMO-1", "supplier" to "P_SUP", "tech" to "P_TEC", "drawings" to "DWG-101")
         act("P_SUP", "DISPATCHED", "DEMO-1", "seal" to "S-5521", "vehicle" to "MH12 AB 4410", "ev" to ev("photo"))
         act("P_TEC", "ARRIVED", "DEMO-1", "sealSeen" to "S-5521", "sealIntact" to "yes", "condition" to "ok", "ev" to ev("photo"))
@@ -79,7 +79,7 @@ object Practice {
         act("P_SAL", "PAYMENT_RECORDED", "DEMO-2", "payId" to "D2T", "purpose" to "token", "amount" to p2.schedule.getValue("token"), "method" to "upi", "ref" to "UTR1002")
         act("P_FIN", "PAYMENT_STATUS", "DEMO-2", "payId" to "D2T", "status" to "confirmed", "ref" to "BANK1002")
         PREP_ITEMS.forEach { act("P_SAL", "PREP_ITEM_DONE", "DEMO-2", "item" to it.first, "ev" to ev("photo")) }
-        act("P_SAL", "QC_REQUESTED", "DEMO-2"); act("P_QC", "QC_SITE_RESULT", "DEMO-2", "outcome" to "approved", "meas" to okMeas, "ev" to ev("photo"))
+        act("P_SAL", "QC_REQUESTED", "DEMO-2"); act("P_QC", "QC_SITE_RESULT", "DEMO-2", "outcome" to "approved", "meas" to okMeas, "checks" to QC_SITE_CHECKS.associateWith { "pass" }, "ev" to ev("photo") + ev("photo"))
         act("P_ADM", "RELEASED", "DEMO-2", "supplier" to "P_SUP", "tech" to "P_TEC", "drawings" to "DWG-102")
         act("P_SUP", "DISPATCHED", "DEMO-2", "seal" to "S-7710", "vehicle" to "MH14 CD 1201", "ev" to ev("photo"))
         act("P_TEC", "ARRIVED", "DEMO-2", "sealSeen" to "S-7710", "sealIntact" to "yes", "condition" to "ok", "ev" to ev("photo"))

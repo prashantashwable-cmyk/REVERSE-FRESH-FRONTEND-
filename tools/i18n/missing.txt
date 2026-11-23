@@ -1,6 +1,0 @@
-escalations_say
-me_say
-people_say
-projects_say
-setup_say
-share_data_say

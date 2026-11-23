@@ -120,14 +120,15 @@ class EngineTest {
         for (item in listOf("shaft", "pit", "power", "clean", "light", "barricade")) h.ok("sal", "PREP_ITEM_DONE", pid, "item" to item, "ev" to h.photo())
         h.ok("sal", "QC_REQUESTED", pid)
         // shaft below the minimum cannot simply be approved
+        val siteOk = com.aiec.elevatoros.domain.QC_SITE_CHECKS.associateWith { "pass" }
         val low = mapOf("width" to 1400, "depth" to 1600, "pit" to 1300, "head" to 3900)
-        assertEquals("err_shaft_low", h.act("qc", "QC_SITE_RESULT", pid, "outcome" to "approved", "meas" to low, "ev" to h.photo())?.key)
-        h.ok("qc", "QC_SITE_RESULT", pid, "outcome" to "corrections", "meas" to low, "items" to listOf("Widen shaft by 100 mm"), "ev" to h.photo())
+        assertEquals("err_shaft_low", h.act("qc", "QC_SITE_RESULT", pid, "outcome" to "approved", "meas" to low, "checks" to siteOk, "ev" to h.photo() + h.photo("b"))?.key)
+        h.ok("qc", "QC_SITE_RESULT", pid, "outcome" to "corrections", "meas" to low, "checks" to siteOk, "items" to listOf("Widen shaft by 100 mm"), "ev" to h.photo() + h.photo("b"))
         assertEquals(Stage.SITE_FIX, p.stage)
         val cid = p.corrections.single().id
         h.ok("sal", "CORRECTION_DONE", pid, "cid" to cid, "ev" to h.photo())
         h.ok("sal", "QC_REQUESTED", pid)
-        h.ok("qc", "QC_SITE_RESULT", pid, "outcome" to "approved", "meas" to mapOf("width" to 1600, "depth" to 1600, "pit" to 1300, "head" to 3900), "ev" to h.photo())
+        h.ok("qc", "QC_SITE_RESULT", pid, "outcome" to "approved", "meas" to mapOf("width" to 1600, "depth" to 1600, "pit" to 1300, "head" to 3900), "checks" to siteOk, "ev" to h.photo() + h.photo("b"))
         assertEquals(Stage.SITE_OK, p.stage)
         h.ok("adm", "RELEASED", pid, "supplier" to "sup", "tech" to "tec", "drawings" to "DWG-7")
         h.ok("sup", "DISPATCHED", pid, "seal" to "SEAL-44", "vehicle" to "MH12AB1234", "ev" to h.photo())
@@ -217,5 +218,83 @@ class EngineTest {
         assertEquals(Stage.SIGNED, s.projects.getValue("DEMO-4").stage)
         assertEquals(Stage.NEW, s.projects.getValue("DEMO-5").stage)
         assertTrue(evs.zipWithNext().all { (a, b) -> a.t <= b.t })
+    }
+
+    private fun smallTeam(vararg people: Pair<String, String>): Harness {
+        val h = Harness()
+        h.ok("hq", "ORG_CREATED", null, "orgId" to "O", "name" to "Small")
+        h.ok("hq", "USER_ADDED", null, "uid" to "hq", "name" to "HQ", "role" to "owner", "pin" to "p2\$x", "salt" to "s")
+        people.forEach { (uid, role) -> h.ok("hq", "USER_ADDED", null, "uid" to uid, "name" to uid, "role" to role, "pin" to "p2\$x", "salt" to "s") }
+        return h
+    }
+
+    private fun toSigned(h: Harness, by: String) {
+        h.ok(by, "LEAD_CREATED", "P", "name" to "A", "phone" to "9999988888", "address" to "x")
+        h.ok(by, "LEAD_ACCEPTED", "P"); h.ok(by, "CONTACT_LOGGED", "P", "channel" to "call", "outcome" to "interested")
+        h.ok(by, "REQ_SAVED", "P", "req" to mapOf("type" to "auto", "stops" to 2, "capacity" to 6, "finish" to "ms", "door" to "auto", "power3" to true, "job" to "new"))
+        h.ok(by, "QUOTE_CREATED", "P", "discountPct" to 0); h.ok(by, "QUOTE_SENT", "P", "channel" to "whatsapp"); h.ok(by, "DEAL_WON", "P")
+        h.ok(by, "AGREEMENT_PREPARED", "P"); h.ok(by, "AGREEMENT_SIGNED", "P", "signer" to "A", "ev" to h.sign())
+    }
+
+    /** Review #4: Admin covers recording the token; the Head Quarter (not the recorder) can confirm it — no dead end. */
+    @Test fun recorderIsLeftOutOfCoverSoSomeoneElseConfirms() {
+        val h = smallTeam("adm" to "admin", "tec" to "tech")
+        toSigned(h, "adm")
+        val p = h.s.projects.getValue("P")
+        h.ok("adm", "PAYMENT_RECORDED", "P", "payId" to "T", "purpose" to "token", "amount" to p.schedule.getValue("token"), "method" to "upi", "ref" to "U1")
+        assertEquals("err_role", h.act("adm", "PAYMENT_STATUS", "P", "payId" to "T", "status" to "confirmed", "ref" to "B")?.key)
+        assertTrue(Tasks.tasksFor(h.s, h.s.users.getValue("hq"), h.s.byId.values.last().t).any { it.need.key == "verify_payment" })
+        h.ok("hq", "PAYMENT_STATUS", "P", "payId" to "T", "status" to "confirmed", "ref" to "B")
+        assertEquals(Stage.SITE_PREP, p.stage)
+    }
+
+    /** Review #8: the amount must be the scheduled one. */
+    @Test fun paymentAmountMustMatchSchedule() {
+        val h = smallTeam("adm" to "admin")
+        toSigned(h, "adm")
+        assertEquals("err_amount", h.act("adm", "PAYMENT_RECORDED", "P", "payId" to "T", "purpose" to "token", "amount" to 1, "method" to "upi", "ref" to "U1")?.key)
+        assertEquals("err_amount", h.act("adm", "PAYMENT_RECORDED", "P", "payId" to "T", "purpose" to "token", "amount" to "NaN", "method" to "upi", "ref" to "U1")?.key)
+    }
+
+    /** Review #5: the author of a quote waiting for approval can still withdraw (reject) it, never approve it. */
+    @Test fun authorCanRejectButNotApproveOwnQuote() {
+        val h = smallTeam()
+        h.ok("hq", "LEAD_CREATED", "P", "name" to "A", "phone" to "9999988888", "address" to "x")
+        h.ok("hq", "LEAD_ACCEPTED", "P"); h.ok("hq", "CONTACT_LOGGED", "P", "channel" to "call", "outcome" to "interested")
+        h.ok("hq", "REQ_SAVED", "P", "req" to mapOf("type" to "auto", "stops" to 2, "capacity" to 6, "finish" to "ms", "door" to "auto", "power3" to true, "job" to "new"))
+        h.ok("hq", "QUOTE_CREATED", "P", "discountPct" to 60, "reason" to "test")
+        assertEquals(Stage.QUOTE_APPROVAL, h.s.projects.getValue("P").stage)
+        assertEquals("err_not_author", h.act("hq", "QUOTE_DECISION", "P", "decision" to "approve")?.key)
+        h.ok("hq", "QUOTE_DECISION", "P", "decision" to "reject", "reason" to "too low")
+        assertEquals(Stage.REQUIREMENTS, h.s.projects.getValue("P").stage)
+    }
+
+    /** Review #6: a job taken by the covering office or by a Sales person who left is open to the Sales team. */
+    @Test fun salesCanTakeOverAJobWhoseSalesPersonIsGone() {
+        val h = smallTeam()
+        h.ok("hq", "LEAD_CREATED", "P", "name" to "A", "phone" to "9999988888", "address" to "x")
+        h.ok("hq", "LEAD_ACCEPTED", "P")
+        h.ok("hq", "USER_ADDED", null, "uid" to "sal", "name" to "S", "role" to "sales", "pin" to "p2\$x", "salt" to "s")
+        h.ok("sal", "CONTACT_LOGGED", "P", "channel" to "call", "outcome" to "interested")
+        assertEquals("sal", h.s.projects.getValue("P").sales)
+        assertEquals("err_pick_sales", h.act("hq", "LEAD_CREATED", "Q", "name" to "B", "phone" to "9999988887", "address" to "y").let { h.act("sal", "LEAD_ACCEPTED", "Q", "salesUid" to "nobody")?.key })
+    }
+
+    /** Review #7: a record with a broken or far-future time is refused and can never crash the screens. */
+    @Test fun badTimesAreRefused() {
+        val h = smallTeam()
+        val bad = Event("BAD", "LEAD_CREATED", "hq", "X", "garbage", "D", data = jsonOf("name" to "A", "phone" to "9999988888", "address" to "x"))
+        assertEquals("err_bad_record", Rules.validate(h.s, bad)?.key)
+        assertEquals("err_clock", Rules.validate(h.s, bad.copy(t = "2099-01-01T00:00:00Z"))?.key)
+        assertEquals(java.time.LocalDate.now(com.aiec.elevatoros.domain.Time.IST), com.aiec.elevatoros.domain.Time.day("garbage"))
+    }
+
+    /** Review #19: a job number made twice offline gets a -B suffix, the same on every phone. */
+    @Test fun duplicateJobNumberGetsSuffix() {
+        val h = Harness(); h.boot()
+        h.ok("sal", "LEAD_CREATED", "P", "name" to "A", "phone" to "9999988888", "address" to "x")
+        val s = Reducer.rebuild(h.events + h.events.last().copy(id = "DUPNO", pid = "P2", data = jsonOf("name" to "A", "phone" to "9999988887", "address" to "x", "no" to h.s.projects.getValue("P").no)))
+        assertEquals(2, s.projects.size)
+        assertTrue(s.projects.getValue("P2").no.endsWith("-B"))
     }
 }

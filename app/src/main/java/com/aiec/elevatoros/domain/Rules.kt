@@ -40,7 +40,7 @@ object Rules {
     fun canSee(s: State, u: User, p: Project): Boolean = when (u.role) {
         OWNER, ADMIN, FINANCE -> true
         FIELD -> p.createdBy == u.uid
-        SALES -> p.sales == null || p.sales == u.uid
+        SALES -> p.sales == null || p.sales == u.uid || s.users[p.sales]?.let { !it.active || it.role != SALES } ?: true
         QC -> p.stage != LOST && p.stage.ordinal >= SITE_PREP.ordinal
         SUPPLIER -> p.supplier == u.uid
         TECH -> p.tech == u.uid || p.tickets.any { it.assignee == u.uid }
@@ -50,22 +50,30 @@ object Rules {
     }
 
     /** Office covering a role nobody else holds; with an Admin in the team the Admin covers, otherwise the Head Quarter. */
-    fun covers(s: State, r: Rule, u: User): Boolean {
-        if (!r.coverable || (u.role != OWNER && u.role != ADMIN)) return false
+    fun covers(s: State, r: Rule, u: User, exclude: String? = null): Boolean {
+        if (!r.coverable || (u.role != OWNER && u.role != ADMIN) || u.uid == exclude) return false
         val needRoles = r.roles.intersect(COVER_ROLES)
         if (needRoles.isEmpty()) return false
-        if (s.users.values.any { it.active && it.uid != u.uid && it.role in needRoles }) return false
-        val hasAdmin = s.users.values.any { it.active && it.role == ADMIN }
+        if (s.users.values.any { it.active && it.uid != u.uid && it.uid != exclude && it.role in needRoles }) return false
+        val hasAdmin = s.users.values.any { it.active && it.role == ADMIN && it.uid != exclude }
         return u.role == (if (hasAdmin) ADMIN else OWNER)
     }
 
-    private val salesSide = setOf(SALES)
+    /** The person a cover check must leave out for this event (whoever recorded the payment being confirmed). */
+    fun coverExclude(s: State, type: String, pid: String?, extra: String?): String? =
+        if (type == "PAYMENT_STATUS") s.projects[pid]?.payments?.firstOrNull { it.id == extra }?.recordedBy else null
+
+    /** Someone other than [uid] who could confirm a payment now (Finance, or the office covering Finance). */
+    fun someoneElseCanConfirm(s: State, uid: String): Boolean {
+        val r = RULES.getValue("PAYMENT_STATUS")
+        return s.users.values.any { it.active && it.uid != uid && (it.role == FINANCE || covers(s, r, it, exclude = uid)) }
+    }
 
     val RULES: Map<String, Rule> = mapOf(
         "USER_ADDED" to Rule(setOf(OWNER, ADMIN, SALES), project = false) {
             val role = Role.of(d.str("role"))
             when {
-                d.str("name").isBlank() || d.str("pin").isBlank() || d.str("salt").isBlank() -> Err("err_fill")
+                d.str("name").isBlank() || (!d.bool("stripped") && (d.str("pin").isBlank() || d.str("salt").isBlank())) -> Err("err_fill")
                 role == null -> Err("err_role_bad")
                 s.users.containsKey(d.str("uid")) -> Err("err_dup_user")
                 u.role == ADMIN && role == OWNER -> Err("err_role", mapOf("roles" to "owner"))
@@ -89,6 +97,8 @@ object Rules {
                 x == null -> Err("err_no_user")
                 x.role == OWNER && u.role != OWNER -> Err("err_role", mapOf("roles" to "owner"))
                 x.uid == u.uid && d.containsKey("active") && !d.bool("active") -> Err("err_self")
+                x.uid == u.uid && d.containsKey("role") -> Err("err_self")
+                d.containsKey("role") && (x.role == CUSTOMER || Role.of(d.str("role")) == CUSTOMER || Role.of(d.str("role")) == null) -> Err("err_role_bad")
                 d.containsKey("role") && Role.of(d.str("role")) == OWNER && u.role != OWNER -> Err("err_role", mapOf("roles" to "owner"))
                 else -> null
             }
@@ -108,7 +118,10 @@ object Rules {
                 else -> null
             }
         },
-        "LEAD_ACCEPTED" to Rule(setOf(SALES, ADMIN), stages = setOf(NEW), coverable = true),
+        "LEAD_ACCEPTED" to Rule(setOf(SALES, ADMIN), stages = setOf(NEW), coverable = true) {
+            val x = d.strOrNull("salesUid")?.let { s.users[it] }
+            need(d.strOrNull("salesUid") == null || (x != null && x.active && x.role == SALES), "err_pick_sales")
+        },
         "LEAD_RETURNED" to Rule(setOf(SALES, ADMIN), stages = setOf(NEW), coverable = true) {
             need(d.str("reason") in RETURN_REASONS, "err_reason") ?: need(d.str("reason") != "other" || d.str("note").isNotBlank(), "err_reason")
         },
@@ -149,7 +162,7 @@ object Rules {
             val q = P.lastQuote()
             when {
                 q == null -> Err("err_fill")
-                q.by == u.uid -> Err("err_not_author")
+                q.by == u.uid && d.str("decision") == "approve" -> Err("err_not_author")
                 d.str("decision") !in setOf("approve", "reject") -> Err("err_fill")
                 d.str("decision") == "reject" && d.str("reason").isBlank() -> Err("err_reason")
                 d.str("decision") == "approve" && ("below_floor" in q.why || "over_admin" in q.why) && u.role != OWNER -> Err("err_role", mapOf("roles" to "owner"))
@@ -177,7 +190,8 @@ object Rules {
             when {
                 PAY_STAGE[purpose] != P.stage -> Err("err_pay_not_open")
                 P.payPending(purpose) || P.payConfirmed(purpose) -> Err("err_pay_exists")
-                amt <= 0 || amt > 100_000_000 -> Err("err_amount")
+                !amt.isFinite() || amt <= 0 || amt.toLong() != (P.schedule[purpose] ?: -1L) || amt != Math.floor(amt) -> Err("err_amount")
+                u.role == CUSTOMER && d.str("method") == "cash" -> Err("err_cash_customer")
                 d.str("method") !in setOf("upi", "bank", "cash", "cheque") -> Err("err_fill")
                 d.str("method") != "cash" && d.str("ref").isBlank() -> Err("err_ref")
                 d.str("payId").isBlank() || P.payments.any { it.id == d.str("payId") } -> Err("err_fill")
@@ -208,8 +222,10 @@ object Rules {
             val low = m?.let { measLow(s.config, it) } ?: listOf("width")
             when {
                 outcome !in setOf("approved", "corrections") -> Err("err_fill")
-                d.evidence().isEmpty() -> Err("err_photos", mapOf("n" to "1"))
+                d.evidence().size < 2 -> Err("err_photos", mapOf("n" to "2"))
                 m == null -> Err("err_fill")
+                QC_SITE_CHECKS.any { d.strMap("checks")[it] !in setOf("pass", "fail") } -> Err("err_checks")
+                outcome == "approved" && d.strMap("checks").values.any { it == "fail" } -> Err("err_pass_with_fail")
                 outcome == "approved" && low.isNotEmpty() -> Err("err_shaft_low", mapOf("list" to low.joinToString(", ")))
                 outcome == "corrections" && d.arr("items").isEmpty() -> Err("err_fill")
                 else -> null
@@ -220,7 +236,8 @@ object Rules {
             when {
                 c == null -> Err("err_fill")
                 c.done != null -> Err("err_already")
-                (c.scope == "install") != (u.role == TECH) && !(u.role.office) -> Err("err_access")
+                c.scope == "install" && (u.role != TECH || P.tech != u.uid) -> Err("err_access")
+                c.scope == "site" && u.role == TECH -> Err("err_access")
                 d.evidence().isEmpty() -> Err("err_photos", mapOf("n" to "1"))
                 else -> null
             }
@@ -342,6 +359,10 @@ object Rules {
     /** validate(): null = accepted. */
     fun validate(s: State, ev: Event): Err? {
         if (ev.v > Event.EVENT_VERSION) return Err("err_newer_app")
+        // a record must carry a real time, and not one from far in the future (wrong phone clock or a forged file)
+        val at = runCatching { java.time.Instant.parse(ev.t) }.getOrNull() ?: return Err("err_bad_record")
+        if (at.isAfter(java.time.Instant.now().plusSeconds(6 * 3600))) return Err("err_clock")
+        if (ev.id.isBlank() || ev.by.isBlank()) return Err("err_bad_record")
         if (ev.type == "ORG_CREATED") return if (s.org != null) Err("err_org_exists") else need(ev.data.str("orgId").isNotBlank() && ev.data.str("name").isNotBlank(), "err_fill")
         val org = s.org ?: return Err("err_no_org")
         // the first Head Quarter, made by the company setup
@@ -352,11 +373,12 @@ object Rules {
         val r = RULES[ev.type] ?: return Err("err_unknown")
         val u = s.users[ev.by]
         if (u == null || !u.active) return Err("err_no_user")
-        if (u.role !in r.roles && !covers(s, r, u)) return Err("err_role", mapOf("roles" to r.roles.joinToString(" / ") { it.key }))
+        val ex = coverExclude(s, ev.type, ev.pid, ev.data.str("payId"))
+        if (u.role !in r.roles && !covers(s, r, u, ex)) return Err("err_role", mapOf("roles" to r.roles.joinToString(" / ") { it.key }))
         var p: Project? = null
         if (r.project) {
             p = s.projects[ev.pid] ?: return Err("err_no_project")
-            if (!r.open && !canSee(s, u, p) && !covers(s, r, u)) return Err("err_access")
+            if (!r.open && !canSee(s, u, p) && !covers(s, r, u, ex)) return Err("err_access")
             if (r.stages != null && p.stage !in r.stages) return Err("err_stage", mapOf("stage" to p.stage.key))
         }
         if (org.id.isBlank()) return Err("err_no_org")
@@ -367,14 +389,15 @@ object Rules {
      * May [uid] perform [type] on [pid] at all (role, visibility, stage)? Used by the UI to show only possible actions.
      * The data-specific checks run again when the event is made.
      */
-    fun allowed(s: State, uid: String, type: String, pid: String?): Boolean {
+    fun allowed(s: State, uid: String, type: String, pid: String?, extra: String? = null): Boolean {
         val r = RULES[type] ?: return false
         val u = s.users[uid] ?: return false
         if (!u.active) return false
-        if (u.role !in r.roles && !covers(s, r, u)) return false
+        val ex = coverExclude(s, type, pid, extra)
+        if (u.role !in r.roles && !covers(s, r, u, ex)) return false
         if (!r.project) return true
         val p = s.projects[pid] ?: return false
-        if (!r.open && !canSee(s, u, p) && !covers(s, r, u)) return false
+        if (!r.open && !canSee(s, u, p) && !covers(s, r, u, ex)) return false
         return r.stages == null || p.stage in r.stages
     }
 }

@@ -71,20 +71,21 @@ object Tasks {
     /** May this person act on this need? Same engine as the buttons, plus who-exactly checks the rules apply. */
     fun isMine(s: State, u: User, need: Need): Boolean {
         val p = s.projects[need.pid] ?: return false
-        if (!Rules.allowed(s, u.uid, need.action, need.pid)) return false
+        if (!Rules.allowed(s, u.uid, need.action, need.pid, need.extra)) return false
         return when (need.key) {
             "verify_payment" -> p.payments.firstOrNull { it.id == need.extra }?.recordedBy != u.uid
-            "approve_quote" -> p.lastQuote()?.by != u.uid
+            "approve_quote" -> p.lastQuote()?.let { q -> q.by != u.uid && (u.role == OWNER || ("below_floor" !in q.why && "over_admin" !in q.why)) } ?: false
             "fix_lead" -> p.createdBy == u.uid || (u.role.office && s.users[p.createdBy]?.active != true)
             "sign_handover" -> when (need.extra) {
-                "customer" -> u.role == CUSTOMER || (u.role == TECH && p.customer == null)
+                "customer" -> u.role == CUSTOMER || (u.role == TECH && p.tech == u.uid && s.users[p.customer]?.active != true)
                 "tech" -> u.role == TECH && p.tech == u.uid
                 else -> u.role == QC || (u.role.office && Rules.covers(s, Rules.RULES.getValue("HANDOVER_SIGNED"), u))
             }
             "fix_site" -> u.role != TECH
             "fix_install" -> u.role == TECH
             "fix_ticket" -> u.role == TECH && p.tickets.firstOrNull { it.tid == need.extra }?.assignee == u.uid
-            "record_payment" -> u.role != FINANCE || s.activeUsers(SALES).isEmpty()
+            // never give the recording to the only person who could then confirm it (that would be a dead end)
+            "record_payment" -> (u.role != FINANCE || s.activeUsers(SALES).isEmpty()) && Rules.someoneElseCanConfirm(s, u.uid)
             "check_lead", "contact_customer", "lift_needs", "make_quote", "send_quote", "get_decision", "prepare_agreement" ->
                 u.role == SALES || Rules.covers(s, Rules.RULES.getValue(need.action), u)
             "inspect_site", "final_inspection" -> u.role == QC || Rules.covers(s, Rules.RULES.getValue(need.action), u)
@@ -95,8 +96,11 @@ object Tasks {
     }
 
     /** Working-day limit for the current step and the escalation level (original escalation ladder 1 → Admin 3 → HQ 7). */
-    fun escalation(s: State, p: Project, now: String): Pair<Int, Int> {
-        val days = Time.workingDays(p.since, now, s.config.sundayWork)
+    /** A service ticket's clock starts when the ticket was opened, not when the job reached its stage. */
+    fun sinceOf(p: Project, n: Need): String = p.tickets.firstOrNull { it.tid == n.extra && n.action.startsWith("TICKET_") }?.history?.lastOrNull()?.split("|")?.getOrNull(1) ?: p.since
+
+    fun escalation(s: State, p: Project, now: String, since: String = p.since): Pair<Int, Int> {
+        val days = Time.workingDays(since, now, s.config.sundayWork)
         val c = s.config
         val level = when {
             days >= c.escOwnerDays -> 3
@@ -111,7 +115,7 @@ object Tasks {
         s.projects.values.asSequence()
             .filter { it.stage != LOST }
             .flatMap { p -> needs(s, p).filter { isMine(s, u, it) }.map { p to it } }
-            .map { (p, n) -> val (days, level) = escalation(s, p, now); Task(n, p, level, days, s.config.escalateDays) }
+            .map { (p, n) -> val (days, level) = escalation(s, p, now, sinceOf(p, n)); Task(n, p, level, days, s.config.escalateDays) }
             .sortedWith(compareByDescending<Task> { it.level }.thenBy { it.project.since })
             .toList()
 

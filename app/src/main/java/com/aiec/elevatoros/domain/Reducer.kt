@@ -38,7 +38,7 @@ object Reducer {
                 var no = d.str("no").ifBlank { newJobNo(s, ev.t) }
                 // two phones offline may make the same number: the later one in the shared history gets -B, -C ... (same on every phone)
                 var k = 0; val base = no
-                while (s.jobNos.containsKey(no)) no = base + "-" + "BCDEFGHJKLMNPQRSTUVWXYZ"[k++]
+                while (s.jobNos.containsKey(no)) { no = base + "-" + (if (k < 23) "BCDEFGHJKLMNPQRSTUVWXYZ"[k].toString() else (k + 2).toString()); k++ }
                 val np = Project(ev.pid!!, no, ev.t, ev.by).apply {
                     address = d.str("address").trim(); landmark = d.str("landmark").trim(); gps = d.gps(); tower = d.str("tower").trim()
                     noPhone = d.bool("noPhone"); contactName = d.str("name").trim(); contactPhone = if (noPhone) "" else phone10(d.str("phone"))
@@ -53,6 +53,7 @@ object Reducer {
             "SOS_CLOSED" -> s.sos[d.str("sid")]?.let { it.open = false; it.closedBy = ev.by }
         }
         if (p == null) return
+        if (s.roleOf(ev.by) == Role.SALES && p.sales != ev.by && s.users[p.sales]?.let { !it.active || it.role != Role.SALES } != false && ev.type != "LEAD_ACCEPTED") p.sales = ev.by
         p.log.add(ev.id)
         p.evidence.addAll(d.evidence())
         when (ev.type) {
@@ -170,14 +171,20 @@ object Reducer {
 
     /** Rebuild the whole state from the saved history, refusing (and reporting) any event the rules do not accept. */
     fun rebuild(events: List<Event>, onRejected: (Event, Err) -> Unit = { _, _ -> }): State {
-        val s = State()
-        for (ev in events) {
-            if (s.byId.containsKey(ev.id)) continue // idempotent: the same record twice is applied once
-            val err = Rules.validate(s, ev)
-            if (err != null) { onRejected(ev, err); continue }
-            // safety net: a malformed record from another phone must never stop the app from starting
-            try { apply(s, ev) } catch (e: RuntimeException) { s.byId.remove(ev.id); onRejected(ev, Err("err_bad_record")) }
+        val skip = mutableSetOf<String>()
+        while (true) {
+            val s = State(); var bad: Event? = null
+            val rejected = mutableListOf<Pair<Event, Err>>()
+            for (ev in events) {
+                if (ev.id in skip || s.byId.containsKey(ev.id)) continue // idempotent: the same record twice is applied once
+                val err = Rules.validate(s, ev)
+                if (err != null) { rejected.add(ev to err); continue }
+                // safety net: a record that breaks the reducer is left out and the history is replayed without it,
+                // so no half-applied change stays in the state and the app always starts
+                try { apply(s, ev) } catch (e: RuntimeException) { bad = ev; break }
+            }
+            if (bad == null) { rejected.forEach { (e, r) -> onRejected(e, r) }; return s }
+            skip += bad.id; onRejected(bad, Err("err_bad_record"))
         }
-        return s
     }
 }

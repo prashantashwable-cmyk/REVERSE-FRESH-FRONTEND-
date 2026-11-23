@@ -1563,5 +1563,35 @@
   "This record could not be read. It was not used.",
   "यह रिकॉर्ड पढ़ा नहीं जा सका। इसे इस्तेमाल नहीं किया गया।",
   "ही नोंद वाचता आली नाही. ती वापरली नाही."
+ ],
+ "err_pick_sales": [
+  "Choose an active Sales person.",
+  "कोई सक्रिय सेल्स व्यक्ति चुनें।",
+  "सक्रिय सेल्स व्यक्ती निवडा."
+ ],
+ "err_cash_customer": [
+  "Customers cannot report cash. Pay by UPI or bank, or give the cash to Sales.",
+  "ग्राहक नकद दर्ज नहीं कर सकते। UPI या बैंक से भरें, या नकद सेल्स को दें।",
+  "ग्राहक रोख नोंदवू शकत नाहीत. UPI किंवा बँकेने भरा, किंवा रोख सेल्सला द्या."
+ ],
+ "err_clock": [
+  "This record has a time in the future. Check the phone's date and time.",
+  "इस रिकॉर्ड का समय भविष्य का है। फ़ोन की तारीख और समय जाँचें।",
+  "या नोंदीची वेळ भविष्यातील आहे. फोनची तारीख आणि वेळ तपासा."
+ ],
+ "err_import_sensitive": [
+  "Only Head Quarter can load changes to people, PINs or business rules from a file.",
+  "फ़ाइल से लोगों, PIN या व्यापार नियमों के बदलाव सिर्फ़ हेड क्वार्टर लोड कर सकता है।",
+  "फाइलमधून लोक, PIN किंवा व्यवसाय नियमांतील बदल फक्त हेड क्वार्टर लोड करू शकतो."
+ ],
+ "share_for_whom": [
+  "Who will use the phone that gets this file?",
+  "यह फ़ाइल जिस फ़ोन पर जाएगी, उसे कौन चलाएगा?",
+  "ही फाइल ज्या फोनवर जाईल, तो कोण वापरेल?"
+ ],
+ "share_own_only": [
+  "Your file carries only the work you did. Send it to the office.",
+  "आपकी फ़ाइल में सिर्फ़ आपका किया काम है। इसे ऑफिस को भेजें।",
+  "तुमच्या फाइलमध्ये फक्त तुम्ही केलेले काम आहे. ती ऑफिसला पाठवा."
  ]
 }

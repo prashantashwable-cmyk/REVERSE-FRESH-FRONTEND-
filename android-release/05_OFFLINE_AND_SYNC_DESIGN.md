@@ -58,8 +58,9 @@ There is no "last write wins" on fields. Two phones acting on the same job offli
 ### Known gaps (honest list)
 
 * **Photos and signatures are not in the records file.** Only their SHA-256 references travel; the images stay on the phone that took them.
-* The records file contains **all** company records, including PIN hashes and customer contacts. The original made a separate, reduced file for each outside person; that is not ported. The Share screen is therefore hidden from technicians, suppliers and customers. See 06 (Medium).
-* Re-ordering by time can, in a rare clock-skew case, make a *local* event invalid after import. It is then not applied, but it stays in the database. Phone clock checks from the original are not ported.
+* An **office** file (Head Quarter/Admin → one chosen staff member's phone) carries every record so that phone can re-check everything, but only that person's PIN hash; everyone else's is removed. **Other staff** (including technicians and suppliers) share only the records they made themselves, with no PIN hashes, for the office to load. Office files for technicians and suppliers (with customer details removed, as in the original) are not ported. See 06 C2/C3.
+* Records files are **not signed** (06 C1). Imported files cannot add a Head Quarter/Admin, change PINs or roles, or change business rules unless the Head Quarter loads them.
+* Phones and restarts all use one order (time, then id). If a wrong phone clock makes one of this phone's own records invalid after an import, it is not applied, and it is listed in *refused* on the Share screen, never dropped silently. Records dated more than 6 h in the future are refused.
 * Retry with backoff, server acknowledgement and push are not implemented, because there is no server transport. The `sync_state`, `attempts` and `last_error` columns are ready for one.
 
 ## Tests

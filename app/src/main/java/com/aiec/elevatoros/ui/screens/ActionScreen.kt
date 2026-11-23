@@ -83,6 +83,7 @@ fun ActionScreen(vm: AppViewModel, screen: Screen.Action, speech: Speech) {
     val fields = spec.fields(ctx)
     remember(screen) { fields.forEach { f -> when (f) { is F.Text -> if (f.initial.isNotEmpty()) values[f.key] = f.initial; is F.Choice -> f.initial?.let { values[f.key] = it }; else -> {} } }; true }
     var err by remember(screen) { mutableStateOf<Err?>(null) }
+    var saving by remember(screen) { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     speech.text = I18n.t(lang, spec.title) + ". " + fields.filterIsInstance<F.Info>().mapNotNull { it.text(values) }.firstOrNull().orEmpty()
 
@@ -90,7 +91,8 @@ fun ActionScreen(vm: AppViewModel, screen: Screen.Action, speech: Speech) {
         ctx.p?.let { p -> Text("${spec.icon} ${p.no}" + if (!me.role.outsider && p.contactName.isNotBlank()) " · ${p.contactName}" else "", style = MaterialTheme.typography.titleMedium) }
         fields.forEach { f -> Field(vm, f, values, ctx) }
         err?.let { InfoBox(errText(it), MaterialTheme.colorScheme.errorContainer, "⛔") }
-        BigButton(t("save"), "💾", enabled = !vm.busy) {
+        BigButton(t("save"), "💾", enabled = !vm.busy && !saving) {
+            if (saving) return@BigButton
             val missing = fields.firstOrNull { f ->
                 when (f) {
                     is F.Text -> f.required && (values[f.key] as? String).isNullOrBlank()
@@ -106,12 +108,14 @@ fun ActionScreen(vm: AppViewModel, screen: Screen.Action, speech: Speech) {
                 err = when (missing) { is F.Photos -> Err("err_photos", mapOf("n" to missing.min.toString())); is F.Sign -> Err("err_sign"); is F.Checks -> Err("err_checks"); else -> Err("err_fill_field", mapOf("f" to I18n.t(lang, missing.label))) }
                 return@BigButton
             }
+            saving = true
             scope.launch {
                 val data: JsonObject = withContext(Dispatchers.Default) { spec.build(values.toMap(), ctx) }
                 val newPid = data.str("_pid").ifEmpty { null }
                 val clean = JsonObject(data.filterKeys { it != "_pid" })
                 val pid = if (spec.type == "LEAD_CREATED") newPid else screen.pid
                 val e = vm.perform(spec.type, pid, clean)
+                saving = false
                 if (e != null) err = e else vm.replace(Screen.Saved(spec.savedKey, pid))
             }
         }

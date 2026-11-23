@@ -176,7 +176,7 @@ object Actions {
                 F.Checks("checks", "f_checks", QC_SITE_CHECKS, "qcs_"),
                 F.Choice("outcome", "f_outcome", opts(c, "qso_", "approved", "corrections")),
                 F.Lines("items", "f_corrections"),
-                F.Photos("photo_proof", "qc_site", 1),
+                F.Photos("photo_proof", "qc_site", 2),
             )
         }, { v, _ ->
             jsonOf("outcome" to v.s("outcome"), "meas" to mapOf("width" to v.n("width")?.toInt(), "depth" to v.n("depth")?.toInt(), "pit" to v.n("pit")?.toInt(), "head" to v.n("head")?.toInt()),

@@ -121,7 +121,8 @@ fun TaskCard(vm: AppViewModel, task: Task) {
                 Avatar(p.stage.icon)
                 Column(Modifier.weight(1f)) {
                     Text(t("t_" + task.need.key), style = MaterialTheme.typography.titleMedium)
-                    Text(p.no + " · " + p.contactName.ifBlank { p.address }, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                    // outside companies never see customer names (original data-protection rule)
+                    Text(p.no + " · " + (if (vm.me?.role?.outsider == true) p.address.substringAfterLast(",").trim() else p.contactName.ifBlank { p.address }), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
                 }
                 when (task.level) {
                     3 -> Pill("🔴 " + t("lvl_hq"), Aiec.Late)
@@ -191,10 +192,10 @@ fun SosButton(vm: AppViewModel) {
             Column {
                 if (!raised) TextButton(onClick = {
                     scope.launch {
-                        val g = (vm.gps.current(10_000) as? GpsResult.Fix)?.point
+                        // a short wait for GPS only: the alarm must not be held up by a weak signal
+                        val g = (vm.gps.current(4_000) as? GpsResult.Fix)?.point
                         val pid = vm.state.projects.values.firstOrNull { it.tech == vm.sessionUid && it.stage == Stage.INSTALLING }?.id
-                        vm.perform("SOS_RAISED", null, jsonOf("sid" to "SOS" + Ids.rid(6), "gps" to g, "pid" to pid))
-                        raised = true
+                        raised = vm.perform("SOS_RAISED", null, jsonOf("sid" to "SOS" + Ids.rid(6), "gps" to g, "pid" to pid)) == null
                     }
                 }) { Text(t("sos_send"), color = Aiec.Late, fontWeight = FontWeight.Bold) }
                 val rescue = vm.state.config.sosNumber
