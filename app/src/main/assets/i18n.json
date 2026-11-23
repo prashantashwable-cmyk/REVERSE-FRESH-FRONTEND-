@@ -394,6 +394,11 @@
   "सही रकम डालें।",
   "बरोबर रक्कम टाका."
  ],
+ "err_bad_record": [
+  "This record could not be read. It was not used.",
+  "यह रिकॉर्ड पढ़ा नहीं जा सका। इसे इस्तेमाल नहीं किया गया।",
+  "ही नोंद वाचता आली नाही. ती वापरली नाही."
+ ],
  "err_boot": [
   "Only the first Head Quarter can start the company.",
   "सिर्फ़ पहले हेड क्वार्टर कंपनी शुरू कर सकते हैं।",

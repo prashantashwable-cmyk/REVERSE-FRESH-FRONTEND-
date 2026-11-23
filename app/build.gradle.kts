@@ -33,6 +33,9 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    // the app speaks English, Hindi and Marathi only: drop library translations for other languages
+    androidResources { localeFilters += listOf("en", "hi", "mr") }
+
     signingConfigs {
         if (releaseStoreFile != null && file(releaseStoreFile).exists()) {
             create("release") {

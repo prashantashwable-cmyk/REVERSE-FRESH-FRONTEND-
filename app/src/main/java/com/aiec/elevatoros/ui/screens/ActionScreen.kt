@@ -203,12 +203,13 @@ private fun GpsField(vm: AppViewModel, values: MutableMap<String, Any?>) {
 @Composable
 private fun PhotoField(vm: AppViewModel, f: F.Photos, values: MutableMap<String, Any?>, ctx: Ctx) {
     val context = LocalContext.current
-    var pending by remember { mutableStateOf<File?>(null) }
+    // survives the app being killed while the camera app is open
+    var pendingPath by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf<String?>(null) }
     var denied by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     @Suppress("UNCHECKED_CAST") val list = (values[f.key] as? List<EvidenceRef>).orEmpty()
     val take = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { ok ->
-        val file = pending; pending = null
+        val file = pendingPath?.let { File(it) }; pendingPath = null
         if (ok && file != null) scope.launch {
             val gps = (values["gps"] as? GeoPoint) ?: (vm.gps.current(8_000) as? GpsResult.Fix)?.point
             val me = ctx.me
@@ -218,9 +219,9 @@ private fun PhotoField(vm: AppViewModel, f: F.Photos, values: MutableMap<String,
         } else file?.delete()
     }
     fun launchCamera() {
-        val file = vm.evidence.newCaptureFile(); pending = file
+        val file = vm.evidence.newCaptureFile(); pendingPath = file.path
         val uri: Uri = FileProvider.getUriForFile(context, context.packageName + ".files", file)
-        runCatching { take.launch(uri) }.onFailure { pending = null; denied = true }
+        runCatching { take.launch(uri) }.onFailure { pendingPath = null; denied = true }
     }
     val camPerm = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok -> if (ok) launchCamera() else denied = true }
     AiecCard {

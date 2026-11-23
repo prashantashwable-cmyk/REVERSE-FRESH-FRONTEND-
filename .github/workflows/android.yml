@@ -1,0 +1,99 @@
+name: android
+# Pull requests and pushes: dictionary check, unit + UI tests, lint, debug APK.
+# Signed release APK/AAB: only on a version tag (v*) or a manual run, and only when the signing secrets exist.
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Words in all three languages
+        run: node tools/i18n/build.mjs --check && git diff --exit-code app/src/main/assets/i18n.json
+      - name: Unit and UI tests (Robolectric)
+        run: ./gradlew testDebugUnitTest --no-daemon
+      - name: Lint
+        run: ./gradlew lintDebug --no-daemon
+      - name: Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+      - name: Checksums
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk AIEC-Elevator-OS-debug.apk
+          sha256sum AIEC-Elevator-OS-debug.apk > SHA256SUMS-debug.txt
+          cat SHA256SUMS-debug.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports
+          path: app/build/reports/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIEC-Elevator-OS-debug
+          path: |
+            AIEC-Elevator-OS-debug.apk
+            SHA256SUMS-debug.txt
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: release
+    env:
+      HAS_KEY: ${{ secrets.AIEC_KEYSTORE_B64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Stop when the signing key is not configured
+        if: env.HAS_KEY != 'true'
+        run: |
+          echo "::error::Add AIEC_KEYSTORE_B64, AIEC_KEYSTORE_PASSWORD, AIEC_KEY_ALIAS and AIEC_KEY_PASSWORD as secrets of the 'release' environment."
+          exit 1
+      - name: Signed release APK and AAB
+        env:
+          AIEC_KEYSTORE: ${{ runner.temp }}/aiec-release.jks
+          AIEC_KEYSTORE_PASSWORD: ${{ secrets.AIEC_KEYSTORE_PASSWORD }}
+          AIEC_KEY_ALIAS: ${{ secrets.AIEC_KEY_ALIAS }}
+          AIEC_KEY_PASSWORD: ${{ secrets.AIEC_KEY_PASSWORD }}
+          AIEC_VERSION_CODE: ${{ github.run_number }}
+        run: |
+          echo "${{ secrets.AIEC_KEYSTORE_B64 }}" | base64 -d > "$AIEC_KEYSTORE"
+          ./gradlew assembleRelease bundleRelease --no-daemon
+          rm -f "$AIEC_KEYSTORE"
+      - name: Verify signature and write checksums
+        run: |
+          SIGNER=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner
+          "$SIGNER" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk | grep -E "Verifies|Verified using v2|Verified using v3|certificate SHA-256"
+          cp app/build/outputs/apk/release/app-release.apk AIEC-Elevator-OS.apk
+          cp app/build/outputs/bundle/release/app-release.aab AIEC-Elevator-OS.aab
+          sha256sum AIEC-Elevator-OS.apk AIEC-Elevator-OS.aab > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIEC-Elevator-OS-release
+          path: |
+            AIEC-Elevator-OS.apk
+            AIEC-Elevator-OS.aab
+            SHA256SUMS.txt

@@ -175,7 +175,8 @@ object Reducer {
             if (s.byId.containsKey(ev.id)) continue // idempotent: the same record twice is applied once
             val err = Rules.validate(s, ev)
             if (err != null) { onRejected(ev, err); continue }
-            apply(s, ev)
+            // safety net: a malformed record from another phone must never stop the app from starting
+            try { apply(s, ev) } catch (e: RuntimeException) { s.byId.remove(ev.id); onRejected(ev, Err("err_bad_record")) }
         }
         return s
     }
