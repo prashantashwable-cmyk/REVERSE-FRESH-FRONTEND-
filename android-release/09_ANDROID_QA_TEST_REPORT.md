@@ -1,6 +1,6 @@
 # 09 — Android QA Test Report
 
-**Date:** 2026-11-24 (v1.1.1) · **Environment:** Linux container, OpenJDK 21.0.13, Gradle 8.14.3, AGP 8.13.2, Robolectric 4.16 (Android SDK 35 image, native graphics), Roborazzi 1.52.0 · **No device or emulator** (no KVM).
+**Date:** 2026-11-24 (v1.1.2) · **Environment:** Linux container, OpenJDK 21.0.13, Gradle 8.14.3, AGP 8.13.2, Robolectric 4.16 (Android SDK 35 image, native graphics), Roborazzi 1.52.0 · **No device or emulator** (no KVM).
 
 ## 1. Original web app baseline (before any work)
 
@@ -18,7 +18,7 @@ The original repository was not modified.
 
 ```bash
 node tools/i18n/build.mjs --check      # keys used: 605 · written: 605 · missing: 0
-./gradlew testDebugUnitTest            # 29 tests, 29 passed, 0 failed, 0 skipped
+./gradlew testDebugUnitTest            # 32 tests, 32 passed, 0 failed, 0 skipped
 ./gradlew recordRoborazziDebug         # same tests + 32 screenshots in android-release/screenshots/
 ./gradlew lintDebug                    # 0 errors, 31 warnings (library-update and KTX-style hints)
 ./gradlew assembleDebug assembleRelease bundleRelease   # BUILD SUCCESSFUL
@@ -34,13 +34,15 @@ apksigner verify --print-certs app-release.apk          # Verifies (v2, v3)
 | `PerformanceTest` | 1 | 1 | 20,007-record replay in 191 ms; no records refused |
 | `SigningTest` | 4 | 4 | Two simulated phones + an attacker: an approved phone is trusted, also for records made before approval; edited, unsigned, forged-as-HQ and spoofed-device records are refused; a key an attacker registers for HQ stays untrusted; cutting PIN fields keeps signatures valid; own-phone records are trusted |
 | `CompanySetupFlowTest` | 1 | 1 | Real company through the UI: setup with a PIN typed twice, add a person with a PIN, log out, log in as that person with their PIN, restart and re-verify every signed record (0 refused) |
-| **Total** | **29** | **29** | |
+| `MainActivityLaunchTest` | 1 | 1 | The real `MainActivity` (splash, edge-to-edge, lifecycle observer, FLAG_SECURE) with PIN logins of an outsider and the HQ |
+| `I18nTest` (added) | +2 | +2 | Placeholder filling without regex; **every `Regex(...)` in the app is valid on Android's ICU engine** (guards the 1.1.2 crash) |
+| **Total** | **32** | **32** | |
 
 ## 3. Brief §11 checklist
 
 | Required test | Status |
 |---|---|
-| Install and first launch | **Blocked** (no device). APK builds, verifies and `aapt2` shows the right package/SDKs |
+| Install and first launch | ✅ Android 11 emulator (software CPU): installs, launches, cold start 3–11 s in software emulation (not representative of a phone) |
 | Login / logout | Pass (UI test: PIN pad login of 6 roles, logout) |
 | Role-based access | Pass (engine + UI: refusals, tasks per role, technician data masking) |
 | Navigation and back | Pass for navigation (UI tests); back button reviewed in code, not run on a device |
@@ -62,7 +64,7 @@ apksigner verify --print-certs app-release.apk          # Verifies (v2, v3)
 ## 4. Run on a phone (for the owner, when a device is available)
 
 ```bash
-adb install -r android-release/dist/AIEC-Elevator-OS-1.1.1-eval.apk
+adb install -r android-release/dist/AIEC-Elevator-OS-1.1.2-eval.apk
 adb shell am start -W -n com.aiec.elevatoros/.MainActivity      # cold launch time (TotalTime)
 adb shell dumpsys meminfo com.aiec.elevatoros | head -30
 ```
@@ -79,3 +81,28 @@ Manual script: Practice → Ramesh (field) → Add site with photo + GPS → log
   * Any unexpected error while saving becomes a refusal on screen ("could not be saved, nothing changed") instead of a closed app.
 * **If it still happens:** v1.1.1 records the error. The next start shows "The app closed by mistake" with **Share report**, which holds the error and the phone model only, no company data. Sending that report pinpoints the cause.
 * R8 (release minification) was checked: no missing-class warnings; the serializer, signing and key classes are present in the release mapping.
+* **Correction (v1.1.2): the Keystore guess above was wrong.** The crash was still there in 1.1.1.
+
+## 6. Root cause found on a real Android device (v1.1.2)
+
+* **Device:** Android 11 (API 30) x86_64 emulator. It runs in software CPU mode (`ANDROID_I_WANT_MY_TCG=yes`, no KVM) and boots in 4 min 20 s.
+* **The exact APK sent to the owner (1.1.1)** crashed after PIN `1111`. `adb logcat -b crash`:
+  ```
+  FATAL EXCEPTION: main  java.util.regex.PatternSyntaxException: Syntax error in regexp pattern near index 8
+  \{(\w+)}   at com.android.icu.util.regex.PatternNative.compileImpl ...
+  ```
+  `I18n.t` filled `{name}` placeholders with `Regex("\\{(\\w+)}")`. Desktop Java (and therefore every JVM/Robolectric test) accepts the bare `}`; Android's ICU regex engine does not. The first screen with a placeholder after the PIN is Home ("Namaste, {n}"), so every login crashed. Earlier screens (welcome, people list, PIN pad) have no placeholders, so they worked.
+* **Fix:** placeholder filling by plain text scanning (`I18n.fill`); unit tests for it and a scan that refuses any `Regex(...)` with a bare `}`.
+* **Verified on the device with the shipped 1.1.2 release APK:**
+
+| Step | Result |
+|---|---|
+| Practice → Anil → PIN 1111 | ✅ Home (`screenshots-device/01`) |
+| Next task, Projects, project detail, People, Me | ✅ no crash (`02`) |
+| New company setup, PIN typed twice | ✅ Home "नमस्कार, Prashant · Shree Lifts" (`03`) |
+| Add person (Sales, PIN 5927) → save → log out → Priya → PIN 5927 | ✅ Home "नमस्कार, Priya" (`04`) |
+| Restart the app → Prashant → PIN 4831 | ✅ Home; `logcat -b crash` empty |
+
+* The crash reporter added in 1.1.1 worked on the device: the next start showed the earlier crash with *Share report*.
+* Also found and fixed on the device: the practice banner was drawn under the phone's status bar.
+* Still not tested on a device: camera capture and GPS. The emulator has no camera app or location set up, so these were not exercised.

@@ -34,8 +34,29 @@ object I18n {
     fun t(lang: String, key: String, vars: Map<String, String> = emptyMap()): String {
         val e = dict[key]
         var s = if (e == null) key else e[when (lang) { "hi" -> 1; "mr" -> 2; else -> 0 }].ifEmpty { e[0] }
-        if (vars.isNotEmpty()) s = Regex("\\{(\\w+)}").replace(s) { m -> vars[m.groupValues[1]] ?: "" }
-        return s
+        return if (vars.isEmpty()) s else fill(s, vars)
+    }
+
+    /**
+     * Replaces {name} with its value. Plain text scanning on purpose: the regex "\\{(\\w+)}" works on desktop Java but
+     * Android's ICU regex engine rejects the unescaped "}" and threw at the first screen with a name in it (field crash
+     * in 1.0.0–1.1.1, right after the PIN). Never use a regex here.
+     */
+    fun fill(s: String, vars: Map<String, String>): String {
+        val out = StringBuilder(s.length + 16)
+        var i = 0
+        while (i < s.length) {
+            val c = s[i]
+            if (c == '{') {
+                val end = s.indexOf('}', i + 1)
+                val name = if (end > i) s.substring(i + 1, end) else ""
+                if (end > i && name.isNotEmpty() && name.all { it.isLetterOrDigit() || it == '_' }) {
+                    out.append(vars[name] ?: ""); i = end + 1; continue
+                }
+            }
+            out.append(c); i++
+        }
+        return out.toString()
     }
 
     fun has(key: String) = dict.containsKey(key)

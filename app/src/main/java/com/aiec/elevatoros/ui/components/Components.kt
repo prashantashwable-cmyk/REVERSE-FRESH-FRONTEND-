@@ -20,6 +20,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -73,7 +75,8 @@ import com.aiec.elevatoros.ui.theme.Aiec
 fun AiecTopBar(
     title: String, onBack: (() -> Unit)?, onListen: (() -> Unit)?, onLanguage: () -> Unit, practice: Boolean,
 ) {
-    Column {
+    // the bar draws behind the phone's status bar (edge-to-edge): pad the whole block, not only the app bar
+    Column(Modifier.background(Aiec.Navy).windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.statusBars)) {
         if (practice) {
             Text(
                 "🎓 " + t("practice_banner"), color = Aiec.Navy, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center,
@@ -90,6 +93,7 @@ fun AiecTopBar(
                     Text(when (lang) { "mr" -> "म"; "hi" -> "हि"; else -> "EN" }, color = Aiec.Gold, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 }
             },
+            windowInsets = androidx.compose.foundation.layout.WindowInsets(0, 0, 0, 0),
             colors = TopAppBarDefaults.topAppBarColors(containerColor = Aiec.Navy, titleContentColor = Color.White, navigationIconContentColor = Color.White, actionIconContentColor = Color.White)
         )
     }

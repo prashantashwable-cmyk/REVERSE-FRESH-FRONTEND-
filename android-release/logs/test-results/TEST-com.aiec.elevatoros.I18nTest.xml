@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.aiec.elevatoros.I18nTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:27:56.898Z" hostname="vm" time="0.126">
+<testsuite name="com.aiec.elevatoros.I18nTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-24T03:21:57.288Z" hostname="vm" time="0.08">
   <properties/>
-  <testcase name="everyKeyTheCodeAsksForExists" classname="com.aiec.elevatoros.I18nTest" time="0.099"/>
-  <testcase name="everyEntryHasThreeLanguagesAndSamePlaceholders" classname="com.aiec.elevatoros.I18nTest" time="0.02"/>
-  <testcase name="placeholdersAreFilled" classname="com.aiec.elevatoros.I18nTest" time="0.004"/>
+  <testcase name="fillReplacesPlaceholdersWithoutRegex" classname="com.aiec.elevatoros.I18nTest" time="0.014"/>
+  <testcase name="regexLiteralsAreValidOnAndroid" classname="com.aiec.elevatoros.I18nTest" time="0.011"/>
+  <testcase name="everyKeyTheCodeAsksForExists" classname="com.aiec.elevatoros.I18nTest" time="0.023"/>
+  <testcase name="everyEntryHasThreeLanguagesAndSamePlaceholders" classname="com.aiec.elevatoros.I18nTest" time="0.007"/>
+  <testcase name="placeholdersAreFilled" classname="com.aiec.elevatoros.I18nTest" time="0.024"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

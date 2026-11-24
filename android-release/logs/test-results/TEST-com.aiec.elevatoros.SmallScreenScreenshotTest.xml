@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.aiec.elevatoros.SmallScreenScreenshotTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:27:58.293Z" hostname="vm" time="1.059">
+<testsuite name="com.aiec.elevatoros.SmallScreenScreenshotTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-24T03:21:59.327Z" hostname="vm" time="0.47">
   <properties/>
-  <testcase name="lowEndPhoneWelcomeAndPin" classname="com.aiec.elevatoros.SmallScreenScreenshotTest" time="1.059"/>
+  <testcase name="lowEndPhoneWelcomeAndPin" classname="com.aiec.elevatoros.SmallScreenScreenshotTest" time="0.47"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -21,7 +21,7 @@ This release is a **fresh native app with the core lead-to-handover workflow**. 
 1. **A brand-new phone trusts the first company file it loads** (as in the original). Records are signed and checked since 1.1.0 (06 C1). Set up new phones only with files that come straight from your own office.
 2. **No company server.** The original's encrypted mailbox (Supabase/Cloudflare) is not used: no automatic sync, no backups, no push alarms.
 3. **The web app and this app don't share data.** Running both for real work would split the records. Choose one per company, or wait for server compatibility.
-4. **Not run on a device.** Camera, GPS, permission prompts, back gestures, process death, launch time and memory are reviewed in code but **not executed** (no emulator in the build environment). Test on at least one low-end and one current phone before company use (09 §4).
+4. **Partly tested on a device.** Since 1.1.2 the release APK has been run on an Android 11 emulator: login, company setup, people, projects and navigation work (09 §6). Camera, GPS, permission prompts, process death, launch time and memory on real phones are still **not tested**. Test on at least one low-end and one current phone before company use (09 §4).
 5. **Evaluation signing key.** The APK in `dist/` is signed with a throw-away key. The production build must be signed with the owner's key; the evaluation install must be removed first (10).
 6. **Evidence stays on the phone that took it.** Records files carry photo hashes, not photos.
 7. **Data at rest is not encrypted** beyond Android's own device encryption (06 C4).

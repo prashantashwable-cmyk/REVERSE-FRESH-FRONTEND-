@@ -62,10 +62,10 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-8.14.3-bin.zip
    MavenCentral dependency, and connects to the library every time, which
    makes it more flexible but also much slower.
 
-/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/components/Components.kt:100: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
+/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/components/Components.kt:104: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
 fun BigButton(text: String, icon: String? = null, enabled: Boolean = true, modifier: Modifier = Modifier, onClick: () -> Unit) {
                                                                            ~~~~~~~~
-/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/components/Components.kt:113: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
+/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/components/Components.kt:117: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
 fun SecondaryButton(text: String, icon: String? = null, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
                                                         ~~~~~~~~
 
@@ -132,7 +132,7 @@ fun SecondaryButton(text: String, icon: String? = null, modifier: Modifier = Mod
    </lint>
    ```
 
-/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/components/Components.kt:248: Warning: Use the KTX function createBitmap instead? [UseKtx]
+/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/components/Components.kt:252: Warning: Use the KTX function createBitmap instead? [UseKtx]
                 val bmp = Bitmap.createBitmap(wh[0], wh[1], Bitmap.Config.ARGB_8888)
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/data/EventDb.kt:70: Warning: Use the KTX extension function SQLiteDatabase.transaction instead? [UseKtx]

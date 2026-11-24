@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.aiec.elevatoros.PerformanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:27:57.033Z" hostname="vm" time="1.196">
+<testsuite name="com.aiec.elevatoros.PerformanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-24T03:21:58.581Z" hostname="vm" time="0.723">
   <properties/>
-  <testcase name="replay20000RecordsQuickly" classname="com.aiec.elevatoros.PerformanceTest" time="1.196"/>
-  <system-out><![CDATA[PERF replay 20007 records, 1818 jobs: 389 ms; Sales task list (1818 tasks): 138 ms
+  <testcase name="replay20000RecordsQuickly" classname="com.aiec.elevatoros.PerformanceTest" time="0.723"/>
+  <system-out><![CDATA[PERF replay 20007 records, 1818 jobs: 251 ms; Sales task list (1818 tasks): 21 ms
 ]]></system-out>
-  <system-err><![CDATA[System.logW: A resource failed to call close. 
-System.logW: A resource failed to call close. 
-]]></system-err>
+  <system-err><![CDATA[]]></system-err>
 </testsuite>

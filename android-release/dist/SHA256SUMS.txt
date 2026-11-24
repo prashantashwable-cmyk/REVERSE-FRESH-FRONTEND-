@@ -1,3 +1,3 @@
-efffff5394a46c1cc9087b048c5aa2bc1c3b6519591f0cd4511d1a130cca994e  AIEC-Elevator-OS-1.1.1-eval.apk
-7a7ca7d84106d7ff4bccafdd0f8befb75b520cfebf58bfa8c094df93e5112b4c  AIEC-Elevator-OS-1.1.1-eval.aab
-c87f92d335d03949bd09b1d4ad10dbc3276f974a9f2f7a88e18e31450c05798a  AIEC-Elevator-OS-1.1.1-debug.apk
+aaed2c0122d547c48723844b2dd08ee5203f2ae0f3381f82def8467ffa5ddf2d  AIEC-Elevator-OS-1.1.2-eval.apk
+c6ab9ab9b58aba13ac1a1b0d877ba275d58758a59720705a4af2cf2998fbca41  AIEC-Elevator-OS-1.1.2-eval.aab
+a93f81e95e9732275f640bd25b587fe4b4e7f3c715b7a900ff8036af8b2dcabf  AIEC-Elevator-OS-1.1.2-debug.apk
