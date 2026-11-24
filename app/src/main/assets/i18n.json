@@ -29,6 +29,11 @@
   "बाकी रकम",
   "बाकी रक्कम"
  ],
+ "approve_phone": [
+  "Approve",
+  "मंज़ूर करें",
+  "मंजूर करा"
+ ],
  "approve_quote": [
   "Approve quotation",
   "कोटेशन मंज़ूर करें",
@@ -464,6 +469,16 @@
   "पहले खुली समस्या बंद करें।",
   "आधी उघडी समस्या बंद करा."
  ],
+ "err_key_pending": [
+  "This record comes from a phone the office has not approved yet. Approve the phone, then load the file again.",
+  "यह रिकॉर्ड ऐसे फ़ोन से है जिसे ऑफिस ने अभी मंज़ूर नहीं किया। फ़ोन मंज़ूर करें, फिर फ़ाइल दोबारा लोड करें।",
+  "ही नोंद ऑफिसने अजून मंजूर न केलेल्या फोनवरून आली आहे. फोन मंजूर करा, मग फाइल पुन्हा लोड करा."
+ ],
+ "err_key_unknown": [
+  "This record comes from a phone the company does not know. It was not used.",
+  "यह रिकॉर्ड ऐसे फ़ोन से है जिसे कंपनी नहीं जानती। इसे इस्तेमाल नहीं किया गया।",
+  "ही नोंद कंपनीला माहीत नसलेल्या फोनवरून आली आहे. ती वापरली नाही."
+ ],
  "err_location_or_address": [
   "Get the GPS location or type the address.",
   "GPS लोकेशन लें या पता लिखें।",
@@ -639,6 +654,11 @@
   "साइन ज़रूरी है।",
   "सही आवश्यक आहे."
  ],
+ "err_signature": [
+  "This record's signature does not match. It may have been changed. It was not used.",
+  "इस रिकॉर्ड का साइन मेल नहीं खाता। शायद इसे बदला गया है। इसे इस्तेमाल नहीं किया गया।",
+  "या नोंदीची सही जुळत नाही. ती बदलली असू शकते. ती वापरली नाही."
+ ],
  "err_signatures_open": [
   "All three signatures are needed first.",
   "पहले तीनों साइन ज़रूरी हैं।",
@@ -663,6 +683,11 @@
   "Unknown action.",
   "अनजान काम।",
   "अनोळखी काम."
+ ],
+ "err_unsigned": [
+  "This record has no signature. It was not used.",
+  "इस रिकॉर्ड पर साइन नहीं है। इसे इस्तेमाल नहीं किया गया।",
+  "या नोंदीवर सही नाही. ती वापरली नाही."
  ],
  "err_wait_payment": [
   "Wait until the material payment is confirmed.",
@@ -753,6 +778,16 @@
   "Final inspection requested",
   "अंतिम जाँच माँगी",
   "अंतिम तपासणी मागितली"
+ ],
+ "ev_KEY_ADDED": [
+  "Phone registered",
+  "फ़ोन जोड़ा गया",
+  "फोन नोंदवला"
+ ],
+ "ev_KEY_APPROVED": [
+  "Phone approved",
+  "फ़ोन मंज़ूर",
+  "फोन मंजूर"
  ],
  "ev_LEAD_ACCEPTED": [
   "Lead accepted by Sales",
@@ -1733,6 +1768,31 @@
   "Site",
   "साइट तैयार",
   "साइट तयार"
+ ],
+ "phone_approved": [
+  "This phone (code {c}) is approved. Its records are signed and accepted by company phones.",
+  "यह फ़ोन (कोड {c}) मंज़ूर है। इसके रिकॉर्ड साइन होते हैं और कंपनी के फ़ोन उन्हें लेते हैं।",
+  "हा फोन (कोड {c}) मंजूर आहे. त्याच्या नोंदींवर सही होते आणि कंपनीचे फोन त्या घेतात."
+ ],
+ "phone_code": [
+  "phone code",
+  "फ़ोन कोड",
+  "फोन कोड"
+ ],
+ "phone_not_approved": [
+  "This phone (code {c}) is not approved by the office yet. Your records are saved here, but other phones will accept them only after the office approves this phone.",
+  "यह फ़ोन (कोड {c}) अभी ऑफिस ने मंज़ूर नहीं किया। आपके रिकॉर्ड यहाँ सेव हैं, पर दूसरे फ़ोन उन्हें ऑफिस की मंज़ूरी के बाद ही लेंगे।",
+  "हा फोन (कोड {c}) अजून ऑफिसने मंजूर केलेला नाही. तुमच्या नोंदी इथे जतन आहेत, पण इतर फोन त्या ऑफिसच्या मंजुरीनंतरच घेतील."
+ ],
+ "phones_waiting": [
+  "Phones waiting for approval ({n})",
+  "मंज़ूरी के लिए रुके फ़ोन ({n})",
+  "मंजुरीसाठी थांबलेले फोन ({n})"
+ ],
+ "phones_waiting_info": [
+  "Call the person and check the phone code shown on their Share screen before you approve. Until then other phones do not accept their records.",
+  "मंज़ूर करने से पहले व्यक्ति को फ़ोन करें और उनकी शेयर स्क्रीन पर दिखा फ़ोन कोड मिलाएँ। तब तक दूसरे फ़ोन उनके रिकॉर्ड नहीं लेंगे।",
+  "मंजूर करण्यापूर्वी त्या व्यक्तीला फोन करा आणि त्यांच्या शेअर स्क्रीनवरील फोन कोड जुळवा. तोपर्यंत इतर फोन त्यांच्या नोंदी घेणार नाहीत."
  ],
  "photo_arrival": [
   "Photo of material at site",

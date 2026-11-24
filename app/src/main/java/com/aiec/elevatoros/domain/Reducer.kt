@@ -18,7 +18,10 @@ object Reducer {
         s.byId[ev.id] = ev
         val p: Project? = ev.pid?.let { s.projects[it] }
         when (ev.type) {
-            "ORG_CREATED" -> s.org = Org(d.str("orgId"), d.str("name"), ev.t)
+            "ORG_CREATED" -> {
+                s.org = Org(d.str("orgId"), d.str("name"), ev.t)
+                if (d.str("pub").isNotEmpty()) s.foundingKey = DevKey(d.str("kid"), d.str("pub"), d.str("devName"), ev.t, true)
+            }
             "USER_ADDED" -> {
                 val role = Role.of(d.str("role"))!!
                 s.users[d.str("uid")] = User(
@@ -26,6 +29,8 @@ object Reducer {
                     pinLen = d.int("pinLen") ?: 4, phone = phone10(d.str("phone")), projectId = d.strOrNull("projectId"), t = ev.t, by = ev.by
                 )
                 if (role == Role.CUSTOMER) s.projects[d.str("projectId")]?.customer = d.str("uid")
+                // the first Head Quarter owns the founding phone's key
+                if (s.users.size == 1 && role == Role.OWNER) s.foundingKey?.let { s.keys.getOrPut(d.str("uid")) { mutableListOf() }.add(it) }
             }
             "USER_UPDATED" -> s.users[d.str("uid")]?.let { x ->
                 if (d.containsKey("name") && d.str("name").isNotBlank()) x.name = d.str("name").trim()
@@ -49,6 +54,14 @@ object Reducer {
                 np.log.add(ev.id); np.evidence.addAll(d.evidence())
                 return
             }
+            "KEY_ADDED" -> {
+                val kid = d.str("kid")
+                // trusted at once only for the company's first Head Quarter, or on a phone the office already uses
+                val first = s.keys.isEmpty() && s.roleOf(ev.by) == Role.OWNER
+                val officePhone = s.keys.any { (uid, l) -> s.roleOf(uid)?.office == true && l.any { it.kid == kid && it.ok } }
+                s.keys.getOrPut(ev.by) { mutableListOf() }.add(DevKey(kid, d.str("pub"), d.str("devName"), ev.t, first || officePhone))
+            }
+            "KEY_APPROVED" -> s.keys[d.str("uid")]?.firstOrNull { it.kid == d.str("kid") }?.let { it.ok = true; it.okBy = ev.by }
             "SOS_RAISED" -> s.sos[d.str("sid")] = SosAlert(d.str("sid"), ev.by, ev.t, d.gps(), d.strOrNull("pid"))
             "SOS_CLOSED" -> s.sos[d.str("sid")]?.let { it.open = false; it.closedBy = ev.by }
         }
@@ -170,21 +183,45 @@ object Reducer {
     }
 
     /** Rebuild the whole state from the saved history, refusing (and reporting) any event the rules do not accept. */
-    fun rebuild(events: List<Event>, onRejected: (Event, Err) -> Unit = { _, _ -> }): State {
+    fun rebuild(events: List<Event>, onRejected: (Event, Err) -> Unit = { _, _ -> }): State = rebuild(events, null, onRejected)
+
+    /**
+     * Rebuild the whole state from the saved history, refusing (and reporting) any record the rules do not accept.
+     * With [trust], each record must also pass the signature check first. A phone key approved by the office counts
+     * for that person's records made before the approval too, so a second pass uses the approvals of the first.
+     */
+    fun rebuild(events: List<Event>, trust: ((State, Event) -> Err?)?, onRejected: (Event, Err) -> Unit): State {
+        var approved: Map<Pair<String, String>, String> = emptyMap()
+        repeat(3) { pass ->
+            val rejected = mutableListOf<Pair<Event, Err>>()
+            val s = replay(events, rejected) { st, ev ->
+                if (trust == null) null
+                else trust(st, ev)?.let { e -> if ((e.key == "err_key_pending" || e.key == "err_key_unknown") && Signing.checkWithLaterApproval(ev, approved)) null else e }
+            }
+            val nowApproved = s.keys.flatMap { (uid, l) -> l.filter { it.ok }.map { (uid to it.kid) to it.pub } }.toMap()
+            if (trust == null || nowApproved == approved || rejected.none { it.second.key == "err_key_pending" || it.second.key == "err_key_unknown" } || pass == 2) {
+                rejected.forEach { (e, r) -> onRejected(e, r) }; return s
+            }
+            approved = nowApproved
+        }
+        error("unreachable")
+    }
+
+    private fun replay(events: List<Event>, rejected: MutableList<Pair<Event, Err>>, trust: (State, Event) -> Err?): State {
         val skip = mutableSetOf<String>()
         while (true) {
             val s = State(); var bad: Event? = null
-            val rejected = mutableListOf<Pair<Event, Err>>()
+            rejected.clear()
             for (ev in events) {
                 if (ev.id in skip || s.byId.containsKey(ev.id)) continue // idempotent: the same record twice is applied once
-                val err = Rules.validate(s, ev)
+                val err = trust(s, ev) ?: Rules.validate(s, ev)
                 if (err != null) { rejected.add(ev to err); continue }
                 // safety net: a record that breaks the reducer is left out and the history is replayed without it,
                 // so no half-applied change stays in the state and the app always starts
                 try { apply(s, ev) } catch (e: RuntimeException) { bad = ev; break }
             }
-            if (bad == null) { rejected.forEach { (e, r) -> onRejected(e, r) }; return s }
-            skip += bad.id; onRejected(bad, Err("err_bad_record"))
+            if (bad == null) { skip.forEach { id -> events.firstOrNull { it.id == id }?.let { rejected.add(it to Err("err_bad_record")) } }; return s }
+            skip += bad.id
         }
     }
 }

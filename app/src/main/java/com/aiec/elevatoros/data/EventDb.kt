@@ -16,7 +16,7 @@ import kotlinx.serialization.json.jsonObject
  */
 class EventDb(context: Context, name: String) : SQLiteOpenHelper(context, name, null, VERSION) {
     companion object {
-        const val VERSION = 1
+        const val VERSION = 2
         const val LOCAL = "local_saved"; const val PENDING = "pending_sync"; const val SYNCED = "synced"; const val FAILED = "failed"
         const val IMPORTED = "imported"
     }
@@ -29,22 +29,27 @@ class EventDb(context: Context, name: String) : SQLiteOpenHelper(context, name, 
                 seq INTEGER PRIMARY KEY AUTOINCREMENT,
                 id TEXT NOT NULL UNIQUE, type TEXT NOT NULL, by_uid TEXT NOT NULL, pid TEXT, t TEXT NOT NULL,
                 dev TEXT NOT NULL, v INTEGER NOT NULL, data TEXT NOT NULL,
-                sync_state TEXT NOT NULL DEFAULT '$LOCAL', attempts INTEGER NOT NULL DEFAULT 0, last_error TEXT)"""
+                sync_state TEXT NOT NULL DEFAULT '$LOCAL', attempts INTEGER NOT NULL DEFAULT 0, last_error TEXT,
+                kid TEXT NOT NULL DEFAULT '', sig TEXT NOT NULL DEFAULT '')"""
         )
         db.execSQL("CREATE INDEX events_pid ON events(pid)")
         db.execSQL("CREATE TABLE rejected(id TEXT PRIMARY KEY, raw TEXT NOT NULL, reason TEXT NOT NULL, t TEXT NOT NULL)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // schema v1 is the first release; future migrations go here, never by dropping company records
+        // never drop company records: only add what a newer version needs
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE events ADD COLUMN kid TEXT NOT NULL DEFAULT ''")
+            db.execSQL("ALTER TABLE events ADD COLUMN sig TEXT NOT NULL DEFAULT ''")
+        }
     }
 
     /** One canonical order on every phone and after every restart or import: time, then id. */
-    fun all(): List<Event> = readableDatabase.rawQuery("SELECT id,type,by_uid,pid,t,dev,v,data FROM events ORDER BY t, id", null).use { c ->
+    fun all(): List<Event> = readableDatabase.rawQuery("SELECT id,type,by_uid,pid,t,dev,v,data,kid,sig FROM events ORDER BY t, id", null).use { c ->
         buildList {
             while (c.moveToNext()) add(
                 Event(c.getString(0), c.getString(1), c.getString(2), if (c.isNull(3)) null else c.getString(3), c.getString(4), c.getString(5), c.getInt(6),
-                    JSON.parseToJsonElement(c.getString(7)).jsonObject)
+                    JSON.parseToJsonElement(c.getString(7)).jsonObject, c.getString(8), c.getString(9))
             )
         }
     }
@@ -54,6 +59,7 @@ class EventDb(context: Context, name: String) : SQLiteOpenHelper(context, name, 
         val cv = ContentValues().apply {
             put("id", ev.id); put("type", ev.type); put("by_uid", ev.by); put("pid", ev.pid); put("t", ev.t); put("dev", ev.dev); put("v", ev.v)
             put("data", JSON.encodeToString(JsonObject.serializer(), ev.data)); put("sync_state", state)
+            put("kid", ev.kid); put("sig", ev.sig)
         }
         return writableDatabase.insertWithOnConflict("events", null, cv, SQLiteDatabase.CONFLICT_IGNORE) != -1L
     }
@@ -76,6 +82,10 @@ class EventDb(context: Context, name: String) : SQLiteOpenHelper(context, name, 
     }
 
     fun hasOrg(): Boolean = readableDatabase.rawQuery("SELECT 1 FROM events WHERE type='ORG_CREATED' LIMIT 1", null).use { it.moveToFirst() }
+
+    /** Signs records saved by an earlier version of this app on this phone (schema v1 had no signatures). */
+    fun updateSignature(id: String, kid: String, sig: String) =
+        writableDatabase.execSQL("UPDATE events SET kid=?, sig=? WHERE id=?", arrayOf(kid, sig, id))
 
     fun counts(): Map<String, Int> = readableDatabase.rawQuery("SELECT sync_state, COUNT(*) FROM events GROUP BY sync_state", null).use { c ->
         buildMap { while (c.moveToNext()) put(c.getString(0), c.getInt(1)) }

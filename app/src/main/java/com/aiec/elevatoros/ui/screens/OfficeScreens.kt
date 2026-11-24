@@ -93,6 +93,23 @@ fun PeopleScreen(vm: AppViewModel, speech: Speech) {
     var confirm by remember { mutableStateOf<String?>(null) }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
         if (Rules.allowed(vm.state, me.uid, "USER_ADDED", null)) BigButton(t("add_person"), "➕") { vm.go(Screen.Action("USER_ADDED", null)) }
+        // phones waiting for approval: their records are accepted by other phones only after this
+        val pending = vm.state.keys.flatMap { (uid, l) -> l.filter { !it.ok }.map { uid to it } }
+        if (pending.isNotEmpty() && Rules.allowed(vm.state, me.uid, "KEY_APPROVED", null)) {
+            SectionTitle("📱 " + t("phones_waiting", "n" to pending.size.toString()))
+            InfoBox(t("phones_waiting_info"), icon = "🔐")
+            pending.forEach { (uid, k) ->
+                AiecCard {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text(vm.state.users[uid]?.name.orEmpty(), style = MaterialTheme.typography.titleMedium)
+                            Text(k.devName.ifBlank { "—" } + " · " + t("phone_code") + " " + k.kid.take(8).uppercase() + " · " + fmt(k.t), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                        TextButton(onClick = { vm.perform("KEY_APPROVED", null, jsonOf("uid" to uid, "kid" to k.kid)) }) { Text("✅ " + t("approve_phone")) }
+                    }
+                }
+            }
+        }
         Role.entries.forEach { role ->
             val list = vm.state.users.values.filter { it.role == role }
             if (list.isEmpty()) return@forEach
@@ -221,6 +238,11 @@ fun SyncScreen(vm: AppViewModel, speech: Speech) {
     }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         InfoBox(t("sync_info"))
+        vm.me?.let { m ->
+            val mine = vm.state.keys[m.uid]?.firstOrNull { it.kid == vm.repo.key.kid }
+            if (mine != null && !mine.ok) InfoBox(t("phone_not_approved", "c" to mine.kid.take(8).uppercase()), MaterialTheme.colorScheme.errorContainer, "🔐")
+            else if (mine != null) InfoBox(t("phone_approved", "c" to mine.kid.take(8).uppercase()), icon = "🔐")
+        }
         AiecCard {
             Column {
                 KeyValue(t("sync_waiting"), ((counts[EventDb.PENDING] ?: 0) + (counts[EventDb.LOCAL] ?: 0)).toString())

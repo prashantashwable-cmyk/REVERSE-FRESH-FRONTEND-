@@ -1,6 +1,6 @@
 # 09 — Android QA Test Report
 
-**Date:** 2026-11-23 · **Environment:** Linux container, OpenJDK 21.0.13, Gradle 8.14.3, AGP 8.13.2, Robolectric 4.16 (Android SDK 35 image, native graphics), Roborazzi 1.52.0 · **No device or emulator** (no KVM).
+**Date:** 2026-11-24 (v1.1.0) · **Environment:** Linux container, OpenJDK 21.0.13, Gradle 8.14.3, AGP 8.13.2, Robolectric 4.16 (Android SDK 35 image, native graphics), Roborazzi 1.52.0 · **No device or emulator** (no KVM).
 
 ## 1. Original web app baseline (before any work)
 
@@ -17,10 +17,10 @@ The original repository was not modified.
 ## 2. New app — commands and results
 
 ```bash
-node tools/i18n/build.mjs --check      # keys used: 589 · written: 589 · missing: 0
-./gradlew testDebugUnitTest            # 24 tests, 24 passed, 0 failed, 0 skipped
+node tools/i18n/build.mjs --check      # keys used: 601 · written: 601 · missing: 0
+./gradlew testDebugUnitTest            # 28 tests, 28 passed, 0 failed, 0 skipped
 ./gradlew recordRoborazziDebug         # same tests + 32 screenshots in android-release/screenshots/
-./gradlew lintDebug                    # 0 errors, 29 warnings (library-update and KTX-style hints)
+./gradlew lintDebug                    # 0 errors, 31 warnings (library-update and KTX-style hints)
 ./gradlew assembleDebug assembleRelease bundleRelease   # BUILD SUCCESSFUL
 apksigner verify --print-certs app-release.apk          # Verifies (v2, v3)
 ```
@@ -32,7 +32,8 @@ apksigner verify --print-certs app-release.apk          # Verifies (v2, v3)
 | `UiFlowScreenshotTest` | 6 | 6 | The real Compose UI + ViewModel + SQLite: front door in 3 languages; Field login and Add-site form; Sales accepts a lead through **Start My Next Task** and the stage changes; a form refuses to save with a missing field; Admin approves a quote (stage → quote ready), escalations, people; Finance opens payment verification; technician's next step; **a technician sees no customer name and no ₹ amount**; HQ screens; dark and strong-contrast themes; business rules; share screen |
 | `SmallScreenScreenshotTest` | 1 | 1 | 320×640 dp mdpi: Marathi welcome, practice login, PIN pad |
 | `PerformanceTest` | 1 | 1 | 20,007-record replay in 191 ms; no records refused |
-| **Total** | **24** | **24** | |
+| `SigningTest` | 4 | 4 | Two simulated phones + an attacker: an approved phone is trusted, also for records made before approval; edited, unsigned, forged-as-HQ and spoofed-device records are refused; a key an attacker registers for HQ stays untrusted; cutting PIN fields keeps signatures valid; own-phone records are trusted |
+| **Total** | **28** | **28** | |
 
 ## 3. Brief §11 checklist
 
@@ -60,7 +61,7 @@ apksigner verify --print-certs app-release.apk          # Verifies (v2, v3)
 ## 4. Run on a phone (for the owner, when a device is available)
 
 ```bash
-adb install -r android-release/dist/AIEC-Elevator-OS-1.0.0-eval.apk
+adb install -r android-release/dist/AIEC-Elevator-OS-1.1.0-eval.apk
 adb shell am start -W -n com.aiec.elevatoros/.MainActivity      # cold launch time (TotalTime)
 adb shell dumpsys meminfo com.aiec.elevatoros | head -30
 ```

@@ -74,6 +74,6 @@ Consequences:
 
 ```bash
 sha256sum -c SHA256SUMS.txt
-$ANDROID_HOME/build-tools/36.1.0/apksigner verify --print-certs AIEC-Elevator-OS-1.0.0-eval.apk
-$ANDROID_HOME/build-tools/36.1.0/aapt2 dump badging AIEC-Elevator-OS-1.0.0-eval.apk | head -3
+$ANDROID_HOME/build-tools/36.1.0/apksigner verify --print-certs AIEC-Elevator-OS-1.1.0-eval.apk
+$ANDROID_HOME/build-tools/36.1.0/aapt2 dump badging AIEC-Elevator-OS-1.1.0-eval.apk | head -3
 ```

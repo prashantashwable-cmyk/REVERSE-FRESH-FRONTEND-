@@ -10,15 +10,16 @@ The same event-sourcing model is kept, but stored in **SQLite** (`data/EventDb.k
 * Android SQLite is durable across process death and reboot (WAL journal, committed before the UI confirms). Browser storage can be evicted.
 * There is one file per mode (`aiec_live.db`, `aiec_practice.db`), so practice data can never mix with company data.
 
-### Schema v1
+### Schema v2
 
 ```
 events(seq PK AUTOINCREMENT, id TEXT UNIQUE, type, by_uid, pid, t, dev, v, data JSON,
-       sync_state TEXT DEFAULT 'local_saved', attempts INT, last_error TEXT)
+       sync_state TEXT DEFAULT 'local_saved', attempts INT, last_error TEXT,
+       kid TEXT, sig TEXT)                -- added in schema v2 (1.1.0): signing key id and ECDSA signature
 rejected(id PK, raw, reason, t)      -- records another phone sent that the rules refused
 ```
 
-`onUpgrade` is the place for future migrations. Company records are never dropped.
+`onUpgrade` 1 → 2 adds the `kid`/`sig` columns. Records this phone saved under 1.0.0 are signed with this phone's key at the first start of 1.1.0. Company records are never dropped.
 
 ## Write path (durability)
 
@@ -59,7 +60,7 @@ There is no "last write wins" on fields. Two phones acting on the same job offli
 
 * **Photos and signatures are not in the records file.** Only their SHA-256 references travel; the images stay on the phone that took them.
 * An **office** file (Head Quarter/Admin → one chosen staff member's phone) carries every record so that phone can re-check everything, but only that person's PIN hash; everyone else's is removed. **Other staff** (including technicians and suppliers) share only the records they made themselves, with no PIN hashes, for the office to load. Office files for technicians and suppliers (with customer details removed, as in the original) are not ported. See 06 C2/C3.
-* Records files are **not signed** (06 C1). Imported files cannot add a Head Quarter/Admin, change PINs or roles, or change business rules unless the Head Quarter loads them.
+* **Every record is signed** by the phone that made it (since 1.1.0). A loaded record must verify with the author's phone key, which the office approved once (People → Phones waiting for approval). If the office approves the phone later, loading the same file again accepts the earlier records, which are checked again with the approved key. Imported changes to people, PINs or business rules additionally need the Head Quarter.
 * Phones and restarts all use one order (time, then id). If a wrong phone clock makes one of this phone's own records invalid after an import, it is not applied, and it is listed in *refused* on the Share screen, never dropped silently. Records dated more than 6 h in the future are refused.
 * Retry with backoff, server acknowledgement and push are not implemented, because there is no server transport. The `sync_state`, `attempts` and `last_error` columns are ready for one.
 

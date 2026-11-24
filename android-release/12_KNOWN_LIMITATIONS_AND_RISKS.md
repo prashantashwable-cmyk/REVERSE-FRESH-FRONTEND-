@@ -18,7 +18,7 @@ This release is a **fresh native app with the core lead-to-handover workflow**. 
 
 ## Risks
 
-1. **Records files are not signed (Critical, 06 C1).** Use file sharing only between trusted company phones until per-device signing is added.
+1. **A brand-new phone trusts the first company file it loads** (as in the original). Records are signed and checked since 1.1.0 (06 C1). Set up new phones only with files that come straight from your own office.
 2. **No company server.** The original's encrypted mailbox (Supabase/Cloudflare) is not used: no automatic sync, no backups, no push alarms.
 3. **The web app and this app don't share data.** Running both for real work would split the records. Choose one per company, or wait for server compatibility.
 4. **Not run on a device.** Camera, GPS, permission prompts, back gestures, process death, launch time and memory are reviewed in code but **not executed** (no emulator in the build environment). Test on at least one low-end and one current phone before company use (09 §4).
@@ -31,7 +31,7 @@ This release is a **fresh native app with the core lead-to-handover workflow**. 
 
 ## Next release requirements (in order)
 
-1. Per-device signing of records (ECDSA P-256 in the Android Keystore), compatible with the original's record format.
+1. ~~Per-device signing of records~~ — **done in 1.1.0** (own format; compatibility with the web app's signature format is part of item 2).
 2. Company-server transport (the existing encrypted mailbox), with retry/backoff, acknowledgement, evidence upload with idempotency keys, and nightly locked backups.
 3. Per-person reduced files for technicians, suppliers and partner companies.
 4. Device test pass on real phones (low-end Android 8–10, mid-range, Android 16) and fixes.

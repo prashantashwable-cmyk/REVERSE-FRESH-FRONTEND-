@@ -6,8 +6,8 @@
 
 | Metric | Result | How |
 |---|---|---|
-| Release APK size | **1.40 MB** (1,397,053 bytes), R8 + resource shrinking, locales en/hi/mr | `ls -l app-release.apk` |
-| Release AAB size | 3.67 MB (Play generates smaller per-device APKs) | `ls -l app-release.aab` |
+| Release APK size | **1.41 MB** (1,414,457 bytes), R8 + resource shrinking, locales en/hi/mr | `ls -l app-release.apk` |
+| Release AAB size | 3.70 MB (Play generates smaller per-device APKs) | `ls -l app-release.aab` |
 | Debug APK size | 19.0 MB (not minified, includes test manifest) | `ls -l app-debug.apk` |
 | Replay of the full history at start (engine only) | **20,007 records / 1,818 jobs in 191 ms** | `PerformanceTest`, after JIT warm-up |
 | Task list for Sales over 1,818 jobs | 30 ms | same test |

@@ -57,6 +57,10 @@ class Prefs(context: Context) {
 class Repository(private val context: Context, val prefs: Prefs) {
     private var db: EventDb? = null
     var mode: Mode? = null; private set
+    /** this phone's signing key (Android Keystore); every record made here is signed with it */
+    val key by lazy { com.aiec.elevatoros.device.DeviceKey(context) }
+    private val trust: (State, Event) -> Err? = { st, ev -> com.aiec.elevatoros.domain.Signing.check(st, ev, key.own) }
+    private fun signed(e: Event): Event = com.aiec.elevatoros.domain.Signing.sign(e, key.kid, key.private)
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state
     private val _version = MutableStateFlow(0)
@@ -75,8 +79,10 @@ class Repository(private val context: Context, val prefs: Prefs) {
 
     fun reload() {
         val d = db ?: return
+        // records saved on this phone by version 1.0.0 (before signatures) are signed now with this phone's key
+        d.all().filter { it.sig.isBlank() && it.dev == prefs.deviceId }.forEach { e -> signed(e).let { d.updateSignature(it.id, it.kid, it.sig) } }
         val events = d.all()
-        _state.value = Reducer.rebuild(events) { ev, err -> d.reject(ev.id, ev.toString(), err.key, Time.now()) }
+        _state.value = Reducer.rebuild(events, trust) { ev, err -> d.reject(ev.id, ev.toString(), err.key, Time.now()) }
         _version.value++
     }
 
@@ -92,7 +98,7 @@ class Repository(private val context: Context, val prefs: Prefs) {
     @Synchronized
     fun perform(by: String, type: String, pid: String?, data: JsonObject): Err? {
         val d = db ?: return Err("err_no_org")
-        val ev = newEvent(by, type, pid, data)
+        val ev = signed(newEvent(by, type, pid, data))
         val s = _state.value
         Rules.validate(s, ev)?.let { return it }
         if (!d.insert(ev, EventDb.PENDING)) return Err("err_already") // durably saved before the screen says "saved"
@@ -100,6 +106,15 @@ class Repository(private val context: Context, val prefs: Prefs) {
         _version.value++
         return null
     }
+
+    /** Registers this phone's key for [uid] the first time they use this phone (KEY_ADDED). */
+    fun ensureKey(uid: String): Err? {
+        if (_state.value.keys[uid]?.any { it.kid == key.kid } == true) return null
+        return perform(uid, "KEY_ADDED", null, com.aiec.elevatoros.domain.jsonOf("kid" to key.kid, "pub" to key.publicB64, "devName" to key.deviceName))
+    }
+
+    /** Signs records made elsewhere on this phone (the practice company is built before the database is open). */
+    fun signAll(events: List<Event>): List<Event> = events.map { signed(it) }
 
     fun syncCounts(): Map<String, Int> = db?.counts() ?: emptyMap()
     fun rejectedCount(): Int = db?.rejectedCount() ?: 0
@@ -115,10 +130,10 @@ class Repository(private val context: Context, val prefs: Prefs) {
         val evs = d.all().filter { onlyBy == null || it.by == onlyBy }
         val s = _state.value
         val wire = evs.map { e ->
-            val w = EventWire.of(e)
-            if ((e.type == "USER_ADDED" && e.data.str("uid") != forUid) || (e.type == "USER_UPDATED" && e.data.str("uid") != forUid && e.data.containsKey("pin")))
-                w.copy(data = JsonObject(e.data.filterKeys { it != "pin" && it != "salt" } + ("stripped" to kotlinx.serialization.json.JsonPrimitive(true))))
-            else w
+            // other people's PIN records are cut to their fingerprint: the signature still verifies, the PIN can't be guessed
+            if ((e.type == "USER_ADDED" || e.type == "USER_UPDATED") && e.data.str("uid") != forUid && e.data.containsKey("pin"))
+                EventWire.of(com.aiec.elevatoros.domain.Signing.cut(e))
+            else EventWire.of(e)
         }
         return buildJsonObject {
             put("format", "aiec-events"); put("v", 1); put("org", s.org?.id ?: ""); put("orgName", s.org?.name ?: "")
@@ -155,7 +170,7 @@ class Repository(private val context: Context, val prefs: Prefs) {
         val merged = (d.all() + fresh).sortedWith(compareBy({ it.t }, { it.id }))
         val rejectedIds = mutableSetOf<String>()
         // local records that no longer pass after the merge are reported too, never silently dropped
-        val rebuilt = Reducer.rebuild(merged) { ev, err -> if (ev.id !in known) rejectedIds += ev.id; d.reject(ev.id, ev.toString(), err.key, Time.now()) }
+        val rebuilt = Reducer.rebuild(merged, trust) { ev, err -> if (ev.id !in known) rejectedIds += ev.id; d.reject(ev.id, ev.toString(), err.key, Time.now()) }
         d.insertAll(fresh.filter { it.id !in rejectedIds }, EventDb.IMPORTED)
         _state.value = rebuilt; _version.value++
         return ImportResult(fresh.size - rejectedIds.size, incoming.count { it.id in known }, rejectedIds.size + blocked.size, false)
@@ -169,7 +184,7 @@ class Repository(private val context: Context, val prefs: Prefs) {
 }
 
 @kotlinx.serialization.Serializable
-data class EventWire(val id: String, val type: String, val by: String, val pid: String? = null, val t: String, val dev: String, val v: Int, val data: JsonObject) {
-    fun toEvent() = Event(id, type, by, pid, t, dev, v, data)
-    companion object { fun of(e: Event) = EventWire(e.id, e.type, e.by, e.pid, e.t, e.dev, e.v, e.data) }
+data class EventWire(val id: String, val type: String, val by: String, val pid: String? = null, val t: String, val dev: String, val v: Int, val data: JsonObject, val kid: String = "", val sig: String = "") {
+    fun toEvent() = Event(id, type, by, pid, t, dev, v, data, kid, sig)
+    companion object { fun of(e: Event) = EventWire(e.id, e.type, e.by, e.pid, e.t, e.dev, e.v, e.data, e.kid, e.sig) }
 }

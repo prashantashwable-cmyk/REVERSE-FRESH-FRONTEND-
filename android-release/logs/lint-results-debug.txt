@@ -47,6 +47,12 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-8.14.3-bin.zip
 /home/user/REVERSE-FRESH-FRONTEND-/app/build.gradle.kts:123: Warning: A newer version of io.github.takahirom.roborazzi:roborazzi than 1.52.0 is available: 1.79.0 [NewerVersionAvailable]
     testImplementation("io.github.takahirom.roborazzi:roborazzi:1.52.0")
                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/user/REVERSE-FRESH-FRONTEND-/app/build.gradle.kts:124: Warning: A newer version of io.github.takahirom.roborazzi:roborazzi-compose than 1.52.0 is available: 1.79.0 [NewerVersionAvailable]
+    testImplementation("io.github.takahirom.roborazzi:roborazzi-compose:1.52.0")
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/user/REVERSE-FRESH-FRONTEND-/app/build.gradle.kts:125: Warning: A newer version of io.github.takahirom.roborazzi:roborazzi-junit-rule than 1.52.0 is available: 1.79.0 [NewerVersionAvailable]
+    testImplementation("io.github.takahirom.roborazzi:roborazzi-junit-rule:1.52.0")
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "NewerVersionAvailable":
    This detector checks with a central repository to see if there are newer
@@ -129,10 +135,10 @@ fun SecondaryButton(text: String, icon: String? = null, modifier: Modifier = Mod
 /home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/components/Components.kt:248: Warning: Use the KTX function createBitmap instead? [UseKtx]
                 val bmp = Bitmap.createBitmap(wh[0], wh[1], Bitmap.Config.ARGB_8888)
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/data/EventDb.kt:64: Warning: Use the KTX extension function SQLiteDatabase.transaction instead? [UseKtx]
+/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/data/EventDb.kt:70: Warning: Use the KTX extension function SQLiteDatabase.transaction instead? [UseKtx]
         db.beginTransaction()
         ~~~~~~~~~~~~~~~~~~~~~
-/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/data/EventDb.kt:71: Warning: Use the KTX extension function SQLiteDatabase.transaction instead? [UseKtx]
+/home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/data/EventDb.kt:77: Warning: Use the KTX extension function SQLiteDatabase.transaction instead? [UseKtx]
         db.beginTransaction()
         ~~~~~~~~~~~~~~~~~~~~~
 /home/user/REVERSE-FRESH-FRONTEND-/app/src/main/java/com/aiec/elevatoros/ui/screens/Home.kt:202: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
@@ -222,4 +228,4 @@ fun SecondaryButton(text: String, icon: String? = null, modifier: Modifier = Mod
    </lint>
    ```
 
-0 errors, 29 warnings
+0 errors, 31 warnings

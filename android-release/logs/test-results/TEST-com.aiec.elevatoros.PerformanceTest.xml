@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.aiec.elevatoros.PerformanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-23T17:23:29.707Z" hostname="vm" time="0.675">
+<testsuite name="com.aiec.elevatoros.PerformanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:17:17.010Z" hostname="vm" time="0.952">
   <properties/>
-  <testcase name="replay20000RecordsQuickly" classname="com.aiec.elevatoros.PerformanceTest" time="0.675"/>
-  <system-out><![CDATA[PERF replay 20007 records, 1818 jobs: 173 ms; Sales task list (1818 tasks): 23 ms
+  <testcase name="replay20000RecordsQuickly" classname="com.aiec.elevatoros.PerformanceTest" time="0.952"/>
+  <system-out><![CDATA[PERF replay 20007 records, 1818 jobs: 247 ms; Sales task list (1818 tasks): 61 ms
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

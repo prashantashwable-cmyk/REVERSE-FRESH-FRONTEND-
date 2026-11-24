@@ -73,7 +73,7 @@ object Rules {
         "USER_ADDED" to Rule(setOf(OWNER, ADMIN, SALES), project = false) {
             val role = Role.of(d.str("role"))
             when {
-                d.str("name").isBlank() || (!d.bool("stripped") && (d.str("pin").isBlank() || d.str("salt").isBlank())) -> Err("err_fill")
+                d.str("name").isBlank() || (!Signing.isCut(d["pin"]) && (d.str("pin").isBlank() || d.str("salt").isBlank())) -> Err("err_fill")
                 role == null -> Err("err_role_bad")
                 s.users.containsKey(d.str("uid")) -> Err("err_dup_user")
                 u.role == ADMIN && role == OWNER -> Err("err_role", mapOf("roles" to "owner"))
@@ -336,6 +336,18 @@ object Rules {
         "TICKET_CLOSED" to Rule(setOf(CUSTOMER, ADMIN, OWNER), stages = setOf(AMC)) {
             val t = P.tickets.firstOrNull { it.tid == d.str("tid") }
             need(t != null && t.status == "fixed", "err_not_fixed") ?: need(d.bool("ok") || d.str("note").isNotBlank(), "err_reason")
+        },
+        "KEY_ADDED" to Rule(Role.ALL, project = false) {
+            val pub = d.str("pub")
+            when {
+                Signing.publicKey(pub) == null || d.str("kid") != Signing.kidOf(pub) -> Err("err_signature")
+                s.keys[ev.by]?.any { it.kid == d.str("kid") } == true -> Err("err_already")
+                else -> null
+            }
+        },
+        "KEY_APPROVED" to Rule(setOf(OWNER, ADMIN), project = false) {
+            val k = s.keys[d.str("uid")]?.firstOrNull { it.kid == d.str("kid") }
+            need(d.str("uid") != ev.by, "err_self") ?: need(k != null, "err_fill") ?: need(k?.ok != true, "err_already")
         },
         "SOS_RAISED" to Rule(Role.ALL - CUSTOMER, project = false) {
             need(d.str("sid").isNotBlank() && !s.sos.containsKey(d.str("sid")), "err_fill")

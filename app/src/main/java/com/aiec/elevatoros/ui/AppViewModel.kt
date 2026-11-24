@@ -97,7 +97,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                     val salt = Ids.rid(10)
                     val events = Practice.build(Pin.hash(Practice.PIN, salt), salt, prefs.deviceId)
                     repo.wipe(Mode.PRACTICE)
-                    com.aiec.elevatoros.data.EventDb(getApplication(), Mode.PRACTICE.dbName).use { it.insertAll(events, com.aiec.elevatoros.data.EventDb.SYNCED) }
+                    com.aiec.elevatoros.data.EventDb(getApplication(), Mode.PRACTICE.dbName).use { it.insertAll(repo.signAll(events), com.aiec.elevatoros.data.EventDb.SYNCED) }
                 }
                 repo.open(Mode.PRACTICE)
             }
@@ -127,8 +127,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         val err = withContext(Dispatchers.Default) {
             repo.open(Mode.LIVE)
             val salt = Ids.rid(10); val hash = Pin.hash(pin, salt)
-            repo.perform(uid, "ORG_CREATED", null, jsonOf("orgId" to "ORG" + Ids.rid(8), "name" to company.trim()))
+            repo.perform(uid, "ORG_CREATED", null, jsonOf("orgId" to "ORG" + Ids.rid(8), "name" to company.trim(), "kid" to repo.key.kid, "pub" to repo.key.publicB64, "devName" to repo.key.deviceName))
                 ?: repo.perform(uid, "USER_ADDED", null, jsonOf("uid" to uid, "name" to hqName.trim(), "role" to "owner", "pin" to hash, "salt" to salt, "pinLen" to pin.length, "phone" to phone))
+                ?: repo.ensureKey(uid)
         }
         busy = false
         if (err != null) { repo.wipe(Mode.LIVE); onErr(err); return@launch }
@@ -145,6 +146,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         val ok = withContext(Dispatchers.Default) { Pin.matches(pin, u) }
         busy = false
         if (ok && u.active) {
+            // first use of this phone by this person: register the phone key (the office approves it once)
+            withContext(Dispatchers.IO) { repo.ensureKey(uid) }
             prefs.setFailedPins(uid, 0); prefs.lastUser = uid; sessionUid = uid; resetTo(Screen.Home); onResult(null)
         } else {
             val n = prefs.failedPins(uid) + 1

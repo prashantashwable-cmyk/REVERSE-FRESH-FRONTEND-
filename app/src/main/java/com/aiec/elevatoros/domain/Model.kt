@@ -77,6 +77,9 @@ data class Event(
     val dev: String,
     val v: Int = EVENT_VERSION,
     val data: JsonObject = JsonObject(emptyMap()),
+    /** id of the phone key that signed this record, and the ECDSA signature (Signing.kt) */
+    val kid: String = "",
+    val sig: String = "",
 ) {
     companion object { const val EVENT_VERSION = 2 }
 }
@@ -185,6 +188,8 @@ class Project(val id: String, val no: String, val t: String, val createdBy: Stri
     fun people(): Set<String> = setOfNotNull(createdBy, sales, tech, supplier, qc, customer)
 }
 
+class DevKey(val kid: String, val pub: String, val devName: String, val t: String, var ok: Boolean, var okBy: String? = null)
+
 class SosAlert(val sid: String, val by: String, val t: String, val gps: GeoPoint?, val pid: String?, var open: Boolean = true, var closedBy: String? = null)
 
 class State {
@@ -195,6 +200,12 @@ class State {
     val jobNos = mutableMapOf<String, String>()
     val byId = mutableMapOf<String, Event>()
     val sos = linkedMapOf<String, SosAlert>()
+    /** phone keys registered for each person (KEY_ADDED); only approved keys are trusted for records from other phones */
+    val keys = linkedMapOf<String, MutableList<DevKey>>()
+    /** the key of the phone that created the company (from ORG_CREATED); it becomes the first Head Quarter's key */
+    var foundingKey: DevKey? = null
+
+    fun keyOk(uid: String, kid: String) = keys[uid]?.any { it.kid == kid && it.ok } == true
 
     fun user(uid: String?): User? = uid?.let { users[it] }
     fun roleOf(uid: String?): Role? = user(uid)?.role

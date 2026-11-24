@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.aiec.elevatoros.EngineTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-23T17:23:29.468Z" hostname="vm" time="0.173">
+<testsuite name="com.aiec.elevatoros.EngineTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:17:16.298Z" hostname="vm" time="0.551">
   <properties/>
-  <testcase name="paymentAmountMustMatchSchedule" classname="com.aiec.elevatoros.EngineTest" time="0.057"/>
-  <testcase name="salesCanTakeOverAJobWhoseSalesPersonIsGone" classname="com.aiec.elevatoros.EngineTest" time="0.002"/>
-  <testcase name="ownerCoversEmptyOfficeRolesButNeverPhysicalWork" classname="com.aiec.elevatoros.EngineTest" time="0.0"/>
-  <testcase name="duplicateJobNumberGetsSuffix" classname="com.aiec.elevatoros.EngineTest" time="0.003"/>
-  <testcase name="forgedEventsAreRefusedOnRebuild" classname="com.aiec.elevatoros.EngineTest" time="0.002"/>
-  <testcase name="quoteMathsMatchesOriginal" classname="com.aiec.elevatoros.EngineTest" time="0.001"/>
-  <testcase name="recorderIsLeftOutOfCoverSoSomeoneElseConfirms" classname="com.aiec.elevatoros.EngineTest" time="0.008"/>
-  <testcase name="escalationLadderUsesWorkingDays" classname="com.aiec.elevatoros.EngineTest" time="0.002"/>
+  <testcase name="paymentAmountMustMatchSchedule" classname="com.aiec.elevatoros.EngineTest" time="0.192"/>
+  <testcase name="salesCanTakeOverAJobWhoseSalesPersonIsGone" classname="com.aiec.elevatoros.EngineTest" time="0.006"/>
+  <testcase name="ownerCoversEmptyOfficeRolesButNeverPhysicalWork" classname="com.aiec.elevatoros.EngineTest" time="0.005"/>
+  <testcase name="duplicateJobNumberGetsSuffix" classname="com.aiec.elevatoros.EngineTest" time="0.016"/>
+  <testcase name="forgedEventsAreRefusedOnRebuild" classname="com.aiec.elevatoros.EngineTest" time="0.007"/>
+  <testcase name="quoteMathsMatchesOriginal" classname="com.aiec.elevatoros.EngineTest" time="0.003"/>
+  <testcase name="recorderIsLeftOutOfCoverSoSomeoneElseConfirms" classname="com.aiec.elevatoros.EngineTest" time="0.034"/>
+  <testcase name="escalationLadderUsesWorkingDays" classname="com.aiec.elevatoros.EngineTest" time="0.008"/>
   <testcase name="badTimesAreRefused" classname="com.aiec.elevatoros.EngineTest" time="0.001"/>
-  <testcase name="authorCanRejectButNotApproveOwnQuote" classname="com.aiec.elevatoros.EngineTest" time="0.002"/>
-  <testcase name="practiceCompanyIsBuiltThroughTheRules" classname="com.aiec.elevatoros.EngineTest" time="0.036"/>
-  <testcase name="pinHashMatchesOriginalScheme" classname="com.aiec.elevatoros.EngineTest" time="0.034"/>
-  <testcase name="fullLeadToHandoverWithSeparationOfDuties" classname="com.aiec.elevatoros.EngineTest" time="0.02"/>
+  <testcase name="authorCanRejectButNotApproveOwnQuote" classname="com.aiec.elevatoros.EngineTest" time="0.005"/>
+  <testcase name="practiceCompanyIsBuiltThroughTheRules" classname="com.aiec.elevatoros.EngineTest" time="0.079"/>
+  <testcase name="pinHashMatchesOriginalScheme" classname="com.aiec.elevatoros.EngineTest" time="0.111"/>
+  <testcase name="fullLeadToHandoverWithSeparationOfDuties" classname="com.aiec.elevatoros.EngineTest" time="0.065"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

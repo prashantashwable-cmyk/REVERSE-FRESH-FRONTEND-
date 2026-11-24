@@ -6,19 +6,19 @@ This repository is a fresh native rewrite of the web app in [UNLIT-GPT-HTML](htt
 
 | | |
 |---|---|
-| Install (try it) | `android-release/dist/AIEC-Elevator-OS-1.0.0-eval.apk` → see [`android-release/INSTALLATION_GUIDE.md`](android-release/INSTALLATION_GUIDE.md). Practice mode: every PIN is `1111` |
+| Install (try it) | `android-release/dist/AIEC-Elevator-OS-1.1.0-eval.apk` → see [`android-release/INSTALLATION_GUIDE.md`](android-release/INSTALLATION_GUIDE.md). Practice mode: every PIN is `1111` |
 | Screens | [`android-release/screenshots/`](android-release/screenshots/) — rendered from the real app by the UI tests |
 | Reports | [`android-release/`](android-release/) `01`–`12`: audit, architecture, setup, device integrations, offline/sync, security, UI/UX, performance, QA, build & signing, release checklist, limitations |
 | Build | `./gradlew testDebugUnitTest assembleDebug` (JDK 17+, Android SDK 36). Signed release: see `10_BUILD_AND_SIGNING_GUIDE.md` |
 
-## What is in v1.0.0
-* 10 roles, 25 stages, 39 event types of the original with the same names and rules: lead → sales → quotation approval → agreement → payments confirmed by Finance → site prep & QC → material → 12 installation steps → final QC → handover → service tickets, plus SOS, people and business rules.
+## What is in v1.1.0
+* 10 roles, 25 stages, 41 event types of the original with the same names and rules: lead → sales → quotation approval → agreement → payments confirmed by Finance → site prep & QC → material → 12 installation steps → final QC → handover → service tickets, plus SOS, people and business rules.
 * Photos are taken with the camera only, stamped with time, GPS ± accuracy, person and job, and identified by SHA-256. Finger signatures.
 * Tasks per person with two bars (work done, time used) and the escalation ladder in working days.
-* Records files between company phones: each record is checked again and duplicates are skipped.
-* 589 words in three languages (270 taken word-for-word from the original dictionary), 🔊 read-aloud, 4 colour themes.
+* Records files between company phones: every record is **signed by the phone that made it** (key in the Android Keystore), checked again on arrival, and duplicates are skipped. The office approves each phone once.
+* 601 words in three languages (270 taken word-for-word from the original dictionary), 🔊 read-aloud, 4 colour themes.
 
-**Not yet** (see `12_KNOWN_LIMITATIONS_AND_RISKS.md`): company server sync, record signing, chat, marketplace and partner companies, daily safety/check-in, statutory papers, purchase orders, AMC visits, notifications while closed, and the rest of the original's 212 event types. The APK in `dist/` is signed with an **evaluation key**; the production build needs the owner's key.
+**Not yet** (see `12_KNOWN_LIMITATIONS_AND_RISKS.md`): company server sync, chat, marketplace and partner companies, daily safety/check-in, statutory papers, purchase orders, AMC visits, notifications while closed, and the rest of the original's 212 event types. The APK in `dist/` is signed with an **evaluation key**; the production build needs the owner's key.
 
 ## Project layout
 ```

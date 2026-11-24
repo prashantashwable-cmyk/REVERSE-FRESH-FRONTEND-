@@ -131,6 +131,8 @@ class UiFlowScreenshotTest {
         vm.resetTo(Screen.Escalations)
         shot("12_escalations_en")
         vm.resetTo(Screen.People)
+        // Sunita's first login registered this phone for her; HQ never logged in here, so it waits for approval
+        assertTrue(vm.state.keys.getValue("P_ADM").none { it.ok })
         shot("13_people_en")
     }
 
@@ -162,6 +164,8 @@ class UiFlowScreenshotTest {
         enterPractice()
         loginAs("Anil Deshmukh")
         shot("18_home_hq_en")
+        // HQ is the first person to register a key in the practice company, so HQ's phone key is trusted at once
+        assertTrue(vm.state.keys.getValue("P_HQ").single().ok)
         vm.resetTo(Screen.Me); shot("19_me_en")
         vm.setThemeMode("dark"); shot("20_me_dark_en")
         vm.setThemeMode("contrast"); vm.resetTo(Screen.Home); shot("21_home_contrast_en")

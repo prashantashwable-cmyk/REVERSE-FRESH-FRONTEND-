@@ -25,7 +25,7 @@ Flutter and React Native were also considered. Both add a second runtime and too
 |---|---|---|
 | `const L` dictionary [en, hi, mr] (H:295) | `assets/i18n.json`, same layout, 270 entries reused word-for-word | `tools/i18n/build.mjs` builds it; the unit test checks all 3 languages and placeholders |
 | `ROLES`, `STAGES`, `PHASES` (H:5842–5851) | `domain/Model.kt` | All 10 roles, 25 stages, 7 phases, same keys |
-| `RULES` + `validate()` (H:6798, 8280) | `domain/Rules.kt` | 39 of the 212 event types — the lead-to-handover path, service tickets, SOS, people and business rules — with the same event names |
+| `RULES` + `validate()` (H:6798, 8280) | `domain/Rules.kt` | 41 of the 212 event types — the lead-to-handover path, service tickets, SOS, people and business rules — with the same event names |
 | `apply()` reducer (H:8347) | `domain/Reducer.kt` | Same stage transitions for those types |
 | `needs()` (H:8936) | `domain/Tasks.kt` | Tasks come from the same rules, so a task button never appears for an action the rule refuses |
 | `ownerCovers` (H:6787) | `Rules.covers` | Office (Admin, or HQ when there is no Admin) covers Sales/Finance/QC only when nobody holds the role. Physical work is never covered |
@@ -33,6 +33,7 @@ Flutter and React Native were also considered. Both add a second runtime and too
 | `pinHash` PBKDF2-SHA256 150k, `p2$` (H:5352) | `domain/Pin.kt` | Same algorithm, salt prefix and encoding |
 | IndexedDB / localStorage event log | SQLite (`data/EventDb.kt`, WAL), one database per mode (live / practice) | Event id is UNIQUE, so it doubles as the idempotency key |
 | File sync between phones | `Repository.exportJson/importJson` | Every incoming event passes the rules again. Duplicates are skipped by id |
+| Per-device ECDSA record signing, `KEY_ADDED` / `KEY_APPROVED` | `domain/Signing.kt`, `device/DeviceKey.kt` (Android Keystore) | Same idea and event names (since 1.1.0); the signed bytes are this app's own format |
 | Encrypted company server (`server/`) | **Not in this release** | See 12 |
 
 ## Plugin / library requirements
@@ -58,4 +59,4 @@ One Gradle module, Kotlin only, about 3.9k lines of main code. The domain packag
 
 ## Known limitations of the decision
 
-39 of the original's 212 event types are ported. Not ported: the marketplace, partner companies, career ladder, chat, AMC visits, the encrypted server, and the rest listed in `12_KNOWN_LIMITATIONS_AND_RISKS.md`. The web app is unchanged and stays usable alongside this one, but the two **do not share data** in this release.
+41 of the original's 212 event types are ported. Not ported: the marketplace, partner companies, career ladder, chat, AMC visits, the encrypted server, and the rest listed in `12_KNOWN_LIMITATIONS_AND_RISKS.md`. The web app is unchanged and stays usable alongside this one, but the two **do not share data** in this release.

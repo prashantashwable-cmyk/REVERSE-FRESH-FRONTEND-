@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.aiec.elevatoros.UiFlowScreenshotTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-23T17:23:36.630Z" hostname="vm" time="6.628">
+<testsuite name="com.aiec.elevatoros.UiFlowScreenshotTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:17:30.251Z" hostname="vm" time="11.44">
   <properties/>
-  <testcase name="frontDoorInAllThreeLanguages" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="0.397"/>
-  <testcase name="salesWorkflowAndRefusals" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="1.32"/>
-  <testcase name="meScreenThemesAndRules" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="1.312"/>
-  <testcase name="financeConfirmsTokenAndTechnicianInstalls" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="1.392"/>
-  <testcase name="fieldWorkerHomeAndNewSite" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="1.047"/>
-  <testcase name="adminApprovesQuoteButNotAsAuthorAndSeesEscalations" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="1.159"/>
+  <testcase name="frontDoorInAllThreeLanguages" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="0.788"/>
+  <testcase name="salesWorkflowAndRefusals" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="2.792"/>
+  <testcase name="meScreenThemesAndRules" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="2.12"/>
+  <testcase name="financeConfirmsTokenAndTechnicianInstalls" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="2.4"/>
+  <testcase name="fieldWorkerHomeAndNewSite" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="1.525"/>
+  <testcase name="adminApprovesQuoteButNotAsAuthorAndSeesEscalations" classname="com.aiec.elevatoros.UiFlowScreenshotTest" time="1.814"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[System.logW: A resource failed to call close. 
 System.logW: A resource failed to call close. 
-System.logW: A resource failed to call close. 
 System.logW: A resource failed to call SQLiteConnectionPool.close. 
 System.logW: A resource failed to call SQLiteConnection.close. 
 System.logW: A resource failed to call SQLiteConnection.close. 
 System.logW: A resource failed to call close. 
-System.logW: A resource failed to call SQLiteConnection.close. 
-System.logW: A resource failed to call SQLiteConnectionPool.close. 
-System.logW: A resource failed to call SQLiteConnection.close. 
-System.logW: A resource failed to call SQLiteConnection.close. 
-System.logW: A resource failed to call SQLiteConnectionPool.close. 
-System.logW: A resource failed to call SQLiteConnection.close. 
-System.logW: A resource failed to call SQLiteConnection.close. 
-System.logW: A resource failed to call SQLiteConnection.close. 
-System.logW: A resource failed to call SQLiteConnectionPool.close. 
+System.logW: A resource failed to call close. 
 ]]></system-err>
 </testsuite>
