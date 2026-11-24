@@ -28,15 +28,26 @@ class DeviceKey(private val context: Context) {
     val hardwareBacked: Boolean
 
     init {
-        val ks = runCatching { KeyStore.getInstance("AndroidKeyStore").apply { load(null) } }.getOrNull()
-        if (ks != null) {
+        // Android Keystore first. Some phones fail to make or use an EC key there (seen on older Android versions and
+        // some makers): then a software key in app-private storage is used instead of stopping the app.
+        val fromKeystore = runCatching {
+            val ks = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
             if (!ks.containsAlias(alias)) {
                 KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, "AndroidKeyStore").apply {
                     initialize(KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_SIGN).setDigests(KeyProperties.DIGEST_SHA256).setAlgorithmParameterSpec(ECGenParameterSpec("secp256r1")).build())
                 }.generateKeyPair()
             }
-            private = ks.getKey(alias, null) as PrivateKey
-            public = ks.getCertificate(alias).publicKey
+            val priv = ks.getKey(alias, null) as PrivateKey
+            val pub = ks.getCertificate(alias)!!.publicKey
+            // prove the key really signs and verifies on this phone before trusting it
+            val probe = "aiec".toByteArray()
+            val sig = java.security.Signature.getInstance("SHA256withECDSA").apply { initSign(priv); update(probe) }.sign()
+            check(java.security.Signature.getInstance("SHA256withECDSA").apply { initVerify(pub); update(probe) }.verify(sig))
+            priv to pub
+        }.getOrNull()
+        if (fromKeystore != null && !File(context.filesDir, "devkey.bin").exists()) {
+            private = fromKeystore.first
+            public = fromKeystore.second
             hardwareBacked = true
         } else {
             val f = File(context.filesDir, "devkey.bin")

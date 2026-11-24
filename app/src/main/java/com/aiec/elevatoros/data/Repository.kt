@@ -95,8 +95,12 @@ class Repository(private val context: Context, val prefs: Prefs) {
     fun newEvent(by: String, type: String, pid: String?, data: JsonObject, now: Instant = Instant.now()): Event =
         Event(Ids.eventId(prefs.deviceId, now), type, by, pid, now.toString(), prefs.deviceId, data = data)
 
+    /** Like [performUnsafe], but an unexpected failure (storage full, key problem) is a refusal on screen, never a closed app. */
     @Synchronized
-    fun perform(by: String, type: String, pid: String?, data: JsonObject): Err? {
+    fun perform(by: String, type: String, pid: String?, data: JsonObject): Err? =
+        try { performUnsafe(by, type, pid, data) } catch (e: Exception) { CrashLog.note(context, e); Err("err_save_failed") }
+
+    private fun performUnsafe(by: String, type: String, pid: String?, data: JsonObject): Err? {
         val d = db ?: return Err("err_no_org")
         val ev = signed(newEvent(by, type, pid, data))
         val s = _state.value

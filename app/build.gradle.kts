@@ -27,8 +27,8 @@ android {
         applicationId = "com.aiec.elevatoros"
         minSdk = 26
         targetSdk = 36
-        versionCode = (System.getenv("AIEC_VERSION_CODE") ?: "2").toInt()
-        versionName = "1.1.0"
+        versionCode = (System.getenv("AIEC_VERSION_CODE") ?: "3").toInt()
+        versionName = "1.1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

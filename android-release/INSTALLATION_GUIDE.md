@@ -1,6 +1,6 @@
 # Installation guide · इन्स्टॉल मार्गदर्शक · इंस्टॉल गाइड
 
-File: `android-release/dist/AIEC-Elevator-OS-1.1.0-eval.apk` (signed evaluation build; check it against `SHA256SUMS.txt`). Android 8.0 or newer.
+File: `android-release/dist/AIEC-Elevator-OS-1.1.1-eval.apk` (signed evaluation build; check it against `SHA256SUMS.txt`). Android 8.0 or newer.
 
 ## English
 1. Send the APK to the phone (WhatsApp to yourself, Google Drive or a cable).

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.aiec.elevatoros.I18nTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:17:16.859Z" hostname="vm" time="0.148">
+<testsuite name="com.aiec.elevatoros.I18nTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:27:56.898Z" hostname="vm" time="0.126">
   <properties/>
-  <testcase name="everyKeyTheCodeAsksForExists" classname="com.aiec.elevatoros.I18nTest" time="0.112"/>
-  <testcase name="everyEntryHasThreeLanguagesAndSamePlaceholders" classname="com.aiec.elevatoros.I18nTest" time="0.022"/>
-  <testcase name="placeholdersAreFilled" classname="com.aiec.elevatoros.I18nTest" time="0.013"/>
+  <testcase name="everyKeyTheCodeAsksForExists" classname="com.aiec.elevatoros.I18nTest" time="0.099"/>
+  <testcase name="everyEntryHasThreeLanguagesAndSamePlaceholders" classname="com.aiec.elevatoros.I18nTest" time="0.02"/>
+  <testcase name="placeholdersAreFilled" classname="com.aiec.elevatoros.I18nTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

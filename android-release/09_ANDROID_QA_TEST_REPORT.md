@@ -1,6 +1,6 @@
 # 09 — Android QA Test Report
 
-**Date:** 2026-11-24 (v1.1.0) · **Environment:** Linux container, OpenJDK 21.0.13, Gradle 8.14.3, AGP 8.13.2, Robolectric 4.16 (Android SDK 35 image, native graphics), Roborazzi 1.52.0 · **No device or emulator** (no KVM).
+**Date:** 2026-11-24 (v1.1.1) · **Environment:** Linux container, OpenJDK 21.0.13, Gradle 8.14.3, AGP 8.13.2, Robolectric 4.16 (Android SDK 35 image, native graphics), Roborazzi 1.52.0 · **No device or emulator** (no KVM).
 
 ## 1. Original web app baseline (before any work)
 
@@ -17,8 +17,8 @@ The original repository was not modified.
 ## 2. New app — commands and results
 
 ```bash
-node tools/i18n/build.mjs --check      # keys used: 601 · written: 601 · missing: 0
-./gradlew testDebugUnitTest            # 28 tests, 28 passed, 0 failed, 0 skipped
+node tools/i18n/build.mjs --check      # keys used: 605 · written: 605 · missing: 0
+./gradlew testDebugUnitTest            # 29 tests, 29 passed, 0 failed, 0 skipped
 ./gradlew recordRoborazziDebug         # same tests + 32 screenshots in android-release/screenshots/
 ./gradlew lintDebug                    # 0 errors, 31 warnings (library-update and KTX-style hints)
 ./gradlew assembleDebug assembleRelease bundleRelease   # BUILD SUCCESSFUL
@@ -33,7 +33,8 @@ apksigner verify --print-certs app-release.apk          # Verifies (v2, v3)
 | `SmallScreenScreenshotTest` | 1 | 1 | 320×640 dp mdpi: Marathi welcome, practice login, PIN pad |
 | `PerformanceTest` | 1 | 1 | 20,007-record replay in 191 ms; no records refused |
 | `SigningTest` | 4 | 4 | Two simulated phones + an attacker: an approved phone is trusted, also for records made before approval; edited, unsigned, forged-as-HQ and spoofed-device records are refused; a key an attacker registers for HQ stays untrusted; cutting PIN fields keeps signatures valid; own-phone records are trusted |
-| **Total** | **28** | **28** | |
+| `CompanySetupFlowTest` | 1 | 1 | Real company through the UI: setup with a PIN typed twice, add a person with a PIN, log out, log in as that person with their PIN, restart and re-verify every signed record (0 refused) |
+| **Total** | **29** | **29** | |
 
 ## 3. Brief §11 checklist
 
@@ -61,9 +62,20 @@ apksigner verify --print-certs app-release.apk          # Verifies (v2, v3)
 ## 4. Run on a phone (for the owner, when a device is available)
 
 ```bash
-adb install -r android-release/dist/AIEC-Elevator-OS-1.1.0-eval.apk
+adb install -r android-release/dist/AIEC-Elevator-OS-1.1.1-eval.apk
 adb shell am start -W -n com.aiec.elevatoros/.MainActivity      # cold launch time (TotalTime)
 adb shell dumpsys meminfo com.aiec.elevatoros | head -30
 ```
 
 Manual script: Practice → Ramesh (field) → Add site with photo + GPS → log out → Priya (sales) → accept → … → Raju (technician) → step 6 with camera → deny location once → turn on flight mode → reopen the app (data still there) → Share data → load the file on a second phone.
+
+## 5. Field report: "App crash after adding PIN" (v1.1.0, 2026-11-24)
+
+* **Reproduced on the JVM?** No. `CompanySetupFlowTest` drives the exact flows (setup PIN, add person with PIN, PIN login, restart) and passes.
+* **Most likely cause:** v1.1.0 creates the phone's signing key in the Android Keystore right after the PIN is accepted. On a real phone this uses the hardware Keystore, which the JVM tests cannot reach (they use the software fallback). A Keystore error there was not caught, so it would close the app straight after the PIN.
+* **Fixed in v1.1.1:**
+  * The Keystore key is tested (sign + verify) before use; on any failure the app uses an app-private software key instead.
+  * Registering the key can never stop a login.
+  * Any unexpected error while saving becomes a refusal on screen ("could not be saved, nothing changed") instead of a closed app.
+* **If it still happens:** v1.1.1 records the error. The next start shows "The app closed by mistake" with **Share report**, which holds the error and the phone model only, no company data. Sending that report pinpoints the cause.
+* R8 (release minification) was checked: no missing-class warnings; the serializer, signing and key classes are present in the release mapping.

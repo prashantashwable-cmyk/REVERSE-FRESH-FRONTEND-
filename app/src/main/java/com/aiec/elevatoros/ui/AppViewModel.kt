@@ -124,13 +124,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         if (!Pin.valid(pin)) return@launch onErr(Err("err_pin_weak"))
         busy = true
         val uid = Ids.uid()
-        val err = withContext(Dispatchers.Default) {
+        val err = withContext(Dispatchers.Default) { runCatching {
             repo.open(Mode.LIVE)
             val salt = Ids.rid(10); val hash = Pin.hash(pin, salt)
             repo.perform(uid, "ORG_CREATED", null, jsonOf("orgId" to "ORG" + Ids.rid(8), "name" to company.trim(), "kid" to repo.key.kid, "pub" to repo.key.publicB64, "devName" to repo.key.deviceName))
                 ?: repo.perform(uid, "USER_ADDED", null, jsonOf("uid" to uid, "name" to hqName.trim(), "role" to "owner", "pin" to hash, "salt" to salt, "pinLen" to pin.length, "phone" to phone))
                 ?: repo.ensureKey(uid)
-        }
+        }.getOrElse { com.aiec.elevatoros.data.CrashLog.note(getApplication(), it); Err("err_save_failed") } }
         busy = false
         if (err != null) { repo.wipe(Mode.LIVE); onErr(err); return@launch }
         prefs.mode = Mode.LIVE; prefs.lastUser = uid; sessionUid = uid
@@ -143,11 +143,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         val now = System.currentTimeMillis()
         if (prefs.lockedUntil(uid) > now) return@launch onResult("err_locked")
         busy = true
-        val ok = withContext(Dispatchers.Default) { Pin.matches(pin, u) }
+        val ok = withContext(Dispatchers.Default) { runCatching { Pin.matches(pin, u) }.getOrDefault(false) }
         busy = false
         if (ok && u.active) {
             // first use of this phone by this person: register the phone key (the office approves it once)
-            withContext(Dispatchers.IO) { repo.ensureKey(uid) }
+            withContext(Dispatchers.IO) { runCatching { repo.ensureKey(uid) } }
             prefs.setFailedPins(uid, 0); prefs.lastUser = uid; sessionUid = uid; resetTo(Screen.Home); onResult(null)
         } else {
             val n = prefs.failedPins(uid) + 1

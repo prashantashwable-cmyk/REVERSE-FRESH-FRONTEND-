@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.aiec.elevatoros.CompanySetupFlowTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-24T02:27:42.428Z" hostname="vm" time="14.266">
+  <properties/>
+  <testcase name="setupCompanyAddPersonAndLogin" classname="com.aiec.elevatoros.CompanySetupFlowTest" time="14.266"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

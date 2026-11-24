@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aiec.elevatoros.domain.Role
 import com.aiec.elevatoros.i18n.I18n
@@ -91,6 +92,23 @@ fun AppRoot(vm: AppViewModel, onSpeak: (String, String) -> Unit) {
                     }
                     if (vm.busy) Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
                 }
+            }
+            // the app closed by mistake last time: show the error once, with a Share button for the developer
+            val ctx = androidx.compose.ui.platform.LocalContext.current
+            var crash by remember { mutableStateOf(com.aiec.elevatoros.data.CrashLog.read(ctx)) }
+            crash?.let { report ->
+                AlertDialog(
+                    onDismissRequest = { com.aiec.elevatoros.data.CrashLog.clear(ctx); crash = null },
+                    title = { Text("⚠️ " + t("crash_title")) },
+                    text = { Column { Text(t("crash_info")); Text(report.lineSequence().take(6).joinToString("\n"), fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp)) } },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            ctx.startActivity(android.content.Intent.createChooser(android.content.Intent(android.content.Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(android.content.Intent.EXTRA_TEXT, report) }, null))
+                            com.aiec.elevatoros.data.CrashLog.clear(ctx); crash = null
+                        }) { Text("📤 " + t("crash_share")) }
+                    },
+                    dismissButton = { TextButton(onClick = { com.aiec.elevatoros.data.CrashLog.clear(ctx); crash = null }) { Text(t("close")) } }
+                )
             }
             if (langDialog) AlertDialog(
                 onDismissRequest = { langDialog = false },

@@ -1653,5 +1653,25 @@
   "Phone approved",
   "फ़ोन मंज़ूर",
   "फोन मंजूर"
+ ],
+ "crash_title": [
+  "The app closed by mistake",
+  "ऐप गलती से बंद हो गया",
+  "ॲप चुकून बंद झाले"
+ ],
+ "crash_info": [
+  "Sorry. Your saved work is safe on this phone. Please share this report with the person who looks after the app, so it can be fixed.",
+  "माफ़ कीजिए। आपका सेव किया काम इस फ़ोन पर सुरक्षित है। कृपया यह रिपोर्ट ऐप संभालने वाले व्यक्ति को भेजें, ताकि इसे ठीक किया जा सके।",
+  "माफ करा. तुमचे जतन केलेले काम या फोनवर सुरक्षित आहे. कृपया हा अहवाल ॲप सांभाळणाऱ्या व्यक्तीला पाठवा, म्हणजे तो दुरुस्त करता येईल."
+ ],
+ "crash_share": [
+  "Share report",
+  "रिपोर्ट भेजें",
+  "अहवाल पाठवा"
+ ],
+ "err_save_failed": [
+  "This could not be saved on the phone. Nothing was changed. Try again; if it happens again, share the report from the next start.",
+  "यह फ़ोन पर सेव नहीं हो सका। कुछ नहीं बदला। फिर से कोशिश करें; दोबारा हो तो अगली बार खुलने पर रिपोर्ट भेजें।",
+  "हे फोनवर जतन झाले नाही. काहीही बदलले नाही. पुन्हा प्रयत्न करा; पुन्हा झाल्यास पुढच्या वेळी उघडल्यावर अहवाल पाठवा."
  ]
 }
